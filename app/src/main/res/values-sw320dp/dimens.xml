@@ -4,5 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_my_horizontal_margin">11dp</dimen>
     <dimen name="activity_my_vertical_margin">11dp</dimen>
-    <dimen name="box_margin_left">4dp</dimen>
+    <dimen name="box_margin_left">7dp</dimen>
 </resources>
