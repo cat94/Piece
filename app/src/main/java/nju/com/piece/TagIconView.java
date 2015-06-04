@@ -10,6 +10,8 @@ import android.widget.ImageView;
 public class TagIconView extends ImageView implements View.OnClickListener{
 
     private static TagIconView currentIcon = null;
+    private int selected;
+    private int resource;
 
     public TagIconView(Context context) {
         super(context);
@@ -26,6 +28,11 @@ public class TagIconView extends ImageView implements View.OnClickListener{
         setOnClickListener(this);
     }
 
+    public void setImages(int resource, int selected){
+        this.resource = resource;
+        this.selected = selected;
+    }
+
 //    计算在给定边界条件下占据的高度和宽度
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -39,7 +46,7 @@ public class TagIconView extends ImageView implements View.OnClickListener{
     }
 
     public void deselect(){
-        setBackgroundResource(0);
+        setBackgroundResource(resource);
     }
 
     @Override
@@ -49,6 +56,6 @@ public class TagIconView extends ImageView implements View.OnClickListener{
             currentIcon.deselect();
         }
         currentIcon = this;
-        currentIcon.setBackgroundResource(R.drawable.selected_icon_bkg);
+        currentIcon.setBackgroundResource(selected);
     }
 }

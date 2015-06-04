@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
@@ -30,7 +28,7 @@ public class NewTagActivity extends ActionBarActivity implements OnDateSetListen
     private TextView plan_text;
 
     private GridView icon_grid;
-    private ArrayList<Integer> icon_array = new ArrayList<Integer>();
+    private ArrayList<Item> icon_array = new ArrayList<Item>();
     private IconImageAdaptor icon_adaptor;
 
 
@@ -78,10 +76,10 @@ public class NewTagActivity extends ActionBarActivity implements OnDateSetListen
 
 
 //        add icons
-        icon_array.add(R.drawable.icon1);
-        icon_array.add(R.drawable.icon1);
-        icon_array.add(R.drawable.icon1);
-        icon_array.add(R.drawable.icon1);
+        icon_array.add(new Item(R.drawable.icon1, R.drawable.icon1_selected));
+        icon_array.add(new Item(R.drawable.icon1, R.drawable.icon1_selected));
+        icon_array.add(new Item(R.drawable.icon1, R.drawable.icon1_selected));
+        icon_array.add(new Item(R.drawable.icon1, R.drawable.icon1_selected));
 
         icon_adaptor = new IconImageAdaptor(this,R.layout.icon,icon_array);
 

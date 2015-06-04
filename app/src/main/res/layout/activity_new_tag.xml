@@ -10,8 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/tag_picker_height"
         android:background="@drawable/background">
 
         <ImageView
@@ -34,8 +33,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/tag_picker_height"
         android:background="@drawable/background">
 
         <ImageView
@@ -59,8 +57,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/tag_picker_height"
         android:background="@drawable/background">
 
         <ImageView
@@ -90,10 +87,7 @@
 
     </GridView>
 
-    <!-- text view to fill the rest place -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="5"/>
+    <!--&lt;!&ndash; text view to fill the rest place &ndash;&gt;-->
+
 
 </LinearLayout>
