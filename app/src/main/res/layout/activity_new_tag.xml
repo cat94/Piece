@@ -10,19 +10,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/background">
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/name_image"
             android:layout_weight="1"
             android:src="@drawable/abc_btn_check_to_on_mtrl_000" />
 
         <EditText
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/name_edit"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textView"
@@ -33,22 +34,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/background">
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/date_image"
+            android:layout_weight="1"
+            android:src="@drawable/abc_btn_check_to_on_mtrl_000" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:id="@+id/date_text"
+            android:layout_gravity="center_vertical"
+            android:text="@string/new_tag_date_label"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/background">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:id="@+id/plan_image"
             android:layout_weight="1"
             android:src="@drawable/abc_btn_check_to_on_mtrl_000" />
 
-        <DatePicker
+        <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/datePicker"
-            android:layout_weight="3" />
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:id="@+id/plan_text"
+            android:layout_gravity="center_vertical"
+            android:text="@string/new_tag_plan_label"
+            android:gravity="center_vertical" />
 
     </LinearLayout>
+
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="5"
+        android:id="@+id/icon_grid">
+
+    </GridView>
+
+    <!-- text view to fill the rest place -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5"/>
 
 </LinearLayout>
