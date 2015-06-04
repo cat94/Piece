@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nju.com.piece" >
 
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,14 +16,19 @@
             android:label="@string/title_activity_test_mpchart" >
 
         </activity>
+        <activity android:name=".TotalStatisticActivity"
+            android:label="@string/title_activity_total_statistic">
+        </activity>
+
         <activity
-            android:name=".TotalStatisticActivity"
-            android:label="@string/title_activity_total_statistic" >
+            android:name=".NewTagActivity"
+            android:label="@string/title_activity_new_tag" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
