@@ -10,6 +10,11 @@
         <activity
             android:name=".TestMPChartActivity"
             android:label="@string/title_activity_test_mpchart" >
+
+        </activity>
+        <activity
+            android:name=".NewTagActivity"
+            android:label="@string/title_activity_new_tag" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
