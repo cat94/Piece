@@ -30,16 +30,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time"
                 android:layout_gravity="center"
+                android:text="1110h"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110小时"
+                android:text="@string/total_time"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                />
+                android:layout_gravity="center"
+                android:fontFamily="楷体" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -52,15 +54,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/total_time"
+                android:text="1110h"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="1110小时"
+                android:text="@string/total_time"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/box_margin_left"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="1110h"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total_time"
+                android:layout_gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -72,16 +100,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time"
                 android:layout_gravity="center"
+                android:text="1110h"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1110小时"
+                android:text="@string/total_time"
                 android:layout_gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -93,37 +123,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time"
                 android:layout_gravity="center"
+                android:text="1110h"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1110小时"
-                android:layout_gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/total_time"
-                android:layout_gravity="center"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1110小时"
-                android:layout_gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_gravity="center"
                 />
+
         </LinearLayout>
 
 
@@ -137,10 +148,44 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/health_diligence"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/health_box_height"
 
             />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        >
+
+
+        <TabHost
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabhost"
+            >
+         <TabWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+             android:id="@android:id/tabs">
+
+                </TabWidget>
+
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@android:id/tabcontent"
+               >
+              <com.github.mikephil.charting.charts.BarChart
+                  android:id="@+id/bar_charts"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  ></com.github.mikephil.charting.charts.BarChart>
+               </FrameLayout>
+
+            </TabHost>
     </LinearLayout>
 
 </LinearLayout>

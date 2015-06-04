@@ -1,6 +1,7 @@
 package nju.com.piece;
 
 import android.app.LocalActivityManager;
+import android.content.Entity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,9 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.Entry;
+
+import java.util.ArrayList;
 
 
 public class TotalStatisticActivity extends ActionBarActivity {
@@ -26,6 +30,7 @@ public class TotalStatisticActivity extends ActionBarActivity {
         BarChart dailyBar=(BarChart)findViewById(R.id.bar_charts);
         BarChart weeklyBar=(BarChart)findViewById(R.id.bar_charts);
         BarChart monthlyBar=(BarChart)findViewById(R.id.bar_charts);
+        ArrayList<Entry> daily=new ArrayList<Entry>();
     }
 
 
