@@ -12,6 +12,10 @@
             android:label="@string/title_activity_test_mpchart" >
 
         </activity>
+        <activity android:name=".TotalStatisticActivity"
+            android:label="@string/title_activity_total_statistic">
+        </activity>
+
         <activity
             android:name=".NewTagActivity"
             android:label="@string/title_activity_new_tag" >

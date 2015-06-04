@@ -1,8 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Piece</string>
     <string name="title_activity_test_mpchart">TestMPChartActivity</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_new_tag">NewTagActivity</string>
+    <string name="title_activity_total_statistic">TotalStatisticActivity</string>
+    <string name="total_time">总时间</string>
 </resources>
