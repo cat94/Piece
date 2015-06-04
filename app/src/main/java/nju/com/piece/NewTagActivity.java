@@ -18,6 +18,8 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import nju.com.piece.database.DatabaseHelper;
+
 
 public class NewTagActivity extends ActionBarActivity implements OnDateSetListener,OnTimeSetListener{
 
@@ -85,6 +87,12 @@ public class NewTagActivity extends ActionBarActivity implements OnDateSetListen
 
         icon_grid = (GridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
+
+
+
+
+
+        DatabaseHelper helper = new DatabaseHelper(this,"my.db",null,1);
     }
 
     @Override
