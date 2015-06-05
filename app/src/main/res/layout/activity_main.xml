@@ -19,4 +19,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击跳到设置"
+        android:id="@+id/setbutton"
+        android:layout_below="@+id/timelinebutton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
