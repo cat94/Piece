@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nju.com.piece" >
 
-
     <uses-permission android:name="android.permission.VIBRATE" />
-
 
     <application
         android:allowBackup="true"
@@ -14,22 +12,37 @@
         <activity
             android:name=".TestMPChartActivity"
             android:label="@string/title_activity_test_mpchart" >
-
         </activity>
-        <activity android:name=".TotalStatisticActivity"
-            android:label="@string/title_activity_total_statistic">
+        <activity
+            android:name=".TotalStatisticActivity"
+            android:label="@string/title_activity_total_statistic" >
         </activity>
-
         <activity
             android:name=".NewTagActivity"
             android:label="@string/title_activity_new_tag" >
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <activity
+            android:name=".activity.TaskActivity"
+            android:label="TaskActivity" >
+        </activity>
+        <activity
+            android:name=".activity.TimeLineActivity"
+            android:label="@string/title_activity_time_line" >
+        </activity>
+
+
+        <service android:name=".logic.TaskService" >
+        </service>
     </application>
 
 </manifest>
