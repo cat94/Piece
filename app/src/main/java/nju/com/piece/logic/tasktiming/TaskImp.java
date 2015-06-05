@@ -1,4 +1,4 @@
-package nju.com.piece.logic;
+package nju.com.piece.logic.tasktiming;
 
 import android.app.Service;
 import android.content.ComponentName;
@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
-
+/**
+ * 实现类，介绍请戳他的接口。
+ * @author Hyman
+ */
 public class TaskImp implements StartTaskSer {
 
 	private static TaskService service;

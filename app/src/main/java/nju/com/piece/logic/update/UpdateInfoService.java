@@ -26,6 +26,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 
+/**
+ * 进行APP更新的业务逻辑类。包括获取更新信息、检查是否需要更新、获取文件、安装等方法。
+ * @author Hyman
+ */
 public class UpdateInfoService {
 	ProgressDialog progressDialog;
 	Handler handler;

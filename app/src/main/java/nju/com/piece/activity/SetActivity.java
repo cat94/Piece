@@ -37,7 +37,7 @@ import nju.com.piece.logic.update.UpdateInfoService;
 
 /**
  * 设置界面，包括检查版本更新、同步记录等功能。
- * @author Shen
+ * @author Hyman
  */
 public class SetActivity extends Activity {
 

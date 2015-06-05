@@ -18,14 +18,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import nju.com.piece.R;
 import nju.com.piece.view.SlideView;
 import nju.com.piece.view.TaskListView;
+
+/**
+ * 选择任务进行及时的界面
+ * @author Hyman
+ */
+
 
 public class TaskActivity extends Activity implements OnItemClickListener,
 		SlideView.OnSlideListener {

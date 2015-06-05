@@ -1,4 +1,4 @@
-package nju.com.piece.logic;
+package nju.com.piece.logic.tasktiming;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,7 +7,10 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
+/**
+ * 用于计时的后台服务类。
+ * @author Hyman
+ */
 public class TaskService extends Service {
 
 	private static final String TAG = "TaskService";

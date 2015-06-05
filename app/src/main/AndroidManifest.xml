@@ -39,7 +39,7 @@
             android:label="@string/title_activity_time_line" >
         </activity>
 
-        <service android:name=".logic.TaskService" >
+        <service android:name=".logic.tasktiming.TaskService" >
         </service>
 
         <activity

@@ -1,5 +1,8 @@
 package nju.com.piece.logic.update;
-
+/**
+ * 更新信息的Bean
+ * @author Hyman
+ */
 public class UpdateInfo
 {
         private String version;
