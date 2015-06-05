@@ -2,6 +2,7 @@ package nju.com.piece;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,11 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import nju.com.piece.database.DatabaseHelper;
+import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.helpers.PeriodDBHelper;
+import nju.com.piece.database.pos.PeriodPO;
+import nju.com.piece.database.pos.TagPO;
+import nju.com.piece.database.tools.DateTool;
 
 
 public class NewTagActivity extends ActionBarActivity implements OnDateSetListener,OnTimeSetListener{
@@ -87,12 +92,6 @@ public class NewTagActivity extends ActionBarActivity implements OnDateSetListen
 
         icon_grid = (GridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
-
-
-
-
-
-        DatabaseHelper helper = new DatabaseHelper(this,"my.db",null,1);
     }
 
     @Override
