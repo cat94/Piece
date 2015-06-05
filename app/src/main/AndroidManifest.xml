@@ -30,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.TaskActivity"
             android:label="TaskActivity" >
@@ -40,9 +39,13 @@
             android:label="@string/title_activity_time_line" >
         </activity>
 
-
-        <service android:name=".logic.TaskService" >
+        <service android:name=".logic.tasktiming.TaskService" >
         </service>
+
+        <activity
+            android:name=".activity.SetActivity"
+            android:label="@string/title_activity_set" >
+        </activity>
     </application>
 
 </manifest>
