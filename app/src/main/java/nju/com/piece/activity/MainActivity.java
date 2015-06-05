@@ -36,10 +36,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.timelinebutton:
               intent = new Intent(MainActivity.this, TimeLineActivity.class);
-                startActivity(intent);
+              startActivity(intent);
+              break;
             case R.id.setbutton:
               intent = new Intent(MainActivity.this, SetActivity.class);
-                startActivity(intent);
+              startActivity(intent);
+              break;
         }
 
 
