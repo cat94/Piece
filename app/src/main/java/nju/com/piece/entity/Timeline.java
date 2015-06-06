@@ -7,17 +7,27 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import nju.com.piece.R;
+import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.TagType;
+import nju.com.piece.database.pos.PeriodPO;
+import nju.com.piece.database.pos.TagPO;
 
 /**
  * Created by hyl on 15/6/4.
  */
 public class Timeline {
 
+    public static final String WORK_TYPE = "work";
+    public static final String RELAX_TYPE = "relax";
+    public static final String ICON = "icon";
+    public static final String WORK_TIME = "work_time";
+    public static final String RELAX_TIME = "relax_time";
     public static final String ALL_WORK_TIME = "all_work_time";
     public static final String ALL_RELAX_TIME = "all_relax_time";
 
@@ -26,17 +36,22 @@ public class Timeline {
     private SimpleAdapter simAdapter = null;
     private List<Map<String, Object>> dataList = null;
     private Map<String, Object> nowMap = null;
-    private TimelineItem nowItem = null;
+//    private TimelineItem nowItem = null;
+    private TagType nowType = null;
+    private PeriodPO nowPO = null;
     private TextView allWorkTimeView = null;
     private TextView allRelaxTimeView = null;
 
     private static Map<String, Integer> AllTime = new HashMap<String, Integer>();
+
+    private DBFacade dbFacade = null;
 
     public Timeline(Context context, ListView timeline, TextView allRelaximeView, TextView allWorkTimeView) {
         this.timeline = timeline;
         this.context = context;
         this.allWorkTimeView = allWorkTimeView;
         this.allRelaxTimeView = allRelaximeView;
+        this.dbFacade = new DBFacade(context);
         initDataList();
         initSimAdapter();
         updateAllTime();
@@ -50,46 +65,56 @@ public class Timeline {
     private void initSimAdapter() {
         simAdapter = new SimpleAdapter(context, dataList,
                 R.layout.timeline_item,
-                new String[]{TimelineItem.RELAX_TYPE, TimelineItem.RELAX_TIME,
-                    TimelineItem.ICON, TimelineItem.WORK_TYPE, TimelineItem.WORK_TIME},
+                new String[]{Timeline.RELAX_TYPE, Timeline.RELAX_TIME,
+                    Timeline.ICON, Timeline.WORK_TYPE, Timeline.WORK_TIME},
                 new int[]{R.id.relax,R.id.relax_time, R.id.icon, R.id.work, R.id.work_time});
         timeline.setAdapter(simAdapter);
     }
 
     private List<Map<String, Object>> initDataList() {
         AllTime.put(ALL_RELAX_TIME,0);
-        AllTime.put(ALL_WORK_TIME,0);
+        AllTime.put(ALL_WORK_TIME, 0);
         dataList = new ArrayList<Map<String, Object>>();
 
-        for (int i = 0; i < 3; i++) {
+        ArrayList<PeriodPO> pos = dbFacade.getPeriodsByDate(new Date());
+        PeriodPO po;
+        for (int i = pos.size() - 1; i >= 0; i--) {
+            po = pos.get(i);
+            TagPO tag = dbFacade.getTag(po.getTag());
+            TagType type = tag.getType();
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put(TimelineItem.ICON, TimelineItem.RELAX_ICON);
-            map.put(TimelineItem.RELAX_TYPE, "hanyilu" + i);
+            map.put(Timeline.ICON, tag.getResource());
+            map.put(type.toString(), tag.getTagName());
+            map.put(type.getTimeField(), FormatSecond(po.getLength()));
             dataList.add(map);
-            AllTime.put(ALL_RELAX_TIME,AllTime.get(ALL_RELAX_TIME)+600);
+            AllTime.put(type.getAllTimeField(),AllTime.get(type.getAllTimeField())+po.getLength());
         }
 
         return dataList;
     }
 
-    public void addItem(TimelineItem item) {
-        nowItem = item;
+    public void addItem(PeriodPO po) {
+        nowPO = po;
+        TagPO tag = dbFacade.getTag(po.getTag());
+        nowType = tag.getType();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(item.getType(), item.getLabel());
-        map.put(TimelineItem.ICON, item.getIconId());
+        map.put(nowType.toString(), po.getTag());
+        map.put(Timeline.ICON, tag.getResource());
         dataList.add(0, map);
         this.nowMap = map;
         simAdapter.notifyDataSetChanged();
     }
 
     public void stopItem(int time) {
-        AllTime.put(nowItem.getAllTimeField(), AllTime.get(nowItem.getAllTimeField())+time);
+        AllTime.put(nowType.getAllTimeField(), AllTime.get(nowType.getAllTimeField()) + time);
         updateAllTime();
-        // TODO 添加进数据库
-        nowMap.put(nowItem.getTimeField(), FormatSecond(time));
+        nowMap.put(nowType.getTimeField(), FormatSecond(time));
         simAdapter.notifyDataSetChanged();
+        nowPO.setLength(time);
+        dbFacade.addPeriod(nowPO);
+        nowPO = null;
         nowMap = null;
-        nowItem = null;
+        nowType = null;
     }
 
     public static String FormatSecond(int second) {
