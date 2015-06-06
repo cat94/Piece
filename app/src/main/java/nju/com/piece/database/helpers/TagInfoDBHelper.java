@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.Date;
 
+import nju.com.piece.database.TagType;
 import nju.com.piece.database.tools.DateTool;
 import nju.com.piece.database.pos.TagPO;
 
@@ -50,7 +51,7 @@ public class TagInfoDBHelper extends DatabaseHelper{
     public void addTag(TagPO po){
         ContentValues cv = new ContentValues();
         cv.put(COL_TAG,po.getTagName());
-        cv.put(COL_TYPE,po.getType());
+        cv.put(COL_TYPE,po.getType().toString());
         cv.put(COL_RES,po.getResource());
         cv.put(COL_TARGET,po.getTargetMinute());
         cv.put(COL_CURRENT,po.getCurrentMinute());
@@ -90,7 +91,10 @@ public class TagInfoDBHelper extends DatabaseHelper{
 
         if (cursor.moveToNext()){
             String tag = cursor.getString(index_tag);
-            String type = cursor.getString(index_type);
+            String typeStr = cursor.getString(index_type);
+
+            TagType type = TagType.valueOf(typeStr);
+
             int res = cursor.getInt(index_res);
             int target = 0;
             int current = cursor.getInt(index_current);
