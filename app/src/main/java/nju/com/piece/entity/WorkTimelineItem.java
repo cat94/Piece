@@ -9,7 +9,13 @@ public class WorkTimelineItem extends TimelineItem{
         super(type, label, iconId, second);
     }
 
+    @Override
     public String getTimeField() {
         return TimelineItem.WORK_TIME;
+    }
+
+    @Override
+    public String getAllTimeField() {
+        return Timeline.ALL_WORK_TIME;
     }
 }

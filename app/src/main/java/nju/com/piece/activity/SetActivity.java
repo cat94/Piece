@@ -36,12 +36,10 @@ import nju.com.piece.logic.update.UpdateInfo;
 import nju.com.piece.logic.update.UpdateInfoService;
 
 /**
- * ÉèÖÃ½çÃæ£¬°üÀ¨¼ì²é°æ±¾¸üÐÂ¡¢Í¬²½¼ÇÂ¼µÈ¹¦ÄÜ¡£
  * @author Hyman
  */
 public class SetActivity extends Activity {
 
-    // ¸üÐÂ°æ±¾ÒªÓÃµ½µÄÒ»Ð©ÐÅÏ¢
     private UpdateInfo info;
     private ProgressDialog progressDialog;
     UpdateInfoService updateInfoService;
@@ -54,15 +52,15 @@ public class SetActivity extends Activity {
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+                // TODO æ›´æ–°
                 checkUpdate();
             }
         });
     }
 
     private void checkUpdate(){
-        Toast.makeText(SetActivity.this, "ÕýÔÚ¼ì²é°æ±¾¸üÐÂ..", Toast.LENGTH_SHORT).show();
-        // ×Ô¶¯¼ì²éÓÐÃ»ÓÐÐÂ°æ±¾ Èç¹ûÓÐÐÂ°æ±¾¾ÍÌáÊ¾¸üÐÂ
+        Toast.makeText(SetActivity.this, "æ­£åœ¨æ£€æŸ¥æ›´æ–°", Toast.LENGTH_SHORT).show();
+
         new Thread() {
             public void run() {
                 try {
@@ -79,33 +77,32 @@ public class SetActivity extends Activity {
     @SuppressLint("HandlerLeak")
     private Handler handler1 = new Handler() {
         public void handleMessage(Message msg) {
-            // Èç¹ûÓÐ¸üÐÂ¾ÍÌáÊ¾
+
             if (updateInfoService.isNeedUpdate()) {
                 showUpdateDialog();
             }
         };
     };
 
-    //ÏÔÊ¾ÊÇ·ñÒª¸üÐÂµÄ¶Ô»°¿ò
     private void showUpdateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setTitle("ÇëÉý¼¶APPÖÁ°æ±¾" + info.getVersion());
+        builder.setTitle("ï¿½ï¿½ï¿½ï¿½APPï¿½ï¿½ï¿½æ±¾" + info.getVersion());
         builder.setMessage(info.getDescription());
         builder.setCancelable(false);
-        builder.setPositiveButton("È·¶¨", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("È·ï¿½ï¿½", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (Environment.getExternalStorageState().equals(
                         Environment.MEDIA_MOUNTED)) {
                     downFile(info.getUrl());
                 } else {
-                    Toast.makeText(SetActivity.this, "SD¿¨²»¿ÉÓÃ£¬Çë²åÈëSD¿¨",
+                    Toast.makeText(SetActivity.this, "SDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SDï¿½ï¿½",
                             Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        builder.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("È¡ï¿½ï¿½", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -114,10 +111,10 @@ public class SetActivity extends Activity {
     }
 
     void downFile(final String url) {
-        progressDialog = new ProgressDialog(SetActivity.this);    //½ø¶ÈÌõ£¬ÔÚÏÂÔØµÄÊ±ºòÊµÊ±¸üÐÂ½ø¶È£¬Ìá¸ßÓÃ»§ÓÑºÃ¶È
+        progressDialog = new ProgressDialog(SetActivity.this);    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½Ê±ï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½Â½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ÑºÃ¶ï¿½
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle("ÕýÔÚÏÂÔØ");
-        progressDialog.setMessage("ÇëÉÔºò...");
+        progressDialog.setTitle("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        progressDialog.setMessage("ï¿½ï¿½ï¿½Ôºï¿½...");
         progressDialog.setProgress(0);
         progressDialog.show();
         updateInfoService.downLoadFile(url, progressDialog,handler1);
