@@ -14,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import nju.com.piece.R;
-import nju.com.piece.entity.RelaxTimelineItem;
+import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.TagType;
+import nju.com.piece.database.pos.PeriodPO;
+import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.entity.Timeline;
-import nju.com.piece.entity.TimelineItem;
-import nju.com.piece.entity.WorkTimelineItem;
 
 public class TimeLineActivity extends Activity {
 
@@ -92,7 +95,7 @@ public class TimeLineActivity extends Activity {
 
     public void toAddItemPage() {
         Intent intent = new Intent(TimeLineActivity.this, TaskActivity.class);
-        startActivityForResult(intent, STARTCODE); // ����requestcode
+        startActivityForResult(intent, STARTCODE);
     }
 
 
@@ -101,22 +104,19 @@ public class TimeLineActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == STARTCODE) {
-//            int minutes;
-//            int taskId;
-
-            // TODO 获取TimelineItem
             state = resultCode;
-            final TimelineItem item;
+
+            // TODO 获取选择的PO
+            DBFacade dbFacade = new DBFacade(this);
+            TagPO tag = new TagPO("play", TagType.relax,R.drawable.play_icon, 500, new Date());
+            dbFacade.addTag(tag);
+            final PeriodPO po = new PeriodPO("play", 500);
 
             switch (resultCode) {
                 case TaskActivity.COUNTDOWN:
-//                    minutes = data.getIntExtra("minutes", 0);
-//                    taskId = data.getIntExtra("taskId", 0);
-//                    this.taskId = taskId;
                     changeAddToStop();
-                    item = new RelaxTimelineItem(TimelineItem.RELAX_TYPE,"relax",R.drawable.play_icon,50);
-                    timeline.addItem(item);
-                    countDownTimer = new CountDownTimer(item.getSecond() * 1000, 1000) {
+                    timeline.addItem(po);
+                    countDownTimer = new CountDownTimer(po.getLength() * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             chronometer.setText(Timeline.FormatSecond((int) millisUntilFinished / 1000));
@@ -125,27 +125,19 @@ public class TimeLineActivity extends Activity {
 
                         @Override
                         public void onFinish() {
-                            timeline.stopItem(item.getSecond());
+                            timeline.stopItem(po.getLength());
                             changeStopToAdd();
                         }
                     }.start();
 
                     break;
                 case TaskActivity.ADD:
-//                    minutes = data.getIntExtra("minutes", 0);
-//                    taskId = data.getIntExtra("taskId", 0);
-                    item = new WorkTimelineItem(TimelineItem.WORK_TYPE,"work",R.drawable.work_icon,50);
-                    timeline.addItem(item);
-                    timeline.stopItem(item.getSecond());
+                    timeline.addItem(po);
+                    timeline.stopItem(po.getLength());
                     break;
                 case TaskActivity.TIMING:
-//                    taskId = data.getIntExtra("taskId", 0);
-//                    this.taskId = taskId;
-//                    Toast.makeText(MainActivity.this, "Ϊ����" + taskId + "��ʼ���ʱ:",
-//                            Toast.LENGTH_SHORT).show();
                     changeAddToStop();
-                    item = new WorkTimelineItem(TimelineItem.WORK_TYPE,"work",R.drawable.work_icon,0);
-                    timeline.addItem(item);
+                    timeline.addItem(po);
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
                     break;
