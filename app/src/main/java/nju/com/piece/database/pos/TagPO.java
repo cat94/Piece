@@ -2,12 +2,14 @@ package nju.com.piece.database.pos;
 
 import java.util.Date;
 
+import nju.com.piece.database.TagType;
+
 /**
  * Created by shen on 15/6/5.
  */
 public class TagPO {
     private String tagName;
-    private String type;
+    private TagType type;
     private int targetMinute=0;
     private int resource;
     private int currentMinute =0;
@@ -20,7 +22,7 @@ public class TagPO {
      * @param type
      * @param resource
      */
-    public TagPO(String tagName, String type, int resource) {
+    public TagPO(String tagName, TagType type, int resource) {
         this.tagName = tagName;
         this.type = type;
         this.resource = resource;
@@ -34,7 +36,7 @@ public class TagPO {
      * @param resource
      * @param endDate
      */
-    public TagPO(String tagName, String type, int resource,int targetMinute,Date endDate) {
+    public TagPO(String tagName, TagType type, int resource,int targetMinute,Date endDate) {
         this.tagName = tagName;
         this.type = type;
         this.targetMinute = targetMinute;
@@ -62,7 +64,7 @@ public class TagPO {
         return tagName;
     }
 
-    public String getType() {
+    public TagType getType() {
         return type;
     }
 
