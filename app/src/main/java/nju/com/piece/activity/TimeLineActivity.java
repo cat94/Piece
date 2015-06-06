@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import nju.com.piece.R;
 import nju.com.piece.entity.RelaxTimelineItem;
@@ -26,6 +27,8 @@ public class TimeLineActivity extends Activity {
     private ImageView addItemBtn = null;
     private ImageView stopItemBtn = null;
     private ListView timelineView = null;
+    private TextView allWorkTimeView = null;
+    private TextView allRelaxTimeView = null;
 
     private static int state = 0;
     private Chronometer chronometer = null;
@@ -46,7 +49,9 @@ public class TimeLineActivity extends Activity {
 
     private void initTimeline() {
         timelineView = (ListView) findViewById(R.id.timeline);
-        timeline = new Timeline(this, timelineView);
+        allRelaxTimeView = (TextView) findViewById(R.id.all_relax_time);
+        allWorkTimeView = (TextView) findViewById(R.id.all_work_time);
+        timeline = new Timeline(this, timelineView, allRelaxTimeView, allWorkTimeView);
     }
 
     private void initAddItemBtn() {
@@ -67,11 +72,11 @@ public class TimeLineActivity extends Activity {
                 switch (state) {
                     case TaskActivity.TIMING:
                         chronometer.stop();
-                        timeline.stopItem(chronometer.getText().toString());
+                        timeline.stopItem((int)((SystemClock.elapsedRealtime()- chronometer.getBase())/1000));
                         break;
                     case TaskActivity.COUNTDOWN:
                         countDownTimer.cancel();
-                        timeline.stopItem(FormatSecond(countDownSec));
+                        timeline.stopItem(countDownSec);
                         countDownSec = 0;
                         break;
                 }
@@ -87,25 +92,24 @@ public class TimeLineActivity extends Activity {
 
     public void toAddItemPage() {
         Intent intent = new Intent(TimeLineActivity.this, TaskActivity.class);
-        startActivityForResult(intent, STARTCODE); // ∂®“Ârequestcode
+        startActivityForResult(intent, STARTCODE); // ÔøΩÔøΩÔøΩÔøΩrequestcode
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // ¥¶¿Ìø™ º»ŒŒÒ∫Ûµƒ∑µªÿ÷µ
+
         if (requestCode == STARTCODE) {
 //            int minutes;
 //            int taskId;
 
-            // TODO ¥´ªÿ“ª∏ˆTimelineItem
+            // TODO Ëé∑ÂèñTimelineItem
             state = resultCode;
             final TimelineItem item;
 
             switch (resultCode) {
                 case TaskActivity.COUNTDOWN:
-                    // ¥”÷–»°≥ˆ…Ë∂®µƒ∑÷÷” ˝
 //                    minutes = data.getIntExtra("minutes", 0);
 //                    taskId = data.getIntExtra("taskId", 0);
 //                    this.taskId = taskId;
@@ -115,31 +119,29 @@ public class TimeLineActivity extends Activity {
                     countDownTimer = new CountDownTimer(item.getSecond() * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
-                            chronometer.setText(FormatSecond((int) millisUntilFinished / 1000));
+                            chronometer.setText(Timeline.FormatSecond((int) millisUntilFinished / 1000));
                             AddSec();
                         }
 
                         @Override
                         public void onFinish() {
-                            timeline.stopItem(FormatSecond(item.getSecond()));
+                            timeline.stopItem(item.getSecond());
                             changeStopToAdd();
                         }
                     }.start();
 
                     break;
                 case TaskActivity.ADD:
-//                    // ¥”÷–»°≥ˆ…Ë∂®µƒ∑÷÷” ˝
 //                    minutes = data.getIntExtra("minutes", 0);
 //                    taskId = data.getIntExtra("taskId", 0);
                     item = new WorkTimelineItem(TimelineItem.WORK_TYPE,"work",R.drawable.work_icon,50);
                     timeline.addItem(item);
-                    timeline.stopItem(FormatSecond(item.getSecond()));
+                    timeline.stopItem(item.getSecond());
                     break;
                 case TaskActivity.TIMING:
-//                    // ¥”÷–»°≥ˆ…Ë∂®µƒ∑÷÷” ˝
 //                    taskId = data.getIntExtra("taskId", 0);
 //                    this.taskId = taskId;
-//                    Toast.makeText(MainActivity.this, "Œ™»ŒŒÒ" + taskId + "ø™ º’˝º∆ ±:",
+//                    Toast.makeText(MainActivity.this, "Œ™ÔøΩÔøΩÔøΩÔøΩ" + taskId + "ÔøΩÔøΩ ºÔøΩÔøΩÔøΩ ±:",
 //                            Toast.LENGTH_SHORT).show();
                     changeAddToStop();
                     item = new WorkTimelineItem(TimelineItem.WORK_TYPE,"work",R.drawable.work_icon,0);
@@ -155,7 +157,6 @@ public class TimeLineActivity extends Activity {
 
     private void changeAddToStop() {
         chronometer.setVisibility(View.VISIBLE);
-        // ∏ƒ±‰ø™ º∞¥≈•Œ™Õ£÷π∞¥≈•
         stopItemBtn.setVisibility(View.VISIBLE);
         addItemBtn.setVisibility(View.GONE);
     }
@@ -164,14 +165,6 @@ public class TimeLineActivity extends Activity {
         chronometer.setVisibility(View.INVISIBLE);
         addItemBtn.setVisibility(View.VISIBLE);
         stopItemBtn.setVisibility(View.GONE);
-    }
-
-    public static String FormatSecond(int second) {
-        int h = second / 3600;
-        int mod = second % 3600;
-        int m = mod / 60;
-        int s = mod % 60;
-        return h + " ±" + m + "∑÷" + s + "√Î";
     }
 
     public static void AddSec() {

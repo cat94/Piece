@@ -48,4 +48,5 @@ public abstract class TimelineItem {
 
     public abstract String getTimeField();
 
+    public abstract String getAllTimeField();
 }

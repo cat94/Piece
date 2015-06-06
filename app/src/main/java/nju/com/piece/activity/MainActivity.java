@@ -13,7 +13,6 @@ import android.widget.Button;
 import nju.com.piece.R;
 
 /**
- * 用于测试的主界面。要测哪个只要在activity_main中添加相应按钮，在此类中添加相应响应时间即可。
  * @author Hyman
  */
 public class MainActivity extends Activity implements View.OnClickListener{
