@@ -33,6 +33,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
          timelineButton=(Button)findViewById(R.id.timelinebutton);
         timelineButton.setOnClickListener(this);
          setButton=(Button)findViewById(R.id.setbutton);
+        setButton.setOnClickListener(this);
+
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
 
@@ -41,9 +43,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     @Override
-    //加载main.xml文件
+    //加载menu_main.xml文件
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.i("aaaa","aaaaa");
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -77,7 +78,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void onClick(View v) {

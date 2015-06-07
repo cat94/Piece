@@ -25,6 +25,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 
 /**
  * 进行APP更新的业务逻辑类。包括获取更新信息、检查是否需要更新、获取文件、安装等方法。
@@ -35,30 +36,36 @@ public class UpdateInfoService {
 	Handler handler;
 	Context context;
 	UpdateInfo updateInfo;
+	static String TAG="UpdateInfoService";
 	
 	public UpdateInfoService(Context context){
 		this.context=context;
 	}
 	
-	public UpdateInfo getUpDateInfo() throws Exception {
+	public UpdateInfo getUpDateInfo(){
 		String path = GetServerUrl.getUrl() + "/update.txt";
+		Log.i(TAG,"获取路径");
 		StringBuffer sb = new StringBuffer();
 		String line = null;
 		BufferedReader reader = null;
 		try {
 			// 创建一个url对象
 			URL url = new URL(path);
+			Log.i(TAG,"创建URL对象");
 			// 通過url对象，创建一个HttpURLConnection对象（连接）
 			HttpURLConnection urlConnection = (HttpURLConnection) url
 					.openConnection();
+			Log.i(TAG,"建立链接");
 			// 通过HttpURLConnection对象，得到InputStream
 			reader = new BufferedReader(new InputStreamReader(
 					urlConnection.getInputStream()));
+			Log.i(TAG,"获取输入流");
 			// 使用io流读取文件
 			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
 		} catch (Exception e) {
+			Log.i(TAG,e.getMessage());
 			e.printStackTrace();
 		} finally {
 			try {
@@ -70,6 +77,7 @@ public class UpdateInfoService {
 			}
 		}
 		String info = sb.toString();
+		Log.i(TAG,"info:"+info);
 		UpdateInfo updateInfo = new UpdateInfo();
 		updateInfo.setVersion(info.split("&")[1]);
 		updateInfo.setDescription(info.split("&")[2]);
@@ -100,6 +108,7 @@ public class UpdateInfoService {
 	
 	
 	public void downLoadFile(final String url,final ProgressDialog pDialog,Handler h){
+		Log.i(TAG,"下载路径:"+url);
 		progressDialog=pDialog;
 		handler=h;
 		new Thread() {

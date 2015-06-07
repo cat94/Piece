@@ -8,7 +8,7 @@
     <string name="title_activity_total_statistic">TotalStatisticActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_time_line">TimeLineActivity</string>
-    <string name="title_activity_set">SetActivity</string>
+    <string name="title_activity_set">设置</string>
     <string name="total_time">总时间</string>
 
     <string name="new_tag_date_label">选择截止时间</string>
