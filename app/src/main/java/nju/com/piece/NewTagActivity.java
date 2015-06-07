@@ -1,5 +1,7 @@
 package nju.com.piece;
 
+import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,13 +23,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.TagType;
 import nju.com.piece.database.helpers.PeriodDBHelper;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.database.tools.DateTool;
 
 
-public class NewTagActivity extends ActionBarActivity implements OnDateSetListener,OnTimeSetListener{
+public class NewTagActivity extends FragmentActivity implements OnDateSetListener,OnTimeSetListener{
 
     public static final String DATEPICKER_TAG = "选择日期";
     public static final String TIMEPICKER_TAG = "选择时间";

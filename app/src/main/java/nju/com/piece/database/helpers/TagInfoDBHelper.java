@@ -84,7 +84,9 @@ public class TagInfoDBHelper extends DatabaseHelper {
         Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
 
         if (cursor.moveToNext()) {
-            return getPOByCursor(db, cursor);
+            TagPO po = getPOByCursor(db, cursor);
+            db.close();
+            return po;
         } else {
             db.close();
             return null;
@@ -125,7 +127,7 @@ public class TagInfoDBHelper extends DatabaseHelper {
         po.setStartDate(start);
         po.setCurrentMinute(current);
 
-        db.close();
+
         return po;
     }
 

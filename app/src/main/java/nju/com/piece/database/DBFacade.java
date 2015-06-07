@@ -25,61 +25,53 @@ public class DBFacade {
     }
 
     public void addPeriod(PeriodPO po){
-        if (periodDBHelper == null)
-            periodDBHelper = PeriodDBHelper.instance(context);
-
-        periodDBHelper.addPeriod(po);
+        periodHelperInstance().addPeriod(po);
 
         increCurrentSum(po.getTag(), po.getLength());
     }
 
 
     public ArrayList<PeriodPO> getPeriodsByDate(Date date){
-        if (periodDBHelper == null)
-            periodDBHelper = PeriodDBHelper.instance(context);
-
-        return periodDBHelper.getPeriodsByDate(date);
+        return periodHelperInstance().getPeriodsByDate(date);
     }
 
     public void updateEndDate(String tagName, Date endDate){
-        if (tagInfoDBHelper == null)
-            tagInfoDBHelper = TagInfoDBHelper.instance(context);
-
-        tagInfoDBHelper.updateEndDate(tagName, endDate);
+        tagDBHelperInstance().updateEndDate(tagName, endDate);
     }
 
     public void updateTarget(String tagName, int newTarget){
-        if (tagInfoDBHelper == null)
-            tagInfoDBHelper = TagInfoDBHelper.instance(context);
-
-        tagInfoDBHelper.updateTarget(tagName, newTarget);
+        tagDBHelperInstance().updateTarget(tagName, newTarget);
     }
 
     private void increCurrentSum(String tagName, int increment){
-        if (tagInfoDBHelper == null)
-            tagInfoDBHelper = TagInfoDBHelper.instance(context);
-
-        tagInfoDBHelper.increCurrent(tagName, increment);
+        tagDBHelperInstance().increCurrent(tagName, increment);
     }
 
     public TagPO getTag(String tagName){
-        if (tagInfoDBHelper == null)
-            tagInfoDBHelper = TagInfoDBHelper.instance(context);
-
-        return tagInfoDBHelper.getTag(tagName);
+        return tagDBHelperInstance().getTag(tagName);
     }
 
     public void addTag(TagPO po){
-        if (tagInfoDBHelper == null)
-            tagInfoDBHelper = TagInfoDBHelper.instance(context);
-
-        tagInfoDBHelper.addTag(po);
+        tagDBHelperInstance().addTag(po);
     }
 
     public List<TagPO> getAllTags(){
+        return tagDBHelperInstance().getAllTags();
+    }
+
+    public List<PeriodPO> getAllPeriods(){
+        return periodHelperInstance().getAllPeriods();
+    }
+
+    private PeriodDBHelper periodHelperInstance(){
+        if (periodDBHelper == null)
+            periodDBHelper = PeriodDBHelper.instance(context);
+        return periodDBHelper;
+    }
+
+    private TagInfoDBHelper tagDBHelperInstance(){
         if (tagInfoDBHelper == null)
             tagInfoDBHelper = TagInfoDBHelper.instance(context);
-
-        return tagInfoDBHelper.getAllTags();
+        return tagInfoDBHelper;
     }
 }
