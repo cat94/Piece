@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.TagType;
 import nju.com.piece.database.helpers.PeriodDBHelper;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
@@ -93,6 +94,39 @@ public class NewTagActivity extends ActionBarActivity implements OnDateSetListen
 
         icon_grid = (GridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
+
+
+        DBFacade facade = new DBFacade(this);
+        TagPO tag1 = new TagPO("1212", TagType.relax,324);
+        TagPO tag2 = new TagPO("431", TagType.work,324);
+        TagPO tag3 = new TagPO("763", TagType.relax,324,200,Calendar.getInstance().getTime());
+        facade.addTag(tag1);
+        facade.addTag(tag2);
+        facade.addTag(tag3);
+
+        PeriodPO period1 = new PeriodPO("1212",100);
+        PeriodPO period2 = new PeriodPO("431",100);
+        PeriodPO period3 = new PeriodPO("763",100);
+
+        List<TagPO> tags = facade.getAllTags();
+        List<PeriodPO> periods = facade.getAllPeriods();
+
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("tagsInfo:\nTagNum:" + tags.size() + "\n");
+        for (TagPO po: tags){
+            builder.append("tag name:"+po.getTagName()+"\n");
+        }
+
+        builder.append("=======================================================\n" +
+                "periods:\nperiod num:" + periods.size() + "\n");
+
+        for (PeriodPO po: periods){
+            builder.append("period date:"+po.getDate().getTime()+"\n");
+        }
+
+
+        Log.d("database_test",builder.toString());
 
     }
 
