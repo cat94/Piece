@@ -21,7 +21,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
     compile files('libs/mpandroidchartlibrary-2-1-0.jar')
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+    compile 'com.android.support:support-v4:22.1.1'
+    compile 'com.android.support:appcompat-v7:22.1.1'
 }

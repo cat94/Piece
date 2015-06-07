@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:id="@+id/name_image"
             android:layout_weight="1"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000" />
+            android:src="@drawable/default_icon" />
 
         <EditText
             android:layout_width="0dp"
@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:id="@+id/date_image"
             android:layout_weight="1"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000" />
+            android:src="@drawable/default_icon" />
 
         <TextView
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
             android:layout_height="match_parent"
             android:id="@+id/plan_image"
             android:layout_weight="1"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_000" />
+            android:src="@drawable/default_icon" />
 
         <TextView
             android:layout_width="0dp"
