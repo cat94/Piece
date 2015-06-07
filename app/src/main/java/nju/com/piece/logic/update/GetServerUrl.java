@@ -6,7 +6,7 @@ package nju.com.piece.logic.update;
  */
 
 public class GetServerUrl{
-	static String url="http://192.168.23.3:8080/PersonalHomePage";
+	static String url="http://yikeserver.sinaapp.com/yikeServer";
 			
 	public static String getUrl() {
 		return url;
