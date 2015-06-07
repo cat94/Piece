@@ -22,7 +22,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     Button timelineButton,setButton;
 
     /**
-     * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ü¶ï¿½
+     * »ñÈ¡µ±Ç°ÆÁÄ»µÄÃÜ¶È
      */
     private DisplayMetrics dm;
 
@@ -33,6 +33,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
          timelineButton=(Button)findViewById(R.id.timelinebutton);
         timelineButton.setOnClickListener(this);
          setButton=(Button)findViewById(R.id.setbutton);
+        setButton.setOnClickListener(this);
+
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
 
@@ -41,15 +43,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     @Override
-    //ï¿½ï¿½ï¿½ï¿½main.xmlï¿½Ä¼ï¿½
+    //¼ÓÔØmenu_main.xmlÎÄ¼þ
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.i("aaaa","aaaaa");
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½overflowï¿½ï¿½ï¿½Ðµï¿½Actionï¿½ï¿½Å¥ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+    //ÈÃÒþ²ØÔÚoverflowµ±ÖÐµÄAction°´Å¥µÄÍ¼±êÏÔÊ¾³öÀ´
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
@@ -65,7 +66,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return super.onMenuOpened(featureId, menu);
     }
 
-    //ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½Menuï¿½ï¿½
+    //ÆÁ±ÎµôÎïÀíMenu¼ü
     private void setOverflowShowingAlways() {
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
@@ -77,7 +78,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void onClick(View v) {

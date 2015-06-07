@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import nju.com.piece.database.helpers.PeriodDBHelper;
 import nju.com.piece.database.helpers.TagInfoDBHelper;
@@ -73,5 +74,12 @@ public class DBFacade {
             tagInfoDBHelper = TagInfoDBHelper.instance(context);
 
         tagInfoDBHelper.addTag(po);
+    }
+
+    public List<TagPO> getAllTags(){
+        if (tagInfoDBHelper == null)
+            tagInfoDBHelper = TagInfoDBHelper.instance(context);
+
+        return tagInfoDBHelper.getAllTags();
     }
 }

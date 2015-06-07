@@ -10,9 +10,12 @@ import java.util.Date;
  *
  */
 public class PeriodPO {
+//    标签名
     private String tag;
+//    时间段长度
     private int length;
 
+//    发生时间，不需要关心，数据库自动处理
     private Date date;
 
     public PeriodPO(String tag, int length) {

@@ -68,7 +68,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         String[] whereArgs = new String[]{pre_time+"",after_time+""};
         String groupBy = null;
         String having = null;
-        String order = null;
+        String order = "DESC";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
