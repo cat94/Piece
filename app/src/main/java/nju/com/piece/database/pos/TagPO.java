@@ -9,11 +9,17 @@ import nju.com.piece.database.TagType;
  */
 public class TagPO {
     private String tagName;
+//    标签类型(工作/放松)
     private TagType type;
+//    目标时间，没有则为空
     private int targetMinute=0;
+//    图标的resource
     private int resource;
+//    当前累积的时间，构造函数不需要处理此变量
     private int currentMinute =0;
+//    开始时间，构造函数不需要处理此变量，数据库自动处理
     private Date start_date;
+//    结束时间，若没有则使用不含end date的构造函数
     private Date end_date;
 
     /**
