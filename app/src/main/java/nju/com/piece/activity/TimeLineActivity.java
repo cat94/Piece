@@ -108,7 +108,7 @@ public class TimeLineActivity extends Activity {
 
             // TODO 获取选择的PO
             DBFacade dbFacade = new DBFacade(this);
-            TagPO tag = new TagPO("play", TagType.relax,R.drawable.play_icon, 500, new Date());
+            TagPO tag = new TagPO("play", TagType.relax,R.drawable.wechat_icon, 500, new Date());
             dbFacade.addTag(tag);
             final PeriodPO po = new PeriodPO("play", 500);
 

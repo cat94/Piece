@@ -22,7 +22,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     Button timelineButton,setButton;
 
     /**
-     * »ñÈ¡µ±Ç°ÆÁÄ»µÄÃÜ¶È
+     * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ü¶ï¿½
      */
     private DisplayMetrics dm;
 
@@ -41,7 +41,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     @Override
-    //¼ÓÔØmain.xmlÎÄ¼þ
+    //ï¿½ï¿½ï¿½ï¿½main.xmlï¿½Ä¼ï¿½
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.i("aaaa","aaaaa");
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -49,7 +49,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     @Override
-    //ÈÃÒþ²ØÔÚoverflowµ±ÖÐµÄAction°´Å¥µÄÍ¼±êÏÔÊ¾³öÀ´
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½overflowï¿½ï¿½ï¿½Ðµï¿½Actionï¿½ï¿½Å¥ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
     public boolean onMenuOpened(int featureId, Menu menu) {
         if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return super.onMenuOpened(featureId, menu);
     }
 
-    //ÆÁ±ÎµôÎïÀíMenu¼ü
+    //ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½Menuï¿½ï¿½
     private void setOverflowShowingAlways() {
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
