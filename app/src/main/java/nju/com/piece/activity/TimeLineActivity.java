@@ -48,6 +48,12 @@ public class TimeLineActivity extends Activity {
         initAddItemBtn();
         initStopItemBtn();
         initChronometer();
+
+        DBFacade dbFacade = new DBFacade(this);
+        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
+        dbFacade.addTag(tag1);
+        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
+        dbFacade.addTag(tag2);
     }
 
     private void initTimeline() {
@@ -106,17 +112,16 @@ public class TimeLineActivity extends Activity {
         if (requestCode == STARTCODE) {
             state = resultCode;
 
-            // TODO 获取选择的PO
-            DBFacade dbFacade = new DBFacade(this);
-            TagPO tag = new TagPO("play", TagType.relax,R.drawable.play_icon, 500, new Date());
-            dbFacade.addTag(tag);
-            final PeriodPO po = new PeriodPO("play", 500);
+            final int length;
+            TagPO tag;
 
             switch (resultCode) {
                 case TaskActivity.COUNTDOWN:
+                    length = data.getIntExtra("length", 0) * 60;
+                    tag = (TagPO) data.getSerializableExtra("tag");
                     changeAddToStop();
-                    timeline.addItem(po);
-                    countDownTimer = new CountDownTimer(po.getLength() * 1000, 1000) {
+                    timeline.addItem(tag);
+                    countDownTimer = new CountDownTimer(length * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             chronometer.setText(Timeline.FormatSecond((int) millisUntilFinished / 1000));
@@ -125,19 +130,22 @@ public class TimeLineActivity extends Activity {
 
                         @Override
                         public void onFinish() {
-                            timeline.stopItem(po.getLength());
+                            timeline.stopItem(length);
                             changeStopToAdd();
                         }
                     }.start();
 
                     break;
                 case TaskActivity.ADD:
-                    timeline.addItem(po);
-                    timeline.stopItem(po.getLength());
+                    length = data.getIntExtra("length", 0) * 60;
+                    tag = (TagPO) data.getSerializableExtra("tag");
+                    timeline.addItem(tag);
+                    timeline.stopItem(length);
                     break;
                 case TaskActivity.TIMING:
+                    tag = (TagPO) data.getSerializableExtra("tag");
                     changeAddToStop();
-                    timeline.addItem(po);
+                    timeline.addItem(tag);
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
                     break;
