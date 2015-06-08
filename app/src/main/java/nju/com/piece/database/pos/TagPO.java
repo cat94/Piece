@@ -1,13 +1,15 @@
 package nju.com.piece.database.pos;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import nju.com.piece.database.TagType;
+import nju.com.piece.view.SlideView;
 
 /**
  * Created by shen on 15/6/5.
  */
-public class TagPO {
+public class TagPO implements Serializable{
     private String tagName;
 //    标签类型(工作/放松)
     private TagType type;
@@ -21,6 +23,7 @@ public class TagPO {
     private Date start_date;
 //    结束时间，若没有则使用不含end date的构造函数
     private Date end_date;
+
 
     /**
      * tag with no end date
