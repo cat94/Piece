@@ -81,14 +81,12 @@
 
     <GridView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:numColumns="5"
         android:id="@+id/icon_grid"
         android:background="@drawable/background">
 
     </GridView>
-
-    <!--&lt;!&ndash; text view to fill the rest place &ndash;&gt;-->
 
 
 </LinearLayout>
