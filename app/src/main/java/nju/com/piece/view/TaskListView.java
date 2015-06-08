@@ -6,7 +6,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import nju.com.piece.activity.TaskActivity;
+import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.view.SlideView;
 
 public class TaskListView extends ListView {
@@ -16,6 +21,8 @@ public class TaskListView extends ListView {
     private SlideView mFocusedItemView;
 
     private int position;
+
+    private Map<TagPO, SlideView> slideViewMap = new HashMap<TagPO, SlideView>();
     
     /**
      * 下面是三个默认的构造函数
@@ -54,8 +61,8 @@ public class TaskListView extends ListView {
         case MotionEvent.ACTION_DOWN: {
             Log.e(TAG, "postion=" + position);
             if (position != INVALID_POSITION) {
-                TaskActivity.MessageItem data = (TaskActivity.MessageItem) getItemAtPosition(position);
-                mFocusedItemView = data.slideView;
+                TagPO data = (TagPO) getItemAtPosition(position);
+                mFocusedItemView = slideViewMap.get(data);
                 Log.e(TAG, "FocusedItemView=" + mFocusedItemView);
             }
         }
@@ -77,4 +84,8 @@ public class TaskListView extends ListView {
     public int getPosition() {
 		return position;
 	}
+
+    public void setSlideViewMap(Map<TagPO, SlideView> slideViewMap) {
+        this.slideViewMap = slideViewMap;
+    }
 }
