@@ -120,7 +120,7 @@ public class NewTagActivity extends FragmentActivity implements OnDateSetListene
 
         icon_adaptor = new IconImageAdaptor(this,R.layout.icon,icon_array);
 
-        icon_grid = (GridView)findViewById(R.id.icon_grid);
+        icon_grid = (MyGridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
 
         DBFacade facade = new DBFacade(this);

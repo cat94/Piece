@@ -17,4 +17,12 @@
 
     </declare-styleable>
 
+    <attr name="column_width" format="dimension|integer">
+        <enum name="single_column" value="-1" />
+    </attr>
+    <declare-styleable name="GridLikeLayout">
+        <attr name="column_width" />
+    </declare-styleable>
+
+
 </resources>
