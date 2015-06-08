@@ -15,7 +15,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/wechat_icon" />
+        android:src="@drawable/tag_icon_01" />
 
     <TextView
         android:id="@+id/taskname"

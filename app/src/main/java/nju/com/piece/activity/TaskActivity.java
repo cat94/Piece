@@ -117,9 +117,9 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 			slideView.reset();
 			holder.icon.setImageResource(item.getResource());
 			holder.taskname.setText(item.getTagName());
-			// TODO 这个图片对吗。。为什么每个都要加一遍。。
-			holder.icon_add.setImageResource(R.drawable.actionbar_add_icon);
-			holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute());
+			if (item.getTargetMinute() != 0) {
+				holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute());
+			}
 			holder.icon_add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
@@ -219,6 +219,7 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 			taskname = (TextView) view.findViewById(R.id.taskname);
 			progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 			icon_add = (ImageButton) view.findViewById(R.id.icon_add);
+			icon_add.setImageResource(R.drawable.action_add_tesk_icon);
 			holder = (ViewGroup) view.findViewById(R.id.holder);
 			countDown = (ImageButton) view.findViewById(R.id.countdown);
 			timing = (ImageButton) view.findViewById(R.id.timing);
