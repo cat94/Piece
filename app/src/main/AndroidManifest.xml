@@ -14,11 +14,6 @@
         <activity
             android:name=".TotalStatisticActivity"
             android:label="@string/title_activity_total_statistic" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".NewTagActivity"
@@ -27,7 +22,11 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.TaskActivity"

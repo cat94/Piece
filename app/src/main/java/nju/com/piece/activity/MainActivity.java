@@ -15,12 +15,14 @@ import java.lang.reflect.Method;
 
 import nju.com.piece.NewTagActivity;
 import nju.com.piece.R;
+import nju.com.piece.TotalStatisticActivity;
 
 /**
  * @author Hyman
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
     Button timelineButton,setButton,newTagButton;
+    Button totalButton;
 
     /**
      * ��ȡ��ǰ��Ļ���ܶ�
@@ -39,6 +41,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         newTagButton=(Button)findViewById(R.id.newTagButton);
         newTagButton.setOnClickListener(this);
+
+        totalButton = (Button)findViewById(R.id.totalButton);
+        totalButton.setOnClickListener(this);
 
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
@@ -98,6 +103,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.newTagButton:
                 intent = new Intent(MainActivity.this, NewTagActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.totalButton:
+                intent = new Intent(MainActivity.this, TotalStatisticActivity.class);
                 startActivity(intent);
                 break;
         }
