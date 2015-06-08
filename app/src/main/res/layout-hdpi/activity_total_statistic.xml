@@ -1,16 +1,22 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_my_horizontal_margin"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_my_horizontal_margin"
     android:paddingRight="@dimen/activity_my_horizontal_margin"
     android:paddingTop="@dimen/activity_my_vertical_margin"
     android:paddingBottom="@dimen/activity_my_vertical_margin"
-    android:orientation="vertical"
     tools:context="nju.com.piece.TotalStatisticActivity"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
     >
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -23,7 +29,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/box_margin_left"
             >
@@ -32,12 +38,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1110h"
+                android:id="@+id/total_record"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/total_time"
+
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_gravity="center"
                 android:fontFamily="楷体" />
@@ -49,12 +57,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="@dimen/box_margin_left"
+            android:layout_weight="1"
             android:layout_gravity="center">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1110h"
+                android:id="@+id/total_time"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
@@ -72,6 +82,7 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/box_margin_left"
+            android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceSmall"
             >
             <TextView
@@ -79,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1110h"
+                android:id="@+id/average_week"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
@@ -96,12 +108,14 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/box_margin_left"
+            android:layout_weight="1"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="1110h"
+                android:id="@+id/last_week"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
             <TextView
@@ -113,29 +127,7 @@
                 />
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110h"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_time"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_gravity="center"
-                />
 
-        </LinearLayout>
 
 
 
@@ -156,7 +148,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/daily_box_height"
         android:background="@drawable/background"
         >
 
@@ -164,29 +156,55 @@
         <TabHost
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:id="@+id/tabhost"
             >
-         <TabWidget
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-             android:id="@android:id/tabs">
+            <TabWidget
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@android:id/tabs"
 
-                </TabWidget>
+                >
 
-           <FrameLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@android:id/tabcontent"
-               >
-              <com.github.mikephil.charting.charts.BarChart
-                  android:id="@+id/bar_charts"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  ></com.github.mikephil.charting.charts.BarChart>
-               </FrameLayout>
+            </TabWidget>
 
-            </TabHost>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@android:id/tabcontent"
+                android:paddingTop="@dimen/daily_tab_content_padding"
+                >
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_charts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ></com.github.mikephil.charting.charts.BarChart>
+            </FrameLayout>
+
+        </TabHost>
+
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background"
+        >
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/percent_pie"
+            >
+            </com.github.mikephil.charting.charts.PieChart>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_list"
+            android:layout_gravity="center_horizontal" />
 
+    </LinearLayout>
+
+    
+</LinearLayout>
+    </ScrollView>
