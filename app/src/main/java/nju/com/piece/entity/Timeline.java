@@ -38,7 +38,7 @@ public class Timeline {
     private Map<String, Object> nowMap = null;
 //    private TimelineItem nowItem = null;
     private TagType nowType = null;
-    private PeriodPO nowPO = null;
+    private TagPO nowPO = null;
     private TextView allWorkTimeView = null;
     private TextView allRelaxTimeView = null;
 
@@ -77,9 +77,7 @@ public class Timeline {
         dataList = new ArrayList<Map<String, Object>>();
 
         ArrayList<PeriodPO> pos = dbFacade.getPeriodsByDate(new Date());
-        PeriodPO po;
-        for (int i = pos.size() - 1; i >= 0; i--) {
-            po = pos.get(i);
+        for (PeriodPO po : pos) {
             TagPO tag = dbFacade.getTag(po.getTag());
             TagType type = tag.getType();
             Map<String, Object> map = new HashMap<String, Object>();
@@ -93,13 +91,12 @@ public class Timeline {
         return dataList;
     }
 
-    public void addItem(PeriodPO po) {
+    public void addItem(TagPO po) {
         nowPO = po;
-        TagPO tag = dbFacade.getTag(po.getTag());
-        nowType = tag.getType();
+        nowType = po.getType();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(nowType.toString(), po.getTag());
-        map.put(Timeline.ICON, tag.getResource());
+        map.put(nowType.toString(), po.getTagName());
+        map.put(Timeline.ICON, po.getResource());
         dataList.add(0, map);
         this.nowMap = map;
         simAdapter.notifyDataSetChanged();
@@ -110,8 +107,8 @@ public class Timeline {
         updateAllTime();
         nowMap.put(nowType.getTimeField(), FormatSecond(time));
         simAdapter.notifyDataSetChanged();
-        nowPO.setLength(time);
-        dbFacade.addPeriod(nowPO);
+        PeriodPO newPO = new PeriodPO(nowPO.getTagName(), time);
+        dbFacade.addPeriod(newPO);
         nowPO = null;
         nowMap = null;
         nowType = null;

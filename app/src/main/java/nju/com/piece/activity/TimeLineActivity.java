@@ -106,17 +106,18 @@ public class TimeLineActivity extends Activity {
         if (requestCode == STARTCODE) {
             state = resultCode;
 
-            // TODO 获取选择的PO
-            DBFacade dbFacade = new DBFacade(this);
-            TagPO tag = new TagPO("play", TagType.relax,R.drawable.wechat_icon, 500, new Date());
-            dbFacade.addTag(tag);
-            final PeriodPO po = new PeriodPO("play", 500);
+//            DBFacade dbFacade = new DBFacade(this);
+//            TagPO tag1 = new TagPO("play", TagType.relax,R.drawable.play_icon, 500, new Date());
+//            dbFacade.addTag(tag1);
+
+            final int length = data.getIntExtra("length", 0) * 60;
+            TagPO tag = (TagPO) data.getSerializableExtra("tag");
 
             switch (resultCode) {
                 case TaskActivity.COUNTDOWN:
                     changeAddToStop();
-                    timeline.addItem(po);
-                    countDownTimer = new CountDownTimer(po.getLength() * 1000, 1000) {
+                    timeline.addItem(tag);
+                    countDownTimer = new CountDownTimer(length * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             chronometer.setText(Timeline.FormatSecond((int) millisUntilFinished / 1000));
@@ -125,19 +126,19 @@ public class TimeLineActivity extends Activity {
 
                         @Override
                         public void onFinish() {
-                            timeline.stopItem(po.getLength());
+                            timeline.stopItem(length);
                             changeStopToAdd();
                         }
                     }.start();
 
                     break;
                 case TaskActivity.ADD:
-                    timeline.addItem(po);
-                    timeline.stopItem(po.getLength());
+                    timeline.addItem(tag);
+                    timeline.stopItem(length);
                     break;
                 case TaskActivity.TIMING:
                     changeAddToStop();
-                    timeline.addItem(po);
+                    timeline.addItem(tag);
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
                     break;

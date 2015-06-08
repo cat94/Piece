@@ -1,5 +1,6 @@
 package nju.com.piece.database.pos;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,7 +42,4 @@ public class PeriodPO {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
 }
