@@ -9,6 +9,11 @@
     <string name="title_activity_my_tab">MyTabActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="app_name">Piece</string>
+    <string name="title_activity_test_mpchart">TestMPChartActivity</string>
+    <string name="title_activity_new_tag">NewTagActivity</string>
+    <string name="title_activity_total_statistic">TotalStatisticActivity</string>
+
     <string name="title_activity_set">设置</string>
     <string name="total_time">总时间</string>
 
