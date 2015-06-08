@@ -39,7 +39,7 @@ import nju.com.piece.adapter.Utility;
 import nju.com.piece.adapter.adapterEntity.StatisticItem;
 
 
-public class TotalStatisticActivity extends ActionBarActivity implements TabHost.TabContentFactory{
+public class TotalStatisticActivity extends FragmentActivity implements TabHost.TabContentFactory{
 
     private TabHost tabHost;
     private BarChart myBar;
