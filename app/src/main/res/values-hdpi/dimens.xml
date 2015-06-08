@@ -6,6 +6,7 @@
     <dimen name="activity_my_vertical_margin">8dp</dimen>
     <dimen name="box_margin_left">5dp</dimen>
     <dimen name="health_box_height">150dp</dimen>
-
+    <dimen name="daily_box_height">250dp</dimen>
+    <dimen name="daily_tab_content_padding">50dp</dimen>
     <dimen name="tag_picker_height">70dp</dimen>
 </resources>
