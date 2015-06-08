@@ -25,6 +25,7 @@ import java.util.List;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
 import nju.com.piece.database.helpers.PeriodDBHelper;
+import nju.com.piece.database.pos.AccountPO;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.database.tools.DateTool;
@@ -96,6 +97,14 @@ public class NewTagActivity extends FragmentActivity implements OnDateSetListene
 
         icon_grid = (GridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
+
+        DBFacade facade = new DBFacade(this);
+        AccountPO po = new AccountPO("shen","help");
+        facade.addAccount(po);
+
+        AccountPO po2 = facade.getAccount("shen");
+        Log.d("database_test","account name:"+po2.getName()+" and pswd:"+po2.getPswd());
+
 
     }
 
