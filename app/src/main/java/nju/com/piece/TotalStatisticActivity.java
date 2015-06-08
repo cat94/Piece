@@ -124,7 +124,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
             StatisticItem statisticItem=new StatisticItem();
             statisticItem.setItemName("ss");
             statisticItem.setPercentage("10%");
-            statisticItem.setResourceID(R.drawable.icon1);
+            statisticItem.setResourceID(R.drawable.icon);
             list.add(statisticItem);
         }
 

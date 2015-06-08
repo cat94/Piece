@@ -83,7 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numColumns="5"
-        android:id="@+id/icon_grid">
+        android:id="@+id/icon_grid"
+        android:background="@drawable/background">
 
     </GridView>
 
