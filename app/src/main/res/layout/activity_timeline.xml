@@ -72,13 +72,13 @@
                     android:id="@+id/addItem_btn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/add_item_btn"/>
+                    android:src="@drawable/timeline_add_item_btn"/>
 
                 <ImageView
                     android:id="@+id/stopItem_btn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/stop_item_btn"
+                    android:src="@drawable/timeline_stop_item_btn"
                     android:visibility="gone"/>
 
             </LinearLayout>

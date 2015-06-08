@@ -50,9 +50,9 @@ public class TimeLineActivity extends Activity {
         initChronometer();
 
         DBFacade dbFacade = new DBFacade(this);
-        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.relax_icon, 500, new Date());
+        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
         dbFacade.addTag(tag1);
-        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.work_icon, 500, new Date());
+        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
         dbFacade.addTag(tag2);
     }
 
