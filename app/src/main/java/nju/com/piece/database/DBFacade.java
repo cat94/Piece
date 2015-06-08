@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import nju.com.piece.database.helpers.AccountDBHelper;
 import nju.com.piece.database.helpers.PeriodDBHelper;
 import nju.com.piece.database.helpers.TagInfoDBHelper;
+import nju.com.piece.database.pos.AccountPO;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
 
@@ -19,6 +21,7 @@ public class DBFacade {
 
     private PeriodDBHelper periodDBHelper;
     private TagInfoDBHelper tagInfoDBHelper;
+    private AccountDBHelper accountDBHelper;
 
     public DBFacade(Context context){
         this.context = context;
@@ -63,6 +66,21 @@ public class DBFacade {
         return periodHelperInstance().getAllPeriods();
     }
 
+
+    public void addAccount(AccountPO po){
+        accountDBHelperInstance().addAccount(po);
+    }
+    public void delAccount(String username){
+        accountDBHelperInstance().delAccount(username);
+    }
+    public AccountPO getAccount(String pswd){
+        return accountDBHelperInstance().getAccount(pswd);
+    }
+    public void updateAccount(AccountPO po){
+        accountDBHelperInstance().updateAccount(po);
+    }
+
+
     private PeriodDBHelper periodHelperInstance(){
         if (periodDBHelper == null)
             periodDBHelper = PeriodDBHelper.instance(context);
@@ -74,4 +92,12 @@ public class DBFacade {
             tagInfoDBHelper = TagInfoDBHelper.instance(context);
         return tagInfoDBHelper;
     }
+
+    private AccountDBHelper accountDBHelperInstance(){
+        if (accountDBHelper == null)
+            accountDBHelper = AccountDBHelper.instance(context);
+        return accountDBHelper;
+    }
+
+
 }

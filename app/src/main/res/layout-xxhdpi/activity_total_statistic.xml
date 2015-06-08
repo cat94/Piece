@@ -166,26 +166,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/tabhost"
             >
-         <TabWidget
+            <TabWidget
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-             android:id="@android:id/tabs">
+                android:layout_height="wrap_content"
+                android:id="@android:id/tabs">
 
-                </TabWidget>
+            </TabWidget>
 
-           <FrameLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@android:id/tabcontent"
-               >
-              <com.github.mikephil.charting.charts.BarChart
-                  android:id="@+id/bar_charts"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  ></com.github.mikephil.charting.charts.BarChart>
-               </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@android:id/tabcontent"
 
-            </TabHost>
+                >
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_charts"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/daily_box_height"
+                    ></com.github.mikephil.charting.charts.BarChart>
+            </FrameLayout>
+
+        </TabHost>
     </LinearLayout>
 
 </LinearLayout>

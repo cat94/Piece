@@ -44,6 +44,7 @@
             android:name=".activity.SetActivity"
             android:label="@string/title_activity_set" >
         </activity>
+
     </application>
     <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
 
