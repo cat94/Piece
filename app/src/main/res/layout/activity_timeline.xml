@@ -3,23 +3,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="#ff5d5c63"
+        android:layout_centerInParent="true">
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="85dp"
+        android:background="#ffff766f">
+    </FrameLayout>
+
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/linearLayout"
         android:weightSum="1">
 
-        <Chronometer
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/chronometer"
-            android:visibility="invisible"/>
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
+
+            <Chronometer
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/chronometer"
+                android:visibility="invisible"
+                android:textSize="25sp"/>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -27,12 +42,14 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/btn_linearLayout"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="50dp">
+                android:layout_below="@id/chronometer"
+                android:layout_marginTop="52dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="10sp"
                     android:text="今日娱乐"/>
 
                 <TextView
@@ -47,14 +64,14 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/chronometer"
                 android:id="@+id/btn_linearLayout">
 
                 <ImageView
                     android:id="@+id/addItem_btn"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-
                     android:src="@drawable/add_item_btn"/>
 
                 <ImageView
@@ -73,12 +90,14 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/btn_linearLayout"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="50dp">
+                android:layout_below="@id/chronometer"
+                android:layout_marginTop="52dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textSize="10sp"
                     android:text="今日工作"/>
 
                 <TextView
@@ -95,11 +114,9 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:id="@+id/timeline"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:divider="@null"
             android:scrollbars="none"/>
+
     </LinearLayout>
 
 </RelativeLayout>

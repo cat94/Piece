@@ -13,13 +13,14 @@ import android.widget.Button;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import nju.com.piece.NewTagActivity;
 import nju.com.piece.R;
 
 /**
  * @author Hyman
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
-    Button timelineButton,setButton;
+    Button timelineButton,setButton,newTagButton;
 
     /**
      * ��ȡ��ǰ��Ļ���ܶ�
@@ -30,10 +31,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        timelineButton=(Button)findViewById(R.id.timelinebutton);
+         timelineButton=(Button)findViewById(R.id.timelinebutton);
         timelineButton.setOnClickListener(this);
-        setButton=(Button)findViewById(R.id.setbutton);
+         setButton=(Button)findViewById(R.id.setbutton);
         setButton.setOnClickListener(this);
+
+
+        newTagButton=(Button)findViewById(R.id.newTagButton);
+        newTagButton.setOnClickListener(this);
 
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
@@ -89,6 +94,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.setbutton:
                 intent = new Intent(MainActivity.this, SetActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.newTagButton:
+                intent = new Intent(MainActivity.this, NewTagActivity.class);
                 startActivity(intent);
                 break;
         }

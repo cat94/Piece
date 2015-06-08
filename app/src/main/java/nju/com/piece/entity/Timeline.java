@@ -36,7 +36,6 @@ public class Timeline {
     private SimpleAdapter simAdapter = null;
     private List<Map<String, Object>> dataList = null;
     private Map<String, Object> nowMap = null;
-//    private TimelineItem nowItem = null;
     private TagType nowType = null;
     private TagPO nowPO = null;
     private TextView allWorkTimeView = null;
@@ -46,11 +45,11 @@ public class Timeline {
 
     private DBFacade dbFacade = null;
 
-    public Timeline(Context context, ListView timeline, TextView allRelaximeView, TextView allWorkTimeView) {
+    public Timeline(Context context, ListView timeline, TextView allRelaxTimeView, TextView allWorkTimeView) {
         this.timeline = timeline;
         this.context = context;
         this.allWorkTimeView = allWorkTimeView;
-        this.allRelaxTimeView = allRelaximeView;
+        this.allRelaxTimeView = allRelaxTimeView;
         this.dbFacade = new DBFacade(context);
         initDataList();
         initSimAdapter();

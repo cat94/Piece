@@ -48,6 +48,12 @@ public class TimeLineActivity extends Activity {
         initAddItemBtn();
         initStopItemBtn();
         initChronometer();
+
+        DBFacade dbFacade = new DBFacade(this);
+        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.relax_icon, 500, new Date());
+        dbFacade.addTag(tag1);
+        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.work_icon, 500, new Date());
+        dbFacade.addTag(tag2);
     }
 
     private void initTimeline() {
@@ -106,15 +112,13 @@ public class TimeLineActivity extends Activity {
         if (requestCode == STARTCODE) {
             state = resultCode;
 
-//            DBFacade dbFacade = new DBFacade(this);
-//            TagPO tag1 = new TagPO("play", TagType.relax,R.drawable.play_icon, 500, new Date());
-//            dbFacade.addTag(tag1);
-
-            final int length = data.getIntExtra("length", 0) * 60;
-            TagPO tag = (TagPO) data.getSerializableExtra("tag");
+            final int length;
+            TagPO tag;
 
             switch (resultCode) {
                 case TaskActivity.COUNTDOWN:
+                    length = data.getIntExtra("length", 0) * 60;
+                    tag = (TagPO) data.getSerializableExtra("tag");
                     changeAddToStop();
                     timeline.addItem(tag);
                     countDownTimer = new CountDownTimer(length * 1000, 1000) {
@@ -133,10 +137,13 @@ public class TimeLineActivity extends Activity {
 
                     break;
                 case TaskActivity.ADD:
+                    length = data.getIntExtra("length", 0) * 60;
+                    tag = (TagPO) data.getSerializableExtra("tag");
                     timeline.addItem(tag);
                     timeline.stopItem(length);
                     break;
                 case TaskActivity.TIMING:
+                    tag = (TagPO) data.getSerializableExtra("tag");
                     changeAddToStop();
                     timeline.addItem(tag);
                     chronometer.setBase(SystemClock.elapsedRealtime());

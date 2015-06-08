@@ -68,27 +68,52 @@ public class PeriodDBHelper extends DatabaseHelper {
         String[] whereArgs = new String[]{pre_time+"",after_time+""};
         String groupBy = null;
         String having = null;
-        String order = COL_DATE + " DESC";
+        String order = COL_DATE+" DESC";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
 
+        ArrayList<PeriodPO> results = new ArrayList<PeriodPO>();
+
+        while(cursor.moveToNext()){
+            results.add(getPeriodPOByCursor(db,cursor));
+        }
+
+        db.close();
+
+        return results;
+    }
+
+    private PeriodPO getPeriodPOByCursor(SQLiteDatabase db,Cursor cursor){
         int index_tag = cursor.getColumnIndex(COL_TAG);
         int index_len = cursor.getColumnIndex(COL_LEN);
         int index_date = cursor.getColumnIndex(COL_DATE);
 
+        String tag = cursor.getString(index_tag);
+        int len = cursor.getInt(index_len);
+        long date_millis = cursor.getLong(index_date);
+
+        PeriodPO po = new PeriodPO(tag,len);
+        po.setDate(date_millis);
+
+        return po;
+    }
+
+    public ArrayList<PeriodPO> getAllPeriods(){
+        String[] result_cols = new String[]{COL_TAG,COL_LEN,COL_DATE};
+        String where = null;
+        String[] whereArgs = null;
+        String groupBy = null;
+        String having = null;
+        String order = COL_DATE+" DESC";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
 
         ArrayList<PeriodPO> results = new ArrayList<PeriodPO>();
 
         while(cursor.moveToNext()){
-            String tag = cursor.getString(index_tag);
-            int len = cursor.getInt(index_len);
-            long date_millis = cursor.getLong(index_date);
-
-            PeriodPO po = new PeriodPO(tag,len);
-            po.setDate(date_millis);
-
-            results.add(po);
+            results.add(getPeriodPOByCursor(db,cursor));
         }
 
         db.close();
