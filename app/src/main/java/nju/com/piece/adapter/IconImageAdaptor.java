@@ -24,6 +24,7 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
     int layoutResourceId;
     List<IconItem> images = new ArrayList<IconItem>();
 
+    private static int current_selected_res;
 
     public IconImageAdaptor(Context context, int resource, List<IconItem> images) {
         super(context, resource, images);
@@ -46,7 +47,10 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
 
         IconItem currentIconItem = images.get(position);
 
-        icon.setImageResource(currentIconItem.getResource());
+        int res = currentIconItem.getResource();
+        icon.setImageResource(res);
+        icon.setTag(res);
+
 
         view.setClickable(true);
         view.setOnClickListener(new IconClickListener());
@@ -54,9 +58,16 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
         return view;
     }
 
+    public static void clearSelecetedRes(){
+        current_selected_res = 0;
+    }
+
+    public static int getSelectedRes(){
+        return current_selected_res;
+    }
+
 
     public static class IconClickListener implements View.OnClickListener {
-        private boolean clicked;
         private static View pre_view = null;
 
         @Override
@@ -65,6 +76,9 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
                 deselect();
             v.setBackgroundResource(R.drawable.selected_bkg);
             pre_view = v;
+
+            current_selected_res = (Integer)((TagIconView)v.findViewById(R.id.icon_img)).getTag();
+
         }
 
         private void deselect(){

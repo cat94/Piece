@@ -73,13 +73,16 @@ public class DBFacade {
     public void delAccount(String username){
         accountDBHelperInstance().delAccount(username);
     }
-    public AccountPO getAccount(String pswd){
-        return accountDBHelperInstance().getAccount(pswd);
+    public AccountPO getAccount(String username){
+        return accountDBHelperInstance().getAccount(username);
     }
-    public void updateAccount(AccountPO po){
-        accountDBHelperInstance().updateAccount(po);
+    public void updatePassword(String username, String newPswd){
+        accountDBHelperInstance().updatePswd(username, newPswd);
     }
 
+    public void updateTagName(String oldTag, String newTag){
+        tagDBHelperInstance().updateTagName(oldTag,newTag);
+    }
 
     private PeriodDBHelper periodHelperInstance(){
         if (periodDBHelper == null)

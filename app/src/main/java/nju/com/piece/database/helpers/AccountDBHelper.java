@@ -22,7 +22,7 @@ public class AccountDBHelper extends DatabaseHelper {
     private static final String COL_NAME = "username";
     private static final String COL_PSWD = "password";
 
-    protected final static String DATABASE_NAME = "account.db";
+    protected final static String DATABASE_NAME = "account_"+currentUser+".db";
 
     public static AccountDBHelper instance(Context context) {
         return new AccountDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,12 +57,12 @@ public class AccountDBHelper extends DatabaseHelper {
         db.delete(TABLE_NAME, where, whereArgs);
     }
 
-    public void updateAccount(AccountPO po) {
+    public void updatePswd(String username, String pswd) {
         ContentValues cv = new ContentValues();
-        cv.put(COL_PSWD , po.getPswd());
+        cv.put(COL_PSWD , pswd);
 
         String where = COL_NAME + " = ?";
-        String[] whereArgs = new String[]{po.getName()};
+        String[] whereArgs = new String[]{username};
 
         SQLiteDatabase db = getWritableDatabase();
         db.update(TABLE_NAME, cv, where, whereArgs);

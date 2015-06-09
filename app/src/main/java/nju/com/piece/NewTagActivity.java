@@ -1,11 +1,14 @@
 package nju.com.piece;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -16,13 +19,20 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog;
 import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
+import nju.com.piece.activity.MainActivity;
 import nju.com.piece.adapter.IconImageAdaptor;
 import nju.com.piece.adapter.adapterEntity.IconItem;
 import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.AccountPO;
+import nju.com.piece.database.pos.TagPO;
+import nju.com.piece.database.tools.DateTool;
 
 
 public class NewTagActivity extends FragmentActivity implements OnDateSetListener,OnTimeSetListener{
@@ -32,8 +42,12 @@ public class NewTagActivity extends FragmentActivity implements OnDateSetListene
 
     private TextView date_text;
     private TextView plan_text;
+    private EditText tag_name_edit;
 
     private GridView icon_grid;
+
+    private Button addBtn;
+
     private static ArrayList<IconItem> icon_array = new ArrayList<IconItem>(){{
         //        add icons
         add(new IconItem(R.drawable.icon1_small));
@@ -115,22 +129,44 @@ public class NewTagActivity extends FragmentActivity implements OnDateSetListene
             }
         }
 
+        addBtn = (Button)findViewById(R.id.add_tag_btn);
+        addBtn.setText("添加标签");
 
+        tag_name_edit = (EditText)findViewById(R.id.name_edit);
+
+        final DBFacade facade = new DBFacade(this);
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                try {
+                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
+                    int target = (int)(60.0*Double.valueOf((String)plan_text.getText()));
+                    String tagName = tag_name_edit.getText().toString();
+                    TagType type = TagType.relax;
+
+                    int res = IconImageAdaptor.getSelectedRes();
+                    IconImageAdaptor.clearSelecetedRes();
+
+                    facade.addTag(new TagPO(tagName,type,res,target,end_date));
+                    TagPO po = facade.getTag("广告广告关于");
+
+                    Log.d("database_test",DateTool.getMonth(po.getStartDate())+"");
+
+                    Intent intent = new Intent(NewTagActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
         icon_adaptor = new IconImageAdaptor(this,R.layout.icon,icon_array);
 
         icon_grid = (MyGridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
-
-        DBFacade facade = new DBFacade(this);
-        AccountPO po = new AccountPO("shen","help");
-        facade.addAccount(po);
-
-        AccountPO po2 = facade.getAccount("shen");
-        Log.d("database_test","account name:"+po2.getName()+" and pswd:"+po2.getPswd());
-
-
     }
 
     @Override
@@ -167,7 +203,7 @@ public class NewTagActivity extends FragmentActivity implements OnDateSetListene
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        date_text.setText(year+"/"+month+"/"+day);
+        date_text.setText(year+"/"+(month+1)+"/"+day);
     }
 
     @Override

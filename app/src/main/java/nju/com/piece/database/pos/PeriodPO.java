@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import nju.com.piece.database.tools.DateTool;
+
 /**
  * Created by shen on 15/6/5.
  *
@@ -22,12 +24,13 @@ public class PeriodPO {
     public PeriodPO(String tag, int length) {
         this.tag = tag;
         this.length = length;
+        this.date = DateTool.currentDate();
     }
 
-    public void setDate(long timeMillis) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timeMillis);
-        date = calendar.getTime();
+    public PeriodPO(String tag, int length, Date date) {
+        this.tag = tag;
+        this.length = length;
+        this.date = date;
     }
 
     public Date getDate() {
