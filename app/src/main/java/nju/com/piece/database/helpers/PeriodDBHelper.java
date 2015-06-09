@@ -22,7 +22,7 @@ public class PeriodDBHelper extends DatabaseHelper {
     private static final String COL_LEN = "length";
     private static final String COL_DATE = "start_time";
 
-    protected final static String DATABASE_NAME = "period.db";
+    protected final static String DATABASE_NAME = "period_"+currentUser+".db";
 
     public static PeriodDBHelper instance(Context context){
         return new PeriodDBHelper(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -44,7 +44,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         ContentValues cv = new ContentValues();
         cv.put(COL_TAG,po.getTag());
         cv.put(COL_LEN, po.getLength());
-        cv.put(COL_DATE, System.currentTimeMillis());
+        cv.put(COL_DATE, DateTool.Date2Millis(po.getDate()));
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_NAME, "_id", cv);
@@ -93,8 +93,9 @@ public class PeriodDBHelper extends DatabaseHelper {
         int len = cursor.getInt(index_len);
         long date_millis = cursor.getLong(index_date);
 
-        PeriodPO po = new PeriodPO(tag,len);
-        po.setDate(date_millis);
+        Date date = DateTool.Millis2Date(date_millis);
+
+        PeriodPO po = new PeriodPO(tag,len,date);
 
         return po;
     }
@@ -122,4 +123,15 @@ public class PeriodDBHelper extends DatabaseHelper {
     }
 
 
+    protected void updateTagName(String oldName,String newName){
+        ContentValues cv = new ContentValues();
+        cv.put(COL_TAG, oldName);
+
+        String where = COL_TAG + " = ?";
+        String[] whereArgs = new String[]{newName};
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.update(TABLE_NAME, cv, where, whereArgs);
+        db.close();
+    }
 }

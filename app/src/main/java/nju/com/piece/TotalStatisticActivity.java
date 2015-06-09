@@ -1,13 +1,7 @@
 package nju.com.piece;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.LocalActivityManager;
-import android.content.Entity;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -124,7 +118,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
             StatisticItem statisticItem=new StatisticItem();
             statisticItem.setItemName("ss");
             statisticItem.setPercentage("10%");
-            statisticItem.setResourceID(R.drawable.icon1);
+            statisticItem.setResourceID(R.drawable.icon1_small);
             list.add(statisticItem);
         }
 
