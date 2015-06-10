@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    tools:context="nju.com.piece.NewTagActivity"
+    tools:context="nju.com.piece.TagActivity"
     android:layout_height="wrap_content">
 
     <ScrollView
@@ -26,9 +26,10 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:id="@+id/name_image"
+            android:id="@+id/type_image"
             android:layout_weight="1"
-            android:src="@drawable/default_icon" />
+            android:src="@drawable/busy"
+            android:clickable="true"/>
 
         <EditText
             android:layout_width="0dp"
@@ -49,7 +50,8 @@
             android:layout_height="match_parent"
             android:id="@+id/date_image"
             android:layout_weight="1"
-            android:src="@drawable/default_icon" />
+            android:src="@drawable/date_icon"
+            android:clickable="true"/>
 
         <TextView
             android:layout_width="0dp"
@@ -73,7 +75,8 @@
             android:layout_height="match_parent"
             android:id="@+id/plan_image"
             android:layout_weight="1"
-            android:src="@drawable/default_icon" />
+            android:src="@drawable/time_icon"
+            android:clickable="true"/>
 
         <TextView
             android:layout_width="0dp"
