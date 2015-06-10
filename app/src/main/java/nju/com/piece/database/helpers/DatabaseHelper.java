@@ -15,9 +15,15 @@ import android.util.Log;
 public abstract class DatabaseHelper extends SQLiteOpenHelper {
     protected static final int DATABASE_VERSION = 1;
 
+    protected static String currentUser;
+
     protected String DATABASE_CREATE = DatabaseCreate();
 
     protected abstract String DatabaseCreate();
+
+    public static void setCurrentUser(String user){
+        currentUser = user;
+    }
 
     protected DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
