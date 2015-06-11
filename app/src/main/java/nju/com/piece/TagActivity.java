@@ -3,7 +3,6 @@ package nju.com.piece;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +37,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private String DATEPICKER_TAG;
     private String TIMEPICKER_TAG;
 
-    private boolean ifEdit = false;
-
     private TextView date_text;
     private TextView plan_text;
     private EditText tag_name_edit;
@@ -63,7 +60,9 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private final DBFacade facade = new DBFacade(this);
 
     private void editInit(String tagName){
+
         TagPO tagPO = facade.getTag(tagName);
+
         Date endDate = tagPO.getEndDate();
         if (endDate == null)
             DATEPICKER_TAG = "选择截止日期";
@@ -77,12 +76,18 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             double time = targetTime%60;
             plan_text.setText(time+"");
         }
+
+        IconsArray.currentIcon = tagPO.getResource();
+
+        addBtn.setText("编辑标签");
     }
 
     private void notEditInit(){
         DATEPICKER_TAG = "选择截止日期";
         TIMEPICKER_TAG = "选择时间";
         addBtn.setText("添加标签");
+
+        IconsArray.currentIcon = IconsArray.getIconArray().get(0).getResource();
     }
 
     @Override
@@ -105,7 +110,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         if (savedInstanceState!=null) {
             Boolean ifEdit = savedInstanceState.getBoolean("ifEdit");
             if (ifEdit != null && ifEdit.booleanValue() == true) {
-                ifEdit = true;
                 String tagName = savedInstanceState.getString("tagName");
                 editInit(tagName);
             } else {

@@ -8,6 +8,9 @@ import nju.com.piece.adapter.adapterEntity.IconItem;
  * Created by shen on 15/6/10.
  */
 public class IconsArray {
+
+    public static int currentIcon = R.drawable.icon1_small;
+
     private final static ArrayList<IconItem> icon_array = new ArrayList<IconItem>(){{
         //        add icons
         add(new IconItem(R.drawable.icon1_small));
