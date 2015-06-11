@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -13,7 +12,7 @@ import android.widget.Button;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import nju.com.piece.NewTagActivity;
+import nju.com.piece.TagActivity;
 import nju.com.piece.R;
 import nju.com.piece.TotalStatisticActivity;
 
@@ -102,7 +101,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.newTagButton:
-                intent = new Intent(MainActivity.this, NewTagActivity.class);
+                intent = new Intent(MainActivity.this, TagActivity.class);
                 startActivity(intent);
                 break;
             case R.id.totalButton:

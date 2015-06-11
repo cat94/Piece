@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import nju.com.piece.IconsArray;
 import nju.com.piece.adapter.adapterEntity.IconItem;
 import nju.com.piece.R;
 import nju.com.piece.TagIconView;
@@ -54,6 +55,9 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
 
         view.setClickable(true);
         view.setOnClickListener(new IconClickListener());
+
+        if (res == IconsArray.currentIcon)
+            view.performClick();
 
         return view;
     }
