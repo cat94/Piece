@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import nju.com.piece.R;
+import nju.com.piece.logic.sync.SyncRecords;
 import nju.com.piece.logic.update.UpdateInfo;
 import nju.com.piece.logic.update.UpdateInfoService;
 
@@ -30,11 +32,13 @@ public class SetActivity extends BaseActionBarActivity{
     private ProgressDialog progressDialog;
     UpdateInfoService updateInfoService;
     private static String TAG="SetActivity";
+    static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
+        context=SetActivity.this;
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -70,6 +74,8 @@ public class SetActivity extends BaseActionBarActivity{
                     Toast.makeText(getActivity(), "这应该打开个人信息", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.task:
+                    SyncRecords syncRecords=new SyncRecords(context);
+                    syncRecords.sync();
                     Toast.makeText(getActivity(), "这应该做的是同步任务", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.update:

@@ -23,4 +23,6 @@
     <string name="plus_add_task">添加任务</string>
     <string name="action_manage_task">管理任务</string>
     <string name="action_settings">设置</string>
+    <string name="title_activity_login">登录</string>
+    <string name="title_activity_register">注册</string>
 </resources>
