@@ -2,61 +2,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="25dp"
-    android:paddingBottom="5dp"
+    android:layout_gravity="center"
     android:gravity="center"
-    android:layout_gravity="center">
+    android:paddingBottom="15dp"
+    android:paddingTop="15dp"
+    android:weightSum="1">
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical" >
-        <TextView
-            android:id="@+id/relax"
-            android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/del_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:src="@drawable/tag_icon_11"
+            android:visibility="invisible"/>
+
+        <LinearLayout
+            android:id="@+id/relax_layout"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:text="relax" />
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/relax_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="10sp"
-            android:textColor="#000000" />
+            <TextView
+                android:id="@+id/relax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/relax_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/default_icon"/>
+        android:src="@drawable/tag_icon_01" />
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical" >
-        <TextView
-            android:id="@+id/work"
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/edit_btn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:src="@drawable/tag_icon_12"
+            android:visibility="invisible"/>
+
+        <LinearLayout
+            android:id="@+id/work_layout"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:text="work"/>
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/work_time"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="#000000"/>
+            <TextView
+                android:id="@+id/work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000000" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/work_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
