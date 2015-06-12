@@ -4,28 +4,42 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import nju.com.piece.R;
+import nju.com.piece.adapter.TimelineAdapter;
+import nju.com.piece.adapter.adapterEntity.TimelineItem;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
-import nju.com.piece.entity.Timeline;
 
 public class TimeLineActivity extends Activity {
 
-    private Timeline timeline = null;
+    public static final String ALL_WORK_TIME = "all_work_time";
+    public static final String ALL_RELAX_TIME = "all_relax_time";
+
+//    private Timeline timeline = null;
+    private ArrayAdapter adapter = null;
+    private List<TimelineItem> items = null;
+    private TimelineItem nowItem = null;
+    private TagType nowType = null;
+    private TagPO nowPO = null;
+    private static Map<String, Integer> AllTime = new HashMap<String, Integer>();
+
+    private DBFacade dbFacade = null;
 
     private ImageView addItemBtn = null;
     private ImageView stopItemBtn = null;
@@ -33,7 +47,7 @@ public class TimeLineActivity extends Activity {
     private TextView allWorkTimeView = null;
     private TextView allRelaxTimeView = null;
 
-    private static int state = 0;
+    private static int timerState = 0;
     private Chronometer chronometer = null;
     private static CountDownTimer countDownTimer;
     private static int countDownSec = 0;
@@ -48,19 +62,49 @@ public class TimeLineActivity extends Activity {
         initAddItemBtn();
         initStopItemBtn();
         initChronometer();
-
-        DBFacade dbFacade = new DBFacade(this);
-        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
-        dbFacade.addTag(tag1);
-        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
-        dbFacade.addTag(tag2);
+//        DBFacade dbFacade = new DBFacade(this);
+//        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
+//        dbFacade.addTag(tag1);
+//        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
+//        dbFacade.addTag(tag2);
     }
 
     private void initTimeline() {
         timelineView = (ListView) findViewById(R.id.timeline);
         allRelaxTimeView = (TextView) findViewById(R.id.all_relax_time);
         allWorkTimeView = (TextView) findViewById(R.id.all_work_time);
-        timeline = new Timeline(this, timelineView, allRelaxTimeView, allWorkTimeView);
+//        timeline = new Timeline(this, timelineView, allRelaxTimeView, allWorkTimeView);
+        this.dbFacade = new DBFacade(this);
+        initDataList();
+        initSimAdapter();
+        updateAllTime();
+    }
+
+    private void updateAllTime() {
+        allRelaxTimeView.setText(FormatSecond(AllTime.get(ALL_RELAX_TIME)));
+        allWorkTimeView.setText(FormatSecond(AllTime.get(ALL_WORK_TIME)));
+    }
+
+    private void initSimAdapter() {
+        adapter = new TimelineAdapter(this, R.layout.timeline_item, items);
+        timelineView.setAdapter(adapter);
+    }
+
+    private void initDataList() {
+        AllTime.put(ALL_RELAX_TIME,0);
+        AllTime.put(ALL_WORK_TIME, 0);
+        items = new ArrayList<TimelineItem>();
+        TimelineItem item;
+        TagPO tag;
+        TagType type;
+        ArrayList<PeriodPO> pos = dbFacade.getPeriodsByDate(new Date());
+        for (PeriodPO po : pos) {
+            tag = dbFacade.getTag(po.getTag());
+            type = tag.getType();
+            item = new TimelineItem(type.toString(), tag.getTagName(), po.getLength(), tag.getResource());
+            items.add(item);
+            AllTime.put(type.getAllTimeField(), AllTime.get(type.getAllTimeField()) + po.getLength());
+        }
     }
 
     private void initAddItemBtn() {
@@ -78,14 +122,14 @@ public class TimeLineActivity extends Activity {
         stopItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (state) {
+                switch (timerState) {
                     case TaskActivity.TIMING:
                         chronometer.stop();
-                        timeline.stopItem((int)((SystemClock.elapsedRealtime()- chronometer.getBase())/1000));
+                        stopItem((int)((SystemClock.elapsedRealtime()- chronometer.getBase())/1000));
                         break;
                     case TaskActivity.COUNTDOWN:
                         countDownTimer.cancel();
-                        timeline.stopItem(countDownSec);
+                        stopItem(countDownSec);
                         countDownSec = 0;
                         break;
                 }
@@ -110,7 +154,7 @@ public class TimeLineActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == STARTCODE) {
-            state = resultCode;
+            timerState = resultCode;
 
             final int length;
             TagPO tag;
@@ -120,17 +164,17 @@ public class TimeLineActivity extends Activity {
                     length = data.getIntExtra("length", 0) * 60;
                     tag = (TagPO) data.getSerializableExtra("tag");
                     changeAddToStop();
-                    timeline.addItem(tag);
+                    addItem(tag);
                     countDownTimer = new CountDownTimer(length * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
-                            chronometer.setText(Timeline.FormatSecond((int) millisUntilFinished / 1000));
+                            chronometer.setText(FormatSecond((int) millisUntilFinished / 1000));
                             AddSec();
                         }
 
                         @Override
                         public void onFinish() {
-                            timeline.stopItem(length);
+                            stopItem(length);
                             changeStopToAdd();
                         }
                     }.start();
@@ -139,13 +183,13 @@ public class TimeLineActivity extends Activity {
                 case TaskActivity.ADD:
                     length = data.getIntExtra("length", 0) * 60;
                     tag = (TagPO) data.getSerializableExtra("tag");
-                    timeline.addItem(tag);
-                    timeline.stopItem(length);
+                    addItem(tag);
+                    stopItem(length);
                     break;
                 case TaskActivity.TIMING:
                     tag = (TagPO) data.getSerializableExtra("tag");
                     changeAddToStop();
-                    timeline.addItem(tag);
+                    addItem(tag);
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     chronometer.start();
                     break;
@@ -169,5 +213,37 @@ public class TimeLineActivity extends Activity {
 
     public static void AddSec() {
         countDownSec++;
+    }
+
+    public void addItem(TagPO po) {
+        nowPO = po;
+        nowType = po.getType();
+        nowItem = new TimelineItem(nowType.toString(), po.getTagName(), po.getResource());
+        items.add(0, nowItem);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void stopItem(int time) {
+        AllTime.put(nowType.getAllTimeField(), AllTime.get(nowType.getAllTimeField()) + time);
+        updateAllTime();
+        nowItem.setLength(time);
+        adapter.notifyDataSetChanged();
+        PeriodPO newPO = new PeriodPO(nowPO.getTagName(), time);
+        dbFacade.addPeriod(newPO);
+        nowPO = null;
+        nowItem = null;
+        nowType = null;
+    }
+
+    public static String FormatSecond(int second) {
+        int h = second / 3600;
+        int mod = second % 3600;
+        int m = mod / 60;
+        int s = mod % 60;
+        String result = "";
+        result += h > 9 ? h + ":" : "0" + h + ":";
+        result += m > 9 ? m + ":" : "0" + m + ":";
+        result += s > 9 ? s + "" : "0" + s;
+        return result;
     }
 }

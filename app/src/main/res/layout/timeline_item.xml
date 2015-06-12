@@ -8,42 +8,28 @@
     android:paddingTop="15dp"
     android:weightSum="1">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/del_btn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:src="@drawable/tag_icon_11"
-            android:visibility="invisible"/>
-
-        <LinearLayout
-            android:id="@+id/relax_layout"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/relax"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical">
+            android:layout_gravity="right"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/relax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/relax_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:textColor="#000000"
-                android:textSize="10sp" />
-        </LinearLayout>
-    </FrameLayout>
+        <TextView
+            android:id="@+id/relax_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/icon"
@@ -52,40 +38,26 @@
         android:src="@drawable/tag_icon_01" />
 
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/work_layout"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/edit_btn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:src="@drawable/tag_icon_12"
-            android:visibility="invisible"/>
-
-        <LinearLayout
-            android:id="@+id/work_layout"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/work"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/work"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/work_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:textColor="#000000" />
-        </LinearLayout>
-
-    </FrameLayout>
+        <TextView
+            android:id="@+id/work_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </LinearLayout>
 
 </LinearLayout>

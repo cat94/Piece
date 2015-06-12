@@ -5,10 +5,10 @@ package nju.com.piece.adapter.adapterEntity;
  */
 public class TimelineItem {
 
-    private String type;
-    private String name;
-    private int length;
-    private int icon;
+    private String type = "";
+    private String name = "";
+    private int length = 0;
+    private int icon = 0;
 
     public TimelineItem(String type, String name, int icon) {
         this.type = type;
