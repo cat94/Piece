@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    tools:context="nju.com.piece.TagActivity"
+    tools:context="nju.com.piece.activity.TagActivity"
     android:layout_height="wrap_content">
 
     <ScrollView
@@ -21,6 +21,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tag_picker_height"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@drawable/background">
 
         <ImageView
@@ -99,7 +101,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/add_tag_btn"
+                android:id="@+id/tag_btn"
                 android:background="@drawable/background"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp" />

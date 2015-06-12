@@ -1,8 +1,9 @@
-package nju.com.piece;
+package nju.com.piece.activity;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import nju.com.piece.activity.MainActivity;
+import nju.com.piece.IconsArray;
+import nju.com.piece.MyGridView;
+import nju.com.piece.R;
 import nju.com.piece.adapter.IconImageAdaptor;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
@@ -47,7 +50,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     private GridView icon_grid;
 
-    private Button addBtn;
+    private Button btn;
 
 //    default state is work
     private TagType currentType = TagType.work;
@@ -59,9 +62,11 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     private final DBFacade facade = new DBFacade(this);
 
-    private void editInit(String tagName){
+    private void editInit(final String tagName){
 
         TagPO tagPO = facade.getTag(tagName);
+
+        tag_name_edit.setText(tagName);
 
         Date endDate = tagPO.getEndDate();
         if (endDate == null)
@@ -79,22 +84,67 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
         IconsArray.currentIcon = tagPO.getResource();
 
-        addBtn.setText("编辑标签");
+        btn.setText("编辑标签");
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                try {
+                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
+                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+                    String newTagName = tag_name_edit.getText().toString();
+
+                    int res = IconImageAdaptor.getSelectedRes();
+                    IconImageAdaptor.clearSelecetedRes();
+
+                    facade.updateTag(tagName, new TagPO(newTagName, currentType, res, target, end_date));
+                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
     }
 
     private void notEditInit(){
         DATEPICKER_TAG = "选择截止日期";
         TIMEPICKER_TAG = "选择时间";
-        addBtn.setText("添加标签");
+        btn.setText("添加标签");
 
         IconsArray.currentIcon = IconsArray.getIconArray().get(0).getResource();
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                try {
+                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
+                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+                    String tagName = tag_name_edit.getText().toString();
+
+                    int res = IconImageAdaptor.getSelectedRes();
+                    IconImageAdaptor.clearSelecetedRes();
+
+                    facade.addTag(new TagPO(tagName, currentType, res, target, end_date));
+                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag);
-
 
         date_text = (TextView)findViewById(R.id.date_text);
         date_icon = (ImageView)findViewById(R.id.date_image);
@@ -104,17 +154,22 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
         type_icon = (ImageView)findViewById(R.id.type_image);
 
-        addBtn = (Button)findViewById(R.id.add_tag_btn);
+        btn = (Button)findViewById(R.id.tag_btn);
         tag_name_edit = (EditText)findViewById(R.id.name_edit);
 
-        if (savedInstanceState!=null) {
-            Boolean ifEdit = savedInstanceState.getBoolean("ifEdit");
+
+        Bundle bundle=this.getIntent().getExtras();
+
+        if (bundle!=null) {
+            Boolean ifEdit = bundle.getBoolean("ifEdit");
             if (ifEdit != null && ifEdit.booleanValue() == true) {
-                String tagName = savedInstanceState.getString("tagName");
+                String tagName = bundle.getString("tagName");
                 editInit(tagName);
             } else {
                 notEditInit();
             }
+        }else{
+            notEditInit();
         }
 
         final Calendar calendar = Calendar.getInstance();
@@ -171,27 +226,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                     view.setImageResource(R.drawable.busy);
                 }
 
-            }
-        });
-
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-                try {
-                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
-                    int target = (int)(60.0*Double.valueOf((String)plan_text.getText()));
-                    String tagName = tag_name_edit.getText().toString();
-
-                    int res = IconImageAdaptor.getSelectedRes();
-                    IconImageAdaptor.clearSelecetedRes();
-
-                    facade.addTag(new TagPO(tagName,currentType,res,target,end_date));
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
             }
         });
 

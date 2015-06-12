@@ -80,8 +80,8 @@ public class DBFacade {
         accountDBHelperInstance().updatePswd(username, newPswd);
     }
 
-    public void updateTagName(String oldTag, String newTag){
-        tagDBHelperInstance().updateTagName(oldTag,newTag);
+    public void updateTag(String oldTag, TagPO newTag){
+        tagDBHelperInstance().updateTag(oldTag,newTag);
     }
 
     private PeriodDBHelper periodHelperInstance(){

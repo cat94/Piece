@@ -12,7 +12,6 @@ import android.widget.Button;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import nju.com.piece.TagActivity;
 import nju.com.piece.R;
 import nju.com.piece.TotalStatisticActivity;
 
@@ -20,8 +19,9 @@ import nju.com.piece.TotalStatisticActivity;
  * @author Hyman
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
-    Button timelineButton,setButton,newTagButton;
+    Button timelineButton,setButton;
     Button totalButton;
+    Button newTagButton,editTagButton;
 
     /**
      * ��ȡ��ǰ��Ļ���ܶ�
@@ -40,6 +40,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         newTagButton=(Button)findViewById(R.id.newTagButton);
         newTagButton.setOnClickListener(this);
+
+        editTagButton = (Button)findViewById(R.id.editTagButton);
+        editTagButton.setOnClickListener(this);
 
         totalButton = (Button)findViewById(R.id.totalButton);
         totalButton.setOnClickListener(this);
@@ -106,6 +109,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.totalButton:
                 intent = new Intent(MainActivity.this, TotalStatisticActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.editTagButton:
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("ifEdit",true);
+                bundle.putString("tagName","很大的的人我");
+
+                intent = new Intent(MainActivity.this, TagActivity.class);
+                intent.putExtras(bundle);
+
                 startActivity(intent);
                 break;
         }
