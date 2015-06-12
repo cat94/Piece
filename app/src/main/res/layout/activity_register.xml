@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login"
+    tools:context=".MainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/loginPanel"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/background_login_div"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="请输入您的注册信息"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/reg_accountEt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/qq_edit_login"
+            android:ems="10"
+            android:maxLength="20"
+            android:hint="请输入您的用户名"
+            android:singleLine="true" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/reg_pwdEt"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/qq_edit_login"
+            android:ems="10"
+            android:hint="请输入您的密码"
+            android:maxLength="20"
+            android:password="true"
+            android:singleLine="true"
+            android:layout_below="@+id/reg_accountEt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/reg_pwdEt2"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/qq_edit_login"
+            android:ems="10"
+            android:maxLength="20"
+            android:hint="请再次输入您的密码"
+            android:password="true"
+            android:singleLine="true"
+            android:layout_below="@+id/reg_pwdEt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/reg_regBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/reg_pwdEt2"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/background_button_div"
+            android:text="注册" />
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/reg_pwdEt2"
+            android:layout_marginRight="96dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/background_button_div"
+            android:text="返回" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reg_progressbar"
+            android:layout_alignBottom="@+id/reg_regBtn"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="false"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
