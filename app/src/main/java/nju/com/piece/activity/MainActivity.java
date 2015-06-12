@@ -19,9 +19,12 @@ import nju.com.piece.TotalStatisticActivity;
  * @author Hyman
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
+
     Button timelineButton,setButton;
-    Button totalButton;
+    Button totalButton,loginButton;
     Button newTagButton,editTagButton;
+
+    Button timelineButton,setButton;
 
     /**
      * ��ȡ��ǰ��Ļ���ܶ�
@@ -47,6 +50,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         totalButton = (Button)findViewById(R.id.totalButton);
         totalButton.setOnClickListener(this);
 
+        loginButton = (Button)findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(this);
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
 
@@ -118,7 +123,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 intent = new Intent(MainActivity.this, TagActivity.class);
                 intent.putExtras(bundle);
-
+                startActivity(intent);
+                break;
+            case R.id.loginButton:
+                intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
         }
