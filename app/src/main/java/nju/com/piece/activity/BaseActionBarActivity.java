@@ -7,8 +7,8 @@ import android.view.MenuItem;
 import java.lang.reflect.Field;
 
 /**
- * all the activities except MainActivity that use ActionBar should extends this class
- * 用到ActionBar的activity都继承这个类(除了主界面）
+ * ActionBar��activity������ͳһ����������
+ * ���ж�������actionbar���඼�̳д��ࡣ
  * @author hyman
  *
  */
@@ -19,16 +19,18 @@ public class BaseActionBarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true); // �������Ͻ�ͼ����Ҳ��Ƿ��������С��ͷ, true
+        // ��С��ͷ������ͼ����Ե��
         actionBar.setDisplayShowHomeEnabled(false);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:  //the back button  "<" on the top-left
+            case android.R.id.home:// �������ͼ���¼�
                 this.finish();
             default:
                 return super.onOptionsItemSelected(item);

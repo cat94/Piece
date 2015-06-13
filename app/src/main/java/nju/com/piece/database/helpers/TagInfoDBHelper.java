@@ -212,18 +212,23 @@ public class TagInfoDBHelper extends DatabaseHelper {
     }
 
 
-    public void updateTagName(String oldName, String newName){
+    public void updateTag(String oldName, TagPO newTag){
         ContentValues cv = new ContentValues();
-        cv.put(COL_TAG, oldName);
+        cv.put(COL_TAG, newTag.getTagName());
+        cv.put(COL_TYPE, newTag.getType().toString());
+        cv.put(COL_RES, newTag.getResource());
+        cv.put(COL_TARGET, newTag.getTargetMinute());
+        cv.put(COL_END_DATE, DateTool.Date2Millis(newTag.getEndDate()));
 
         String where = COL_TAG + " = ?";
-        String[] whereArgs = new String[]{newName};
+        String[] whereArgs = new String[]{oldName};
 
         SQLiteDatabase db = getWritableDatabase();
         db.update(TABLE_NAME, cv, where, whereArgs);
         db.close();
 
-        PeriodDBHelper.instance(context).updateTagName(oldName, newName);
+        if (!oldName.equals(newTag.getTagName()))
+            PeriodDBHelper.instance(context).updateTagName(oldName, newTag.getTagName());
     }
 
 }

@@ -96,12 +96,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         setContentView(R.layout.activity_tag);
 
 
-        //about actionbar
-        android.app.ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
-
         date_text = (TextView)findViewById(R.id.date_text);
         date_icon = (ImageView)findViewById(R.id.date_image);
 
@@ -219,13 +213,15 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml
-            switch (item.getItemId()) {
-                case android.R.id.home:// �������ͼ���¼�
-                    this.finish();
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -248,6 +244,4 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         double text_hour = hour+min/60.0;
         plan_text.setText(String.format("%.1f", text_hour));
     }
-
-
 }
