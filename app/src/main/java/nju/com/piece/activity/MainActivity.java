@@ -24,8 +24,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     Button totalButton,loginButton;
     Button newTagButton,editTagButton;
 
-    Button timelineButton,setButton;
-
     /**
      * ��ȡ��ǰ��Ļ���ܶ�
      */
@@ -119,7 +117,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.editTagButton:
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("ifEdit",true);
-                bundle.putString("tagName","很大的的人我");
+                bundle.putString("tagName","tag name to edit");
 
                 intent = new Intent(MainActivity.this, TagActivity.class);
                 intent.putExtras(bundle);
