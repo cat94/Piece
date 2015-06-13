@@ -7,8 +7,8 @@ import android.view.MenuItem;
 import java.lang.reflect.Field;
 
 /**
- * ActionBar»ù´¡activity£¬½øÐÐÍ³Ò»µÄÊôÐÔÉèÖÃ
- * ËùÓÐ¶¥²¿´øÓÐactionbarµÄÀà¶¼¼Ì³Ð´ËÀà¡£
+ * ActionBarï¿½ï¿½activityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í³Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½actionbarï¿½ï¿½ï¿½à¶¼ï¿½Ì³Ð´ï¿½ï¿½à¡£
  * @author hyman
  *
  */
@@ -17,20 +17,19 @@ public class BaseActionBarActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true); // ¾ö¶¨×óÉÏ½ÇÍ¼±êµÄÓÒ²àÊÇ·ñÓÐÏò×óµÄÐ¡¼ýÍ·, true
-        // ÓÐÐ¡¼ýÍ·£¬²¢ÇÒÍ¼±ê¿ÉÒÔµã»÷
+        actionBar.setDisplayHomeAsUpEnabled(true); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Í·, true
+        // ï¿½ï¿½Ð¡ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½
         actionBar.setDisplayShowHomeEnabled(false);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:// µã»÷·µ»ØÍ¼±êÊÂ¼þ
+            case android.R.id.home:// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Â¼ï¿½
                 this.finish();
             default:
                 return super.onOptionsItemSelected(item);
