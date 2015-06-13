@@ -7,8 +7,7 @@ import android.view.MenuItem;
 import java.lang.reflect.Field;
 
 /**
- * ActionBar��activity������ͳһ����������
- * ���ж�������actionbar���඼�̳д��ࡣ
+ * all the activities except mainactivity that use actionbar should extend this
  * @author hyman
  *
  */

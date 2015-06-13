@@ -3,15 +3,8 @@ package nju.com.piece.activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Menu;
 import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.Window;
 import android.widget.Button;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 import nju.com.piece.R;
 import nju.com.piece.TotalStatisticActivity;
 

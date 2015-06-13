@@ -25,7 +25,7 @@
             android:label="@string/title_activity_total_statistic" >
         </activity>
         <activity
-            android:name=".TagActivity"
+            android:name=".activity.TagActivity"
             android:label="@string/title_activity_new_tag" >
         </activity>
         <activity
@@ -57,10 +57,6 @@
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".activity.RegisterActivity"

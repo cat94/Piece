@@ -9,7 +9,6 @@ import android.view.SubMenu;
 import android.view.View;
 
 import nju.com.piece.R;
-import nju.com.piece.TagActivity;
 
 public class PlusActionProvider extends ActionProvider {
 

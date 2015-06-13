@@ -18,7 +18,6 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import nju.com.piece.R;
-import nju.com.piece.TagActivity;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.TagPO;
