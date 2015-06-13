@@ -23,11 +23,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     Button timelineButton,setButton,newTagButton;
     Button totalButton,loginButton;
 
-    /**
-     * ��ȡ��ǰ��Ļ���ܶ�
-     */
-    private DisplayMetrics dm;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,48 +41,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         loginButton = (Button)findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
-        setOverflowShowingAlways();
-        dm = getResources().getDisplayMetrics();
 
-    }
-
-
-
-    @Override
-    //����menu_main.xml�ļ�
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    //��������overflow���е�Action��ť��ͼ����ʾ����
-    public boolean onMenuOpened(int featureId, Menu menu) {
-        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod(
-                            "setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
-                } catch (Exception e) {
-                }
-            }
-        }
-        return super.onMenuOpened(featureId, menu);
-    }
-
-    //���ε�����Menu��
-    private void setOverflowShowingAlways() {
-        try {
-            ViewConfiguration config = ViewConfiguration.get(this);
-            Field menuKeyField = ViewConfiguration.class
-                    .getDeclaredField("sHasPermanentMenuKey");
-            menuKeyField.setAccessible(true);
-            menuKeyField.setBoolean(config, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

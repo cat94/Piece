@@ -28,7 +28,7 @@ import android.os.Handler;
 import android.util.Log;
 
 /**
- * ½øÐÐAPP¸üÐÂµÄÒµÎñÂß¼­Àà¡£°üÀ¨»ñÈ¡¸üÐÂÐÅÏ¢¡¢¼ì²éÊÇ·ñÐèÒª¸üÐÂ¡¢»ñÈ¡ÎÄ¼þ¡¢°²×°µÈ·½·¨¡£
+ * get app updae info and load app and install
  * @author Hyman
  */
 public class UpdateInfoService {
@@ -44,23 +44,23 @@ public class UpdateInfoService {
 	
 	public UpdateInfo getUpDateInfo(){
 		String path = GetServerUrl.getUrl() + "/update.txt";
-		Log.i(TAG,"»ñÈ¡Â·¾¶");
+		Log.i(TAG,"ï¿½ï¿½È¡Â·ï¿½ï¿½");
 		StringBuffer sb = new StringBuffer();
 		String line = null;
 		BufferedReader reader = null;
 		try {
-			// ´´½¨Ò»¸öurl¶ÔÏó
+			// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½urlï¿½ï¿½ï¿½ï¿½
 			URL url = new URL(path);
-			Log.i(TAG,"´´½¨URL¶ÔÏó");
-			// Í¨ß^url¶ÔÏó£¬´´½¨Ò»¸öHttpURLConnection¶ÔÏó£¨Á¬½Ó£©
+			Log.i(TAG,"ï¿½ï¿½ï¿½ï¿½URLï¿½ï¿½ï¿½ï¿½");
+			// Í¨ï¿½^urlï¿½ï¿½ï¿½ó£¬´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½HttpURLConnectionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½
 			HttpURLConnection urlConnection = (HttpURLConnection) url
 					.openConnection();
-			Log.i(TAG,"½¨Á¢Á´½Ó");
-			// Í¨¹ýHttpURLConnection¶ÔÏó£¬µÃµ½InputStream
+			Log.i(TAG,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			// Í¨ï¿½ï¿½HttpURLConnectionï¿½ï¿½ï¿½ó£¬µÃµï¿½InputStream
 			reader = new BufferedReader(new InputStreamReader(
 					urlConnection.getInputStream()));
-			Log.i(TAG,"»ñÈ¡ÊäÈëÁ÷");
-			// Ê¹ÓÃioÁ÷¶ÁÈ¡ÎÄ¼þ
+			Log.i(TAG,"ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			// Ê¹ï¿½ï¿½ioï¿½ï¿½ï¿½ï¿½È¡ï¿½Ä¼ï¿½
 			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
@@ -88,8 +88,8 @@ public class UpdateInfoService {
 
 	
 	public boolean isNeedUpdate(){
-			String new_version = updateInfo.getVersion(); // ×îÐÂ°æ±¾µÄ°æ±¾ºÅ
-			//»ñÈ¡µ±Ç°°æ±¾ºÅ
+			String new_version = updateInfo.getVersion(); // ï¿½ï¿½ï¿½Â°æ±¾ï¿½Ä°æ±¾ï¿½ï¿½
+			//ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½æ±¾ï¿½ï¿½
 			String now_version="";
 			try {
 				PackageManager packageManager = context.getPackageManager();
@@ -108,7 +108,7 @@ public class UpdateInfoService {
 	
 	
 	public void downLoadFile(final String url,final ProgressDialog pDialog,Handler h){
-		Log.i(TAG,"ÏÂÔØÂ·¾¶:"+url);
+		Log.i(TAG,"ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½:"+url);
 		progressDialog=pDialog;
 		handler=h;
 		new Thread() {
@@ -119,8 +119,8 @@ public class UpdateInfoService {
 				try {
 					response = client.execute(get);
 					HttpEntity entity = response.getEntity();
-					int length = (int) entity.getContentLength();   //»ñÈ¡ÎÄ¼þ´óÐ¡
-                                        progressDialog.setMax(length);                            //ÉèÖÃ½ø¶ÈÌõµÄ×Ü³¤¶È
+					int length = (int) entity.getContentLength();   //ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡
+                                        progressDialog.setMax(length);                            //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½
 					InputStream is = entity.getContent();
 					FileOutputStream fileOutputStream = null;
 					if (is != null) {
@@ -128,15 +128,15 @@ public class UpdateInfoService {
 								Environment.getExternalStorageDirectory(),
 								"Test.apk");
 						fileOutputStream = new FileOutputStream(file);
-						//Õâ¸öÊÇ»º³åÇø£¬¼´Ò»´Î¶ÁÈ¡10¸ö±ÈÌØ£¬ÎÒÅªµÄÐ¡ÁËµã£¬ÒòÎªÔÚ±¾µØ£¬ËùÒÔÊýÖµÌ«´óÒ»ÏÂ¾ÍÏÂÔØÍêÁË,
-						//¿´²»³öprogressbarµÄÐ§¹û¡£
+						//ï¿½ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¶ï¿½È¡10ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½Åªï¿½ï¿½Ð¡ï¿½Ëµã£¬ï¿½ï¿½Îªï¿½Ú±ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÌ«ï¿½ï¿½Ò»ï¿½Â¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+						//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½progressbarï¿½ï¿½Ð§ï¿½ï¿½
                         byte[] buf = new byte[10];   
 						int ch = -1;
 						int process = 0;
 						while ((ch = is.read(buf)) != -1) {       
 							fileOutputStream.write(buf, 0, ch);
 							process += ch;
-							progressDialog.setProgress(process);       //ÕâÀï¾ÍÊÇ¹Ø¼üµÄÊµÊ±¸üÐÂ½ø¶ÈÁË£¡
+							progressDialog.setProgress(process);       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹Ø¼ï¿½ï¿½ÊµÊ±ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½Ë£ï¿½
 						}
 
 					}

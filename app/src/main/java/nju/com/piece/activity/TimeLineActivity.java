@@ -4,22 +4,23 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.Window;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.Date;
-
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import nju.com.piece.R;
+import nju.com.piece.TagActivity;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
-import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.entity.Timeline;
 
@@ -37,6 +38,7 @@ public class TimeLineActivity extends Activity {
     private Chronometer chronometer = null;
     private static CountDownTimer countDownTimer;
     private static int countDownSec = 0;
+    private DisplayMetrics dm;
 
     private static final int STARTCODE = 1;
 
@@ -50,10 +52,13 @@ public class TimeLineActivity extends Activity {
         initChronometer();
 
         DBFacade dbFacade = new DBFacade(this);
-        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
+        TagPO tag1 = new TagPO("relax", TagType.relax, R.drawable.tag_icon_01);
         dbFacade.addTag(tag1);
-        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
+        TagPO tag2 = new TagPO("work", TagType.work, R.drawable.tag_icon_04);
         dbFacade.addTag(tag2);
+        setOverflowShowingAlways();
+        dm = getResources().getDisplayMetrics();
+
     }
 
     private void initTimeline() {
@@ -81,7 +86,7 @@ public class TimeLineActivity extends Activity {
                 switch (state) {
                     case TaskActivity.TIMING:
                         chronometer.stop();
-                        timeline.stopItem((int)((SystemClock.elapsedRealtime()- chronometer.getBase())/1000));
+                        timeline.stopItem((int) ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000));
                         break;
                     case TaskActivity.COUNTDOWN:
                         countDownTimer.cancel();
@@ -170,4 +175,65 @@ public class TimeLineActivity extends Activity {
     public static void AddSec() {
         countDownSec++;
     }
+
+    @Override
+    //load menu_main.xml
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    //overflow
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod(
+                            "setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception e) {
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
+    }
+
+    //show the menu all time
+    private void setOverflowShowingAlways() {
+        try {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKeyField = ViewConfiguration.class
+                    .getDeclaredField("sHasPermanentMenuKey");
+            menuKeyField.setAccessible(true);
+            menuKeyField.setBoolean(config, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+     @Override
+     public boolean onOptionsItemSelected(MenuItem item) {
+           Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_plus:
+                         intent=new Intent(TimeLineActivity.this, TagActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.action_set:
+                        intent=new Intent(TimeLineActivity.this, SetActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.action_manage:
+                         intent=new Intent(TimeLineActivity.this, TagActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+
+                }
+         return super.onOptionsItemSelected(item);
+            }
+
+
 }
