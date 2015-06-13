@@ -1,6 +1,7 @@
 package nju.com.piece.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.ActionProvider;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -8,6 +9,7 @@ import android.view.SubMenu;
 import android.view.View;
 
 import nju.com.piece.R;
+import nju.com.piece.TagActivity;
 
 public class PlusActionProvider extends ActionProvider {
 
@@ -31,7 +33,8 @@ public class PlusActionProvider extends ActionProvider {
 				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 					@Override
 					public boolean onMenuItemClick(MenuItem item) {
-
+                        Intent intent=new Intent(context, TagActivity.class);
+						context.startActivity(intent);
 						return true;
 					}
 				});

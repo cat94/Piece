@@ -36,7 +36,7 @@ import nju.com.piece.view.TaskListView;
  */
 
 
-public class TaskActivity extends Activity implements OnItemClickListener,
+public class TaskActivity extends BaseActionBarActivity implements OnItemClickListener,
 		SlideView.OnSlideListener {
 
 	private static final String TAG = "MainActivity";

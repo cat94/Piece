@@ -5,21 +5,22 @@
 
     <item
     android:id="@+id/action_plus"
-    android:actionProviderClass="nju.com.piece.activity.PlusActionProvider"
     android:icon="@drawable/actionbar_add_icon"
-    android:title="@string/action_settings"
-    android:showAsAction="always" />
+    android:title="@string/plus_add_task"
+    app:showAsAction="always"
+    android:orderInCategory="1"/>
 
     <item
-        android:id="@+id/action_card"
+        android:id="@+id/action_manage"
         android:icon="@drawable/action_manage_icon"
         android:title="@string/action_manage_task"
-        android:showAsAction="never"/>
+        app:showAsAction="never"
+        android:orderInCategory="2"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_set"
         android:icon="@drawable/action_setting_icon"
         android:title="@string/action_settings"
-        android:showAsAction="never"/>
-
+        app:showAsAction="never"
+        android:orderInCategory="3"/>
 
 </menu>
