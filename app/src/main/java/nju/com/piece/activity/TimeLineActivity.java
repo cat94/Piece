@@ -34,21 +34,20 @@ public class TimeLineActivity extends Activity {
     public static final String ALL_RELAX_TIME = "all_relax_time";
 
     public static List<PeriodPO> periodPOs = null;
-
-    private ArrayAdapter adapter = null;
-    private List<TimelineItem> items = null;
+    public static ArrayAdapter adapter = null;
+    public static List<TimelineItem> items = null;
     private TimelineItem nowItem = null;
     private TagType nowType = null;
     private TagPO nowPO = null;
-    private static Map<String, Integer> AllTime = new HashMap<String, Integer>();
+    public static Map<String, Integer> AllTime = new HashMap<String, Integer>();
 
     private DBFacade dbFacade = null;
 
     private ImageView addItemBtn = null;
     private ImageView stopItemBtn = null;
     private ListView timelineView = null;
-    private TextView allWorkTimeView = null;
-    private TextView allRelaxTimeView = null;
+    private static TextView allWorkTimeView = null;
+    private static TextView allRelaxTimeView = null;
 
     private static int timerState = 0;
     private Chronometer chronometer = null;
@@ -83,7 +82,7 @@ public class TimeLineActivity extends Activity {
         initSimAdapter();
     }
 
-    private void updateAllTime() {
+    public static void updateAllTime() {
         allRelaxTimeView.setText(FormatSecond(AllTime.get(ALL_RELAX_TIME)));
         allWorkTimeView.setText(FormatSecond(AllTime.get(ALL_WORK_TIME)));
     }
@@ -104,7 +103,7 @@ public class TimeLineActivity extends Activity {
         for (PeriodPO po : periodPOs) {
             tag = dbFacade.getTag(po.getTag());
             type = tag.getType();
-            item = new TimelineItem(periodPOs.indexOf(po), type.toString(), tag.getTagName(), po.getLength(), tag.getResource());
+            item = new TimelineItem(type.toString(), tag.getTagName(), po.getLength(), tag.getResource());
             items.add(item);
             AllTime.put(type.getAllTimeField(), AllTime.get(type.getAllTimeField()) + po.getLength());
         }
@@ -232,6 +231,7 @@ public class TimeLineActivity extends Activity {
         nowItem.setLength(time);
         adapter.notifyDataSetChanged();
         PeriodPO newPO = new PeriodPO(nowPO.getTagName(), time);
+        periodPOs.add(0, newPO);
         dbFacade.addPeriod(newPO);
         nowPO = null;
         nowItem = null;

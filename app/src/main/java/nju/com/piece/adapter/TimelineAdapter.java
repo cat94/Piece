@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import nju.com.piece.PeriodItemActivity;
@@ -68,12 +69,12 @@ public class TimelineAdapter extends ArrayAdapter<TimelineItem> {
             relaxTime.setText("");
         }
         icon.setImageResource(timelineItem.getIcon());
-        final int p = position;
+        final int index = position;
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PeriodItemActivity.class);
-                intent.putExtra("index", p);
+                intent.putExtra("index", index);
                 context.startActivity(intent);
             }
         });
