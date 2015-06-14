@@ -25,4 +25,5 @@
     <string name="action_settings">设置</string>
     <string name="title_activity_login">登录</string>
     <string name="title_activity_register">注册</string>
+    <string name="title_activity_period_item">PeriodItemActivity</string>
 </resources>

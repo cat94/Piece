@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nju.com.piece.PeriodItemActivity;
 import nju.com.piece.R;
 import nju.com.piece.adapter.TimelineAdapter;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;
@@ -62,6 +64,7 @@ public class TimeLineActivity extends Activity {
         initAddItemBtn();
         initStopItemBtn();
         initChronometer();
+        updateAllTime();
 //        DBFacade dbFacade = new DBFacade(this);
 //        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
 //        dbFacade.addTag(tag1);
@@ -77,7 +80,6 @@ public class TimeLineActivity extends Activity {
         this.dbFacade = new DBFacade(this);
         initDataList();
         initSimAdapter();
-        updateAllTime();
     }
 
     private void updateAllTime() {
@@ -125,7 +127,7 @@ public class TimeLineActivity extends Activity {
                 switch (timerState) {
                     case TaskActivity.TIMING:
                         chronometer.stop();
-                        stopItem((int)((SystemClock.elapsedRealtime()- chronometer.getBase())/1000));
+                        stopItem((int) ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000));
                         break;
                     case TaskActivity.COUNTDOWN:
                         countDownTimer.cancel();
@@ -246,4 +248,5 @@ public class TimeLineActivity extends Activity {
         result += s > 9 ? s + "" : "0" + s;
         return result;
     }
+
 }

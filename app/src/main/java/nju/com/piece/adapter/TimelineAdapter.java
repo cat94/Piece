@@ -2,6 +2,7 @@ package nju.com.piece.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import nju.com.piece.PeriodItemActivity;
 import nju.com.piece.R;
 import nju.com.piece.activity.TimeLineActivity;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;
@@ -36,7 +38,6 @@ public class TimelineAdapter extends ArrayAdapter<TimelineItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout view = (LinearLayout) convertView;
-
         if (view == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             view = (LinearLayout) inflater.inflate(resource, parent, false);
@@ -67,13 +68,15 @@ public class TimelineAdapter extends ArrayAdapter<TimelineItem> {
             relaxTime.setText("");
         }
         icon.setImageResource(timelineItem.getIcon());
+        final int p = position;
         icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, PeriodItemActivity.class);
+                intent.putExtra("index", p);
+                context.startActivity(intent);
             }
         });
         return view;
     }
-
 }
