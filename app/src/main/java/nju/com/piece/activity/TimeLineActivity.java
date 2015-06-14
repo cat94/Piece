@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nju.com.piece.PeriodItemActivity;
 import nju.com.piece.R;
 import nju.com.piece.adapter.TimelineAdapter;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;
