@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.entity.Timeline;
 
-public class TimeLineActivity extends Activity {
+public class TimeLineActivity extends ActionBarActivity {
 
     private Timeline timeline = null;
 
@@ -51,10 +52,12 @@ public class TimeLineActivity extends Activity {
         initChronometer();
 
         DBFacade dbFacade = new DBFacade(this);
-        TagPO tag1 = new TagPO("relax", TagType.relax, R.drawable.tag_icon_01);
-        dbFacade.addTag(tag1);
-        TagPO tag2 = new TagPO("work", TagType.work, R.drawable.tag_icon_04);
-        dbFacade.addTag(tag2);
+        if(dbFacade.getAllTags().size()==0) {
+            TagPO tag1 = new TagPO("relax", TagType.relax, R.drawable.tag_icon_01);
+            dbFacade.addTag(tag1);
+            TagPO tag2 = new TagPO("work", TagType.work, R.drawable.tag_icon_04);
+            dbFacade.addTag(tag2);
+        }
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
 
@@ -199,7 +202,7 @@ public class TimeLineActivity extends Activity {
         return super.onMenuOpened(featureId, menu);
     }
 
-    //show the menu all time
+    //show the menu all time,case some phones has physical menu button,so maybe not show menu on screen
     private void setOverflowShowingAlways() {
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
@@ -222,10 +225,6 @@ public class TimeLineActivity extends Activity {
                         break;
                     case R.id.action_set:
                         intent=new Intent(TimeLineActivity.this, SetActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.action_manage:
-                         intent=new Intent(TimeLineActivity.this, TagActivity.class);
                         startActivity(intent);
                         break;
                     default:

@@ -49,18 +49,14 @@ public class UpdateInfoService {
 		String line = null;
 		BufferedReader reader = null;
 		try {
-			// ����һ��url����
 			URL url = new URL(path);
 			Log.i(TAG,"����URL����");
-			// ͨ�^url���󣬴���һ��HttpURLConnection�������ӣ�
 			HttpURLConnection urlConnection = (HttpURLConnection) url
 					.openConnection();
 			Log.i(TAG,"��������");
-			// ͨ��HttpURLConnection���󣬵õ�InputStream
 			reader = new BufferedReader(new InputStreamReader(
 					urlConnection.getInputStream()));
 			Log.i(TAG,"��ȡ������");
-			// ʹ��io����ȡ�ļ�
 			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
@@ -88,8 +84,7 @@ public class UpdateInfoService {
 
 	
 	public boolean isNeedUpdate(){
-			String new_version = updateInfo.getVersion(); // ���°汾�İ汾��
-			//��ȡ��ǰ�汾��
+			String new_version = updateInfo.getVersion();
 			String now_version="";
 			try {
 				PackageManager packageManager = context.getPackageManager();
@@ -119,8 +114,8 @@ public class UpdateInfoService {
 				try {
 					response = client.execute(get);
 					HttpEntity entity = response.getEntity();
-					int length = (int) entity.getContentLength();   //��ȡ�ļ���С
-                                        progressDialog.setMax(length);                            //���ý�������ܳ���
+					int length = (int) entity.getContentLength();
+                                        progressDialog.setMax(length);
 					InputStream is = entity.getContent();
 					FileOutputStream fileOutputStream = null;
 					if (is != null) {
@@ -128,15 +123,13 @@ public class UpdateInfoService {
 								Environment.getExternalStorageDirectory(),
 								"Test.apk");
 						fileOutputStream = new FileOutputStream(file);
-						//����ǻ�����һ�ζ�ȡ10�����أ���Ū��С�˵㣬��Ϊ�ڱ��أ�������ֵ̫��һ�¾���������,
-						//������progressbar��Ч��
                         byte[] buf = new byte[10];   
 						int ch = -1;
 						int process = 0;
 						while ((ch = is.read(buf)) != -1) {       
 							fileOutputStream.write(buf, 0, ch);
 							process += ch;
-							progressDialog.setProgress(process);       //������ǹؼ��ʵʱ���½���ˣ�
+							progressDialog.setProgress(process);
 						}
 
 					}

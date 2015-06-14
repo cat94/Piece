@@ -21,15 +21,14 @@ public class BaseActionBarActivity extends Activity {
 
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true); // �������Ͻ�ͼ����Ҳ��Ƿ��������С��ͷ, true
-        // ��С��ͷ������ͼ����Ե��
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:// �������ͼ���¼�
+            case android.R.id.home:
                 this.finish();
             default:
                 return super.onOptionsItemSelected(item);
