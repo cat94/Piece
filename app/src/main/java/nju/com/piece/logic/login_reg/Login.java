@@ -44,8 +44,8 @@ public class Login {
             JSONObject tosendsObject = new JSONObject();
             Log.i(TAG, "start put json!");
             try {
-                tosendsObject.put("username", userName);
                 //add account info
+                tosendsObject.put("username", userName);
                 tosendsObject.put("password", password);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -53,10 +53,13 @@ public class Login {
             //change json to String
             String content = String.valueOf(tosendsObject);
             Log.i(TAG, "send :" + content);
-            String responseData = CallService.call(urlString, content);
+            String responseData = CallService.call(urlString, content,context);
+            if(responseData==null || responseData.equals("")){
+                return null;
+            }
             Log.i(TAG, "res:" + responseData);
             JSONObject resultObject = null;
-            String result="";
+            String result=null;
             try {
                 resultObject = new JSONObject(responseData);
                 result = resultObject.getString("result");
@@ -76,6 +79,10 @@ public class Login {
         @Override
         protected void onPostExecute(String  result) {
              progressBar.setVisibility(View.GONE);    //hide the progressBar
+            if(result==null){
+                CallService.showNetErr(context);
+                return;
+            }
             Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
             //here save the account info on this phone
 

@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/icon"
-        android:textColor="@color/transparent_black"
+        android:textColor="#080808"
         android:textSize="30sp" />
 
     <ProgressBar
@@ -36,7 +36,17 @@
         android:progress="0"  
         android:secondaryProgress="0"   />
 
-    <ImageButton
+    <TextView
+        android:id="@+id/percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/progressbar"
+        android:layout_alignBottom="@id/progressbar"
+        android:textColor="#FFCC00"
+        android:textSize="15sp"
+        android:text="0%"/>
+
+    <ImageView
         android:id="@+id/icon_add"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -52,7 +52,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     private Button btn;
 
-//    default state is work
+    //    default state is work
     private TagType currentType = TagType.work;
 
 
@@ -145,6 +145,13 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag);
+
+
+        //about actionbar
+        android.app.ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
 
         date_text = (TextView)findViewById(R.id.date_text);
         date_icon = (ImageView)findViewById(R.id.date_image);
@@ -245,17 +252,12 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
 
