@@ -51,6 +51,28 @@ public class PeriodDBHelper extends DatabaseHelper {
         db.close();
     }
 
+    public void updatePeriod(Date periodDate, int newLength){
+        ContentValues cv = new ContentValues();
+        cv.put(COL_LEN, newLength);
+
+        String where = COL_DATE + " = ?";
+        String[] whereArgs = new String[]{DateTool.Date2Millis(periodDate)+""};
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.update(TABLE_NAME, cv, where, whereArgs);
+
+        db.close();
+    }
+
+    public void delPeriod(Date periodDate){
+        String where = COL_DATE + " = ?";
+        String[] whereArgs = new String[]{DateTool.Date2Millis(periodDate)+""};
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME, where, whereArgs);
+        db.close();
+    }
+
     public ArrayList<PeriodPO> getPeriodsByDate(Date date){
 
         int year = DateTool.getYear(date);

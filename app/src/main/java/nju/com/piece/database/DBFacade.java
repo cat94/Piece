@@ -33,6 +33,14 @@ public class DBFacade {
         increCurrentSum(po.getTag(), po.getLength());
     }
 
+    public void updatePeriod(Date periodDate, int newLength){
+        periodHelperInstance().updatePeriod(periodDate,newLength);
+    }
+
+    public void delPeriod(Date periodDate){
+        periodHelperInstance().delPeriod(periodDate);
+    }
+
 
     public ArrayList<PeriodPO> getPeriodsByDate(Date date){
         return periodHelperInstance().getPeriodsByDate(date);
