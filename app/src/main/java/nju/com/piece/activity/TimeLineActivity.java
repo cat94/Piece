@@ -33,7 +33,8 @@ public class TimeLineActivity extends Activity {
     public static final String ALL_WORK_TIME = "all_work_time";
     public static final String ALL_RELAX_TIME = "all_relax_time";
 
-//    private Timeline timeline = null;
+    public static List<PeriodPO> periodPOs = null;
+
     private ArrayAdapter adapter = null;
     private List<TimelineItem> items = null;
     private TimelineItem nowItem = null;
@@ -99,11 +100,11 @@ public class TimeLineActivity extends Activity {
         TimelineItem item;
         TagPO tag;
         TagType type;
-        ArrayList<PeriodPO> pos = dbFacade.getPeriodsByDate(new Date());
-        for (PeriodPO po : pos) {
+        periodPOs = dbFacade.getPeriodsByDate(new Date());
+        for (PeriodPO po : periodPOs) {
             tag = dbFacade.getTag(po.getTag());
             type = tag.getType();
-            item = new TimelineItem(type.toString(), tag.getTagName(), po.getLength(), tag.getResource());
+            item = new TimelineItem(periodPOs.indexOf(po), type.toString(), tag.getTagName(), po.getLength(), tag.getResource());
             items.add(item);
             AllTime.put(type.getAllTimeField(), AllTime.get(type.getAllTimeField()) + po.getLength());
         }
