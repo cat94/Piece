@@ -55,6 +55,7 @@ public class AccountDBHelper extends DatabaseHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_NAME, where, whereArgs);
+        db.close();
     }
 
     public void updatePswd(String username, String pswd) {

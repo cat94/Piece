@@ -15,7 +15,7 @@ import nju.com.piece.database.tools.DateTool;
 public class PeriodPO {
 //    标签名
     private String tag;
-//    时间段长度
+//    时间段长度，以秒计算
     private int length;
 
 //    发生时间，不需要关心，数据库自动处理
