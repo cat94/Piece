@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_my_vertical_margin"
     android:paddingBottom="@dimen/activity_my_vertical_margin"
     android:orientation="vertical"
-    tools:context="nju.com.piece.TotalStatisticActivity"
+    tools:context="nju.com.piece.activity.TotalStatisticActivity"
     >
 
     <LinearLayout
