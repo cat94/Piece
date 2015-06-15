@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import nju.com.piece.R;
-import nju.com.piece.TotalStatisticActivity;
 
 /**
  * @author Hyman
