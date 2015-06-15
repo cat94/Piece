@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import nju.com.piece.R;
@@ -27,80 +28,63 @@ import nju.com.piece.logic.update.UpdateInfoService;
 /**
  * @author Hyman
  */
-public class SetActivity extends BaseActionBarActivity{
+public class SetActivity extends BaseActionBarActivity implements OnClickListener {
     private UpdateInfo info;
     private ProgressDialog progressDialog;
     UpdateInfoService updateInfoService;
-    private static String TAG="SetActivity";
+    private static String TAG = "SetActivity";
     static Context context;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
-        context=SetActivity.this;
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-
-    }
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment implements  OnClickListener {
-        public PlaceholderFragment( ) {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            LinearLayout info=(LinearLayout)rootView.findViewById(R.id.info);
-            LinearLayout update=(LinearLayout)rootView.findViewById(R.id.update);
-            LinearLayout task=(LinearLayout)rootView.findViewById(R.id.task);
-            info.setOnClickListener(this);
-            task.setOnClickListener(this);
-            update.setOnClickListener(this);
-            return rootView;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent;
-            switch (v.getId()){
-                case R.id.info:
-                    Toast.makeText(getActivity(), "这应该打开个人信息", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.task:
-                    SyncRecords syncRecords=new SyncRecords(context);
-                    syncRecords.sync();
-                    Toast.makeText(getActivity(), "这应该做的是同步任务", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.update:
-                    SetActivity parentActivity = (SetActivity) getActivity();
-                    parentActivity.checkUpdate();
-                    break;
-
-            }
-        }
-
+        context = SetActivity.this;
+        progressBar = (ProgressBar) findViewById(R.id.set_progressBar);
+        LinearLayout info = (LinearLayout) findViewById(R.id.info);
+        LinearLayout update = (LinearLayout) findViewById(R.id.update);
+        LinearLayout task = (LinearLayout) findViewById(R.id.task);
+        info.setOnClickListener(this);
+        task.setOnClickListener(this);
+        update.setOnClickListener(this);
     }
 
-    public  void checkUpdate(){
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.info:
+                Toast.makeText(context, "这应该打开个人信息", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.task:
+                SyncRecords syncRecords = new SyncRecords(context, progressBar);
+                syncRecords.sync();
+                Toast.makeText(context, "正在同步任务", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.update:
+                checkUpdate();
+                break;
+
+        }
+    }
+
+
+    public void checkUpdate() {
         Toast.makeText(SetActivity.this, "正在检查更新", Toast.LENGTH_SHORT).show();
         new Thread() {
             public void run() {
                 try {
                     updateInfoService = new UpdateInfoService(SetActivity.this);
                     info = updateInfoService.getUpDateInfo();
-                    Log.i(TAG,"收到更新信息:"+info.getUrl());
+                    Log.i(TAG, "收到更新信息:" + info.getUrl());
                     handler1.sendEmptyMessage(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            };
+            }
+
+            ;
         }.start();
     }
 
@@ -110,7 +94,9 @@ public class SetActivity extends BaseActionBarActivity{
             if (updateInfoService.isNeedUpdate()) {
                 showUpdateDialog();
             }
-        };
+        }
+
+        ;
     };
 
     private void showUpdateDialog() {
@@ -140,7 +126,7 @@ public class SetActivity extends BaseActionBarActivity{
     }
 
     void downFile(final String url) {
-        progressDialog = new ProgressDialog(SetActivity.this);    //������������ص�ʱ��ʵʱ���½�ȣ�����û��Ѻö�
+        progressDialog = new ProgressDialog(SetActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("请稍候");
         progressDialog.setMessage("正在下载...");

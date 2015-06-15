@@ -16,7 +16,9 @@
 
     <string name="title_activity_set">设置</string>
     <string name="total_time">总时间</string>
-
+    <string name="total_record">总记录数</string>
+    <string name="per_week">平均每周</string>
+    <string name="last_week">最近7天</string>
     <string name="new_tag_date_label">选择截止时间</string>
     <string name="new_tag_plan_label">平均每天时间</string>
 
@@ -25,4 +27,11 @@
     <string name="action_settings">设置</string>
     <string name="title_activity_login">登录</string>
     <string name="title_activity_register">注册</string>
+    <string name="title_activity_period_item">PeriodItemActivity</string>
+    <string name="title_activity_item_statistic">ItemStatisticActivity</string>
+    <string name="item_stat_hour">hours</string>
+    <string name="item_stat_days">坚持天数</string>
+    <string name="item_stat_to_target">距离里程碑</string>
+    <string name="stop_item">暂停此项目</string>
+
 </resources>

@@ -1,11 +1,13 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_my_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_my_horizontal_margin"
     android:paddingRight="@dimen/activity_my_horizontal_margin"
     android:paddingTop="@dimen/activity_my_vertical_margin"
     android:paddingBottom="@dimen/activity_my_vertical_margin"
-    tools:context="nju.com.piece.TotalStatisticActivity"
+    tools:context="nju.com.piece.activity.TotalStatisticActivity"
     >
 <LinearLayout
     android:layout_width="match_parent"
@@ -21,8 +23,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:paddingLeft="@dimen/activity_my_horizontal_padding"
+        android:paddingRight="@dimen/activity_my_horizontal_padding"
+        android:paddingTop="@dimen/activity_my_vertical_padding"
+        android:paddingBottom="@dimen/activity_my_vertical_padding"
+        android:background="@drawable/abc_list_divider_mtrl_alpha"
 
-        android:background="@drawable/background"
         android:id="@+id/linearLayout">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,7 +37,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
+
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -44,9 +50,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time"
+                android:text="@string/total_record"
 
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/stat_text_intro_size"
                 android:layout_gravity="center"
                 android:fontFamily="楷体" />
 
@@ -72,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/total_time"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/stat_text_intro_size"
                 />
 
         </LinearLayout>
@@ -83,7 +89,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/box_margin_left"
             android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -96,12 +102,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time"
+                android:text="@string/per_week"
                 android:layout_gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/stat_text_intro_size"
                 />
 
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,9 +129,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/total_time"
+                android:text="@string/last_week"
                 android:layout_gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/stat_text_intro_size"
                 />
 
         </LinearLayout>
@@ -132,10 +140,22 @@
 
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_item_bg"
+        android:layout_marginTop="@dimen/box_interval"
+        android:layout_marginBottom="@dimen/box_interval"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
+        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:paddingLeft="@dimen/activity_my_horizontal_padding"
+        android:paddingRight="@dimen/activity_my_horizontal_padding"
+        android:paddingTop="@dimen/activity_my_vertical_padding"
+        android:paddingBottom="@dimen/activity_my_vertical_padding"
         >
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/health_diligence"
@@ -145,11 +165,22 @@
             />
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_item_bg"
+        android:layout_marginTop="@dimen/box_interval"
+        android:layout_marginBottom="@dimen/box_interval"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/daily_box_height"
-        android:background="@drawable/background"
+        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:paddingLeft="@dimen/activity_my_horizontal_padding"
+        android:paddingRight="@dimen/activity_my_horizontal_padding"
+        android:paddingTop="@dimen/activity_my_vertical_padding"
+        android:paddingBottom="@dimen/activity_my_vertical_padding"
         >
 
 
@@ -185,11 +216,23 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_item_bg"
+        android:layout_marginTop="@dimen/box_interval"
+        android:layout_marginBottom="@dimen/box_interval"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/background"
+        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:paddingLeft="@dimen/activity_my_horizontal_padding"
+        android:paddingRight="@dimen/activity_my_horizontal_padding"
+        android:paddingTop="@dimen/activity_my_vertical_padding"
+        android:paddingBottom="@dimen/activity_my_vertical_padding"
         >
         <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"

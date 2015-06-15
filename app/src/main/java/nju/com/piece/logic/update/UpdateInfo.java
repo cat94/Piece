@@ -1,6 +1,6 @@
 package nju.com.piece.logic.update;
 /**
- * 更新信息的Bean
+ * updateinfo bean
  * @author Hyman
  */
 public class UpdateInfo
