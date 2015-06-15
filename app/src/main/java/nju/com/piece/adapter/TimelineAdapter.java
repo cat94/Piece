@@ -11,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
-import nju.com.piece.PeriodItemActivity;
+import nju.com.piece.activity.PeriodItemActivity;
 import nju.com.piece.R;
 import nju.com.piece.activity.TimeLineActivity;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;

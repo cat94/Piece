@@ -1,17 +1,13 @@
-package nju.com.piece;
+package nju.com.piece.activity;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
-import java.util.Date;
-
-import nju.com.piece.activity.TimeLineActivity;
+import nju.com.piece.R;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
@@ -65,14 +61,14 @@ public class PeriodItemActivity extends Activity {
                     public void onTimeSet(TimePicker view, int hour, int minute) {
                         int seconds = 3600 * hour + 60 * minute;
                         dbFacade.updatePeriod(now, seconds);
-                        item.setLength(seconds);
                         TimeLineActivity.adapter.notifyDataSetChanged();
                         if (item.getType().equals(TagType.relax.toString())) {
-                            TimeLineActivity.AllTime.put(TimeLineActivity.ALL_RELAX_TIME, TimeLineActivity.AllTime.get(TimeLineActivity.ALL_RELAX_TIME) - now.getLength() + seconds);
+                            TimeLineActivity.AllTime.put(TimeLineActivity.ALL_RELAX_TIME, TimeLineActivity.AllTime.get(TimeLineActivity.ALL_RELAX_TIME) - item.getLength() + seconds);
                         } else if (item.getType().equals(TagType.work.toString())) {
-                            TimeLineActivity.AllTime.put(TimeLineActivity.ALL_WORK_TIME, TimeLineActivity.AllTime.get(TimeLineActivity.ALL_WORK_TIME) - now.getLength() + seconds);
+                            TimeLineActivity.AllTime.put(TimeLineActivity.ALL_WORK_TIME, TimeLineActivity.AllTime.get(TimeLineActivity.ALL_WORK_TIME) - item.getLength() + seconds);
                         }
                         TimeLineActivity.updateAllTime();
+                        item.setLength(seconds);
                         finish();
                     }
                 };
