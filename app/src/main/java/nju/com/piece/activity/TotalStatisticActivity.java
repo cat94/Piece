@@ -114,7 +114,11 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
         healthLine.getLegend().setEnabled(false);
         healthDataSet.setDrawCircles(false);
         healthDataSet.setDrawCubic(true);
+        healthDataSet.setCubicIntensity(0.2f);
+        healthDataSet.setDrawFilled(true);
+        healthDataSet.setValueTextSize(1);
         healthLine.setDescription("");
+        healthLine.setDrawGridBackground(false);
         healthLine.invalidate();
 
 
