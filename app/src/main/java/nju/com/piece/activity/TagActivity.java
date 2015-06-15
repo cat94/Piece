@@ -45,8 +45,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private EditText tag_name_edit;
 
     private ImageView type_icon;
-//    private ImageView date_icon;
-//    private ImageView plan_icon;
+    private ImageView date_icon;
+    private ImageView plan_icon;
 
     private GridView icon_grid;
 
@@ -154,10 +154,10 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         actionBar.setDisplayShowHomeEnabled(false);
 
         date_text = (TextView)findViewById(R.id.date_text);
-//        date_icon = (ImageView)findViewById(R.id.date_image);
+        date_icon = (ImageView)findViewById(R.id.date_image);
 
         plan_text = (TextView)findViewById(R.id.plan_text);
-//        plan_icon = (ImageView)findViewById(R.id.plan_image);
+        plan_icon = (ImageView)findViewById(R.id.plan_image);
 
         type_icon = (ImageView)findViewById(R.id.type_image);
 
@@ -206,10 +206,10 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
 
         date_text.setOnClickListener(date_listener);
-//        date_icon.setOnClickListener(date_listener);
+        date_icon.setOnClickListener(date_listener);
 
         plan_text.setOnClickListener(plan_listener);
-//        plan_icon.setOnClickListener(plan_listener);
+        plan_icon.setOnClickListener(plan_listener);
 
 
         if (savedInstanceState != null) {

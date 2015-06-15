@@ -2,6 +2,7 @@ package nju.com.piece.activity;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -140,9 +142,10 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                     add("周日");
                 }
                 };
-
                 barData=new BarData(xvals,dataSets);
-
+                int colors[]={getResources().getColor(R.color.stat_color_bright_1),getResources().getColor(R.color.stat_color_bright_2),getResources().getColor(R.color.stat_color_bright_3),
+                        getResources().getColor(R.color.stat_color_bright_4),getResources().getColor(R.color.stat_color_bright_5),getResources().getColor(R.color.stat_color_bright_6),getResources().getColor(R.color.stat_color_bright_7)};
+                dailySet.setColors(colors);
                 break;
             case "weekly_chart":
                 TextView textView=new TextView(this);
@@ -161,6 +164,14 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         xAxis.setLabelsToSkip(0);       //skip no x label
         xAxis.setDrawGridLines(false);  //don't draw grids
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisLineWidth(2);
+
+        YAxis yAxis_left=barChart.getAxisLeft();
+        YAxis yAxis_right=barChart.getAxisRight();
+        yAxis_left.setAxisLineWidth(2);
+        yAxis_right.setAxisLineWidth(2);
+        barChart.setGridBackgroundColor(Color.WHITE);
+        barChart.setDescription("");
         barChart.invalidate();
         return  barChart;
 

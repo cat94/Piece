@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TimePicker;
 
 import nju.com.piece.R;
@@ -16,7 +15,6 @@ import nju.com.piece.database.pos.PeriodPO;
 
 public class PeriodItemActivity extends Activity {
 
-    private RelativeLayout layout = null;
     private ImageView delBtn = null;
     private ImageView editBtn = null;
     private int index = -1;
@@ -35,14 +33,6 @@ public class PeriodItemActivity extends Activity {
         index = getIntent().getIntExtra("index", -1);
         now = TimeLineActivity.periodPOs.get(index);
         item = TimeLineActivity.items.get(index);
-
-        layout = (RelativeLayout) findViewById(R.id.whole);
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         dbFacade = new DBFacade(this);
         delBtn.setOnClickListener(new View.OnClickListener() {

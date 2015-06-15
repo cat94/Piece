@@ -43,6 +43,7 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
             view = (LinearLayout)inflater.inflate(layoutResourceId, parent, false);
         }
 
+//        view.setBackgroundResource(R.drawable.selected_bkg2);
         TagIconView icon = (TagIconView)view.findViewById(R.id.icon_img);
 
         IconItem currentIconItem = images.get(position);
@@ -51,12 +52,12 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
         icon.setImageResource(res);
         icon.setTag(res);
 
+
         view.setClickable(true);
         view.setOnClickListener(new IconClickListener());
 
-//        if (res == IconsArray.currentIcon) {
-//            IconClickListener.click(view);
-//        }
+        if (res == IconsArray.currentIcon)
+            view.performClick();
 
         return view;
     }
@@ -69,23 +70,22 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
         return current_selected_res;
     }
 
+
     public static class IconClickListener implements View.OnClickListener {
         private static View pre_view = null;
 
         @Override
         public void onClick(View v) {
-            click(v);
-
-        }
-        public static void click(View v){
             if (null != pre_view)
                 deselect();
             v.setBackgroundResource(R.drawable.selected_bkg);
             pre_view = v;
-            current_selected_res = (Integer)v.findViewById(R.id.icon_img).getTag();
+
+            current_selected_res = (Integer)((TagIconView)v.findViewById(R.id.icon_img)).getTag();
+
         }
 
-        private static void deselect(){
+        private void deselect(){
             pre_view.setBackgroundResource(0);
         }
     }

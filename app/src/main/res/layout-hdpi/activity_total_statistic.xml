@@ -235,7 +235,7 @@
         android:paddingBottom="@dimen/activity_my_vertical_padding"
         >
         <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="250dp"
             android:id="@+id/percent_pie"
             >

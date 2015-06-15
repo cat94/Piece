@@ -195,8 +195,8 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 		public TextView percent;
 		public ImageView icon_add;
 		public ViewGroup holder;
-		public ImageView countDown;
-		public ImageView timing;
+		public ImageButton countDown;
+		public ImageButton timing;
 
 		ViewHolder(View view) {
 			icon = (ImageView) view.findViewById(R.id.icon);
@@ -205,8 +205,8 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 			progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 			icon_add = (ImageView) view.findViewById(R.id.icon_add);
 			holder = (ViewGroup) view.findViewById(R.id.holder);
-			countDown = (ImageView) view.findViewById(R.id.countdown);
-			timing = (ImageView) view.findViewById(R.id.timing);
+			countDown = (ImageButton) view.findViewById(R.id.countdown);
+			timing = (ImageButton) view.findViewById(R.id.timing);
 		}
 	}
 

@@ -7,12 +7,19 @@
     <color name="blue">#419DE4</color>
 
     <color name="half_transparent">#eeffffff</color>
-    
-    <color name="lavender">#E6E6FA</color>
-    <color name="spring_gray">#00FF7F</color>
-    <color name="medium_aquamarine">#66CDAA</color>
+    <color name="stat_color_bright_1">#99FFCC</color>
+    <color name="stat_color_bright_2">#FFCC99</color>
+    <color name="stat_color_bright_3">#FFFF99</color>
+    <color name="stat_color_bright_4">#CCFF99</color>
+    <color name="stat_color_bright_5">#CCFFCC</color>
+    <color name="stat_color_bright_6">#FFCCCC</color>
+    <color name="stat_color_bright_7">#CCCCFF</color>
 
-    <color name="font_gray_color">#ccc</color>
-
-
+    <color name="stat_color_bright_8">#FFCCCC</color>
+    <color name="stat_color_bright_9">#CCCCCC</color>
+    <color name="stat_color_bright_10">#66CCCC</color>
+    <color name="stat_color_bright_11">#FF6666</color>
+    <color name="stat_color_bright_12">#CCFFFF</color>
+    <color name="stat_color_bright_13">#FFFFCC</color>
+    <color name="stat_color_bright_14">#0099FF</color>
 </resources>
