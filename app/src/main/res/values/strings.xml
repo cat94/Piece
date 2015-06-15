@@ -16,7 +16,9 @@
 
     <string name="title_activity_set">设置</string>
     <string name="total_time">总时间</string>
-
+    <string name="total_record">总记录数</string>
+    <string name="per_week">平均每周</string>
+    <string name="last_week">最近7天</string>
     <string name="new_tag_date_label">选择截止时间</string>
     <string name="new_tag_plan_label">平均每天时间</string>
 
