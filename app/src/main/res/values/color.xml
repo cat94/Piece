@@ -7,5 +7,12 @@
     <color name="blue">#419DE4</color>
 
     <color name="half_transparent">#eeffffff</color>
+    
+    <color name="lavender">#E6E6FA</color>
+    <color name="spring_gray">#00FF7F</color>
+    <color name="medium_aquamarine">#66CDAA</color>
+
+    <color name="font_gray_color">#ccc</color>
+
 
 </resources>
