@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     tools:context="nju.com.piece.activity.TagActivity"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/lavender">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +24,14 @@
         android:layout_height="@dimen/tag_picker_height"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:background="@drawable/background">
+
+        android:background="@drawable/rounded_edit_text"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+         >
 
         <ImageView
             android:layout_width="0dp"
@@ -38,31 +46,55 @@
             android:layout_height="match_parent"
             android:id="@+id/name_edit"
             android:layout_alignParentTop="true"
-            android:layout_weight="5" />
+            android:layout_weight="5"
+            android:padding="5dip"
+
+            android:hint="输入标签名"
+
+            android:fontFamily="sans-serif-light"
+            android:textStyle="normal"
+
+            android:textSize="24sp"
+            android:textColorHint="@color/font_gray_color"
+            android:gravity="center" >
+
+
+        </EditText>
+
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tag_picker_height"
-        android:background="@drawable/background">
+        android:layout_height="@dimen/tag_picker_height">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/date_image"
-            android:layout_weight="1"
-            android:src="@drawable/date_icon"
-            android:clickable="true"/>
+        <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/date_image"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/date_icon"-->
+            <!--android:clickable="true"/>-->
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
             android:id="@+id/date_text"
-            android:layout_gravity="center_vertical"
-            android:text="@string/new_tag_date_label"
-            android:gravity="center_vertical" />
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edit_text"
+
+            android:hint="@string/new_tag_date_label"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="normal"
+
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="24sp"
+            android:textColorHint="@color/font_gray_color"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -70,24 +102,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tag_picker_height"
-        android:background="@drawable/background">
+        >
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/plan_image"
-            android:layout_weight="1"
-            android:src="@drawable/time_icon"
-            android:clickable="true"/>
+        <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/plan_image"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/time_icon"-->
+            <!--android:clickable="true"/>-->
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:id="@+id/plan_text"
-            android:layout_gravity="center_vertical"
-            android:text="@string/new_tag_plan_label"
-            android:gravity="center_vertical" />
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_edit_text"
+
+            android:hint="@string/new_tag_plan_label"
+            android:fontFamily="sans-serif-light"
+            android:textStyle="normal"
+
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="24sp"
+            android:textColorHint="@color/font_gray_color"
+            android:gravity="center" />
 
     </LinearLayout>
 
@@ -96,15 +140,29 @@
             android:layout_height="wrap_content"
             android:numColumns="5"
             android:id="@+id/icon_grid"
-            android:background="@drawable/background"/>
+            android:background="@drawable/rounded_edit_text"
+
+            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+             />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tag_btn"
-                android:background="@drawable/background"
+                 
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp" />
+                android:paddingBottom="20dp"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+
+                android:background="@color/medium_aquamarine"/>
 
 
         </LinearLayout>
