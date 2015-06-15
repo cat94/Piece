@@ -144,6 +144,9 @@ public class PeriodDBHelper extends DatabaseHelper {
         return results;
     }
 
+    public int getTotalRecordsNum(){
+        return  0;
+    }
 
     protected void updateTagName(String oldName,String newName){
         ContentValues cv = new ContentValues();

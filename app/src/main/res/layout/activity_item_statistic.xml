@@ -1,0 +1,336 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_my_horizontal_margin"
+    android:paddingRight="@dimen/activity_my_horizontal_margin"
+    android:paddingTop="@dimen/activity_my_vertical_margin"
+    android:paddingBottom="@dimen/activity_my_vertical_margin"
+    tools:context="nju.com.piece.activity.ItemStatisticActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/abc_list_divider_mtrl_alpha"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon10_small"
+                    android:layout_weight="1"
+                    android:id="@+id/item_stat_icon"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="3"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item_stat_name"
+                        android:textColor="@color/blue"
+                        android:text="代码"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       android:id="@+id/item_stat_date_from"
+                        android:textColor="@color/border_clo"
+                        android:text="从2015年6月13日开始"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blue"
+                        android:text="444"
+                        android:id="@+id/item_stat_total_hour"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_stat_hour"
+                        android:textColor="@color/blue"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+                </LinearLayout>
+                </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="@color/border_clo"
+                android:layout_marginTop="@dimen/box_interval"
+                android:layout_marginBottom="@dimen/box_interval"
+                />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:id="@+id/linearLayout">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/item_stat_days"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_stat_days"
+
+                    android:textSize="@dimen/stat_text_intro_size"
+                    android:layout_gravity="center"
+                    android:fontFamily="楷体" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/box_margin_left"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/item_stat_per_week"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/per_week"
+                    android:textSize="@dimen/stat_text_intro_size"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/box_margin_left"
+                android:layout_weight="1"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/item_stat_last_week"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_week"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/stat_text_intro_size"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/box_margin_left"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/item_stat_to_target"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_stat_to_target"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/stat_text_intro_size"
+                    />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_marginTop="@dimen/box_interval"
+            android:layout_marginBottom="@dimen/box_interval"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            android:background="@drawable/abc_list_divider_mtrl_alpha"
+
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon11_small"
+                android:layout_weight="1"
+
+                >
+
+            </ImageView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每周计划投入12小时"
+                android:id="@+id/item_stat_plan_per_week"
+                android:layout_gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:layout_weight="3"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_marginTop="@dimen/box_interval"
+            android:layout_marginBottom="@dimen/box_interval"
+            />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/daily_box_height"
+            android:background="@drawable/abc_list_divider_mtrl_alpha"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            >
+
+
+            <TabHost
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/tabhost"
+                >
+                <TabWidget
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@android:id/tabs"
+
+                    >
+
+                </TabWidget>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@android:id/tabcontent"
+                    android:paddingTop="@dimen/daily_tab_content_padding"
+                    >
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bar_charts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ></com.github.mikephil.charting.charts.BarChart>
+                </FrameLayout>
+
+            </TabHost>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_marginTop="@dimen/box_interval"
+            android:layout_marginBottom="@dimen/box_interval"
+            />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_list"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/stop_item"
+            android:id="@+id/item_stat_stopitem"
+
+            android:textColor="@color/button_material_dark"
+            />
+
+    </LinearLayout>
+
+
+</ScrollView>

@@ -1,6 +1,8 @@
-package nju.com.piece;
+package nju.com.piece.activity;
 
 import android.app.LocalActivityManager;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -23,14 +26,20 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.FillFormatter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
+import nju.com.piece.R;
 import nju.com.piece.adapter.ItemListAdapter;
 import nju.com.piece.adapter.Utility;
 import nju.com.piece.adapter.adapterEntity.StatisticItem;
+import nju.com.piece.database.DBFacade;
 
 
 public class TotalStatisticActivity extends FragmentActivity implements TabHost.TabContentFactory{
@@ -44,6 +53,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
     private TextView totalTime;
     private TextView averageWeek;
     private TextView lastWeek;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,26 +89,32 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
 
         LineDataSet healthDataSet=new LineDataSet(healthEntries,"健康指数");
         LineDataSet diligenceDataSet=new LineDataSet(diligenceEntries,"努力指数");
+
+
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(healthDataSet);
         dataSets.add(diligenceDataSet);
         ArrayList<String> xvals = new ArrayList<String>(){{
-            add("Monday");
-            add("Tuesday");
-            add("Wednesday");
-            add("Thursday");
-            add("Friday");
-            add("Saturday");
-            add("Sunday");
+            add("周一");
+            add("周二");
+            add("周三");
+            add("周四");
+            add("周五");
+            add("周六");
+            add("周日");
         }
         };
         LineData lineData = new LineData(xvals,dataSets);
         healthLine.setData(lineData);
         XAxis xAxis = healthLine.getXAxis();
-        xAxis.setLabelsToSkip(0);       //skip no x label
+        //xAxis.setLabelsToSkip(0);       //skip no x label
         xAxis.setDrawGridLines(false);  //don't draw grids
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
+        healthLine.getLegend().setEnabled(false);
+        healthDataSet.setDrawCircles(false);
+        healthDataSet.setDrawCubic(true);
+        healthLine.setDescription("");
         healthLine.invalidate();
 
 
@@ -113,12 +129,12 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
 
 
         //获取分项统计数据
-        List<StatisticItem> list=new ArrayList<StatisticItem>();
+        final List<StatisticItem> list=new ArrayList<StatisticItem>();
         for (int i=0;i<10;i++){
             StatisticItem statisticItem=new StatisticItem();
             statisticItem.setItemName("ss");
             statisticItem.setPercentage("10%");
-            statisticItem.setResourceID(R.drawable.icon1_small);
+            statisticItem.setResourceID(R.drawable.busy);
             list.add(statisticItem);
         }
 
@@ -158,6 +174,11 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //跳转到分项统计
+                Intent intent=new Intent(TotalStatisticActivity.this,ItemStatisticActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("itemName",list.get(position).getItemName());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -241,6 +262,26 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
     }
 
 
+
+    private class GetDataAsyncTask extends AsyncTask<String,Integer,HashMap<String,Object>>{
+        @Override
+        protected HashMap<String, Object> doInBackground(String... params) {
+            DBFacade dbFacade=new DBFacade(TotalStatisticActivity.this);
+            dbFacade.getAllTags();
+            dbFacade.getAllPeriods();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> stringObjectHashMap) {
+            super.onPostExecute(stringObjectHashMap);
+        }
+    }
 
 
 }
