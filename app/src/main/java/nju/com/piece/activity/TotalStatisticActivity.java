@@ -4,11 +4,13 @@ import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -47,7 +49,7 @@ import nju.com.piece.adapter.adapterEntity.StatisticItem;
 import nju.com.piece.database.DBFacade;
 
 
-public class TotalStatisticActivity extends FragmentActivity implements TabHost.TabContentFactory{
+public class TotalStatisticActivity extends Fragment implements TabHost.TabContentFactory{
 
     private TabHost tabHost;
     private BarChart myBar;
@@ -58,21 +60,24 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
     private TextView totalTime;
     private TextView averageWeek;
     private TextView lastWeek;
+    private View mMainView;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_statistic);
-        tabHost=(TabHost)findViewById(R.id.tabhost);
-        myBar=(BarChart)findViewById(R.id.bar_charts);
-        totalRecord=(TextView)findViewById(R.id.total_record);
-        totalTime=(TextView)findViewById(R.id.total_time);
-        averageWeek=(TextView)findViewById(R.id.average_week);
-        lastWeek=(TextView)findViewById(R.id.last_week);
-        healthLine=(LineChart)findViewById(R.id.health_diligence);
-        itemPie=(PieChart)findViewById(R.id.percent_pie);
-        itemList=(ListView)findViewById(R.id.item_list);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        mMainView = inflater.inflate(R.layout.activity_total_statistic, (ViewGroup)getActivity().findViewById(R.id.viewpager), false);
+
+        tabHost=(TabHost) mMainView.findViewById(R.id.tabhost);
+        myBar=(BarChart) mMainView.findViewById(R.id.bar_charts);
+        totalRecord=(TextView) mMainView.findViewById(R.id.total_record);
+        totalTime=(TextView) mMainView.findViewById(R.id.total_time);
+        averageWeek=(TextView) mMainView.findViewById(R.id.average_week);
+        lastWeek=(TextView) mMainView.findViewById(R.id.last_week);
+        healthLine=(LineChart) mMainView.findViewById(R.id.health_diligence);
+        itemPie=(PieChart) mMainView.findViewById(R.id.percent_pie);
+        itemList=(ListView) mMainView.findViewById(R.id.item_list);
 
         //总体使用数值
         totalRecord.setText("1234");
@@ -146,7 +151,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
 
 
         //每日，每周，每月
-        LocalActivityManager localActivityManager=new LocalActivityManager(this,true);
+        LocalActivityManager localActivityManager=new LocalActivityManager(getActivity(),true);
         localActivityManager.dispatchCreate(savedInstanceState);
         tabHost.setup(localActivityManager);
         tabHost.addTab(tabHost.newTabSpec("daily_chart").setIndicator("每日").setContent(this));
@@ -207,7 +212,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
 
         PieData pieData=new PieData(pie_xvals,pieDataSet);
         pieData.setDrawValues(true);
-        pieData.setValueTextSize(30);
+        pieData.setValueTextSize(9);
         itemPie.setUsePercentValues(true);
 
         itemPie.setCenterText("分项比例");
@@ -220,17 +225,17 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
         Legend pie_legend=itemPie.getLegend();
 
         pie_legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-        pie_legend.setTextSize(30);
+        pie_legend.setTextSize(5);
         itemPie.invalidate();
         //分项百分比
 
-        itemList.setAdapter(new ItemListAdapter(TotalStatisticActivity.this,R.layout.statistic_item,list));
+        itemList.setAdapter(new ItemListAdapter(getActivity(),R.layout.statistic_item,list));
         Utility.setListViewHeightBasedOnChildren(itemList);
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //跳转到分项统计
-                Intent intent=new Intent(TotalStatisticActivity.this,ItemStatisticActivity.class);
+                Intent intent=new Intent(getActivity(),ItemStatisticActivity.class);
                 Bundle bundle=new Bundle();
                 bundle.putString("itemName",list.get(position).getItemName());
                 intent.putExtras(bundle);
@@ -242,25 +247,15 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_total_statistic, menu);
-        return true;
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_set) {
-            return true;
+        ViewGroup p = (ViewGroup) mMainView.getParent();
+        if (p != null) {
+            p.removeAllViewsInLayout();
         }
 
-        return super.onOptionsItemSelected(item);
+        return mMainView;
     }
 
     @Override
@@ -298,11 +293,11 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
                 dailySet.setColors(colors);
                 break;
             case "weekly_chart":
-                TextView textView=new TextView(this);
+                TextView textView=new TextView(getActivity());
                 textView.setText("gotohell");
                 return textView;
             case "monthly_chart":
-                TextView textView2=new TextView(this);
+                TextView textView2=new TextView(getActivity());
                 textView2.setText("gotohell");
                 return textView2;
             default:
@@ -334,7 +329,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
     private class GetDataAsyncTask extends AsyncTask<String,Integer,HashMap<String,Object>>{
         @Override
         protected HashMap<String, Object> doInBackground(String... params) {
-            DBFacade dbFacade=new DBFacade(TotalStatisticActivity.this);
+            DBFacade dbFacade=new DBFacade(getActivity());
             dbFacade.getAllTags();
             dbFacade.getAllPeriods();
             return null;

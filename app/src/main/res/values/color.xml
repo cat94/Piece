@@ -14,7 +14,11 @@
     <color name="stat_color_bright_5">#CCFFCC</color>
     <color name="stat_color_bright_6">#FFCCCC</color>
     <color name="stat_color_bright_7">#CCCCFF</color>
+    <color name="lavender">#E6E6FA</color>
+    <color name="spring_gray">#00FF7F</color>
+    <color name="medium_aquamarine">#66CDAA</color>
 
+    <color name="font_gray_color">#ccc</color>
     <color name="stat_color_bright_8">#FFCCCC</color>
     <color name="stat_color_bright_9">#CCCCCC</color>
     <color name="stat_color_bright_10">#66CCCC</color>
