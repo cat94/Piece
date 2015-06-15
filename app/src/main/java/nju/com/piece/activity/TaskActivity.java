@@ -31,23 +31,22 @@ import nju.com.piece.view.SlideView;
 import nju.com.piece.view.TaskListView;
 
 /**
- * 选择任务进行及时的界面
+ * 选择任务进行计时的界面
  * @author Hyman
  */
 
 
-public class TaskActivity extends Activity implements OnItemClickListener,
+public class TaskActivity extends BaseActionBarActivity implements OnItemClickListener,
 		SlideView.OnSlideListener {
 
-	private static final String TAG = "MainActivity";
+	private static final String TAG = "TaskActivity";
 	private TaskListView mListView;
 	SlideAdapter slideAdapter;
-//	private List<MessageItem> mMessageItems = new ArrayList<MessageItem>();
+
 	private List<TagPO> tagPOs = new ArrayList<TagPO>();
 	private Map<TagPO, SlideView> slideViewMap = new HashMap<TagPO, SlideView>();
 	private SlideView mLastSlideViewWithStatusOn;
 	private TimePickerDialog tpd = null;
-//	private StartTaskSer startTaskSer;
 	private int minutes;
 	
 	public static final int ADD = 1;
@@ -71,7 +70,6 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 		mListView.setAdapter(slideAdapter);
 		mListView.setOnItemClickListener(this);
 		mListView.setSlideViewMap(slideViewMap);
-//		startTaskSer = TaskImp.getInstance();
 	}
 
 	private class SlideAdapter extends BaseAdapter {
@@ -119,28 +117,23 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 			holder.taskname.setText(item.getTagName());
 			if (item.getTargetMinute() != 0) {
 				holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute());
+				holder.percent.setText(item.getCurrentMinute()/item.getTargetMinute()*100+"%");
 			}
 			holder.icon_add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					// TODO 自动生成的方法存根
-
 					TimePickerDialog.OnTimeSetListener otsl = new TimePickerDialog.OnTimeSetListener() {
 						@Override
 						public void onTimeSet(TimePicker view, int hour,
 								int minute) {
 							// TODO 自动生成的方法存根
 							minutes = 60 * hour + minute;
-//							if (startTaskSer.addRecord(item.taskId, minutes)) {
 								 Intent intent = new Intent();  
 					             intent.putExtra("length", minutes);
 					             intent.putExtra("tag", item);
 					             setResult(ADD , intent);     
-					             finish();// 结束当前Activity的生命周期  
-//							} else {
-//								Toast.makeText(TaskActivity.this, "任务添加失败",
-//										Toast.LENGTH_SHORT).show();
-//							}
+					             finish();
 						}
 					};
 					tpd = new TimePickerDialog(TaskActivity.this, otsl, 1, 0,
@@ -159,16 +152,11 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 								int minute) {
 							// TODO 自动生成的方法存根
 							minutes = 60 * hour + minute;
-//							if (startTaskSer.countDown(item.taskId, minutes)) {
 								 Intent intent = new Intent();  
 					             intent.putExtra("length", minutes);
 					             intent.putExtra("tag", item);
 					             setResult(COUNTDOWN , intent);     
-					             finish();// 结束当前Activity的生命周期  
-//							} else {
-//								Toast.makeText(TaskActivity.this, "任务倒计时失败",
-//										Toast.LENGTH_SHORT).show();
-//							}
+					             finish();
 						}
 					};
 					tpd = new TimePickerDialog(TaskActivity.this, otsl, 1, 0,
@@ -181,15 +169,10 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 				@Override
 				public void onClick(View arg0) {
 					// TODO 自动生成的方法存根
-//					if (startTaskSer.timing(item.taskId)) {
 						Intent intent = new Intent();  
 			             intent.putExtra("tag", item);
 			             setResult(TIMING , intent);     
-			             finish();// 结束当前Activity的生命周期  
-//					} else {
-//						Toast.makeText(TaskActivity.this, "任务计时失败",
-//								Toast.LENGTH_SHORT).show();
-//					}
+			             finish();
 				}
 			});
 			return slideView;
@@ -209,7 +192,8 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 		public ImageView icon;
 		public TextView taskname;
 		public ProgressBar progressBar;
-		public ImageButton icon_add;
+		public TextView percent;
+		public ImageView icon_add;
 		public ViewGroup holder;
 		public ImageButton countDown;
 		public ImageButton timing;
@@ -217,9 +201,9 @@ public class TaskActivity extends Activity implements OnItemClickListener,
 		ViewHolder(View view) {
 			icon = (ImageView) view.findViewById(R.id.icon);
 			taskname = (TextView) view.findViewById(R.id.taskname);
+			percent = (TextView) view.findViewById(R.id.percent);
 			progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
-			icon_add = (ImageButton) view.findViewById(R.id.icon_add);
-			icon_add.setImageResource(R.drawable.action_add_tesk_icon);
+			icon_add = (ImageView) view.findViewById(R.id.icon_add);
 			holder = (ViewGroup) view.findViewById(R.id.holder);
 			countDown = (ImageButton) view.findViewById(R.id.countdown);
 			timing = (ImageButton) view.findViewById(R.id.timing);

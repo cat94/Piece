@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#ffffffff">
 
     <FrameLayout
         android:layout_width="1dp"
@@ -13,7 +14,7 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="85dp"
-        android:background="#ffff766f">
+        android:background="#ff3399cc">
     </FrameLayout>
 
     <LinearLayout
@@ -115,7 +116,8 @@
             android:layout_height="match_parent"
             android:id="@+id/timeline"
             android:divider="@null"
-            android:scrollbars="none"/>
+            android:scrollbars="none"
+            android:listSelector="@null"/>
 
     </LinearLayout>
 

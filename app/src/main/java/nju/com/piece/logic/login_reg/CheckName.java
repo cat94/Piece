@@ -49,10 +49,13 @@ public class CheckName {
             //change json to String
             String content = String.valueOf(tosendsObject);
             Log.i(TAG, "send :" + content);
-            String responseData = CallService.call(urlString, content);
+            String responseData = CallService.call(urlString, content,context);
+            if(responseData==null || responseData.equals("")){
+                return null;
+            }
             Log.i(TAG, "res:" + responseData);
             JSONObject resultObject = null;
-            String result="";
+            String result=null;
             try {
                 resultObject = new JSONObject(responseData);
                 result = resultObject.getString("result");
@@ -70,6 +73,10 @@ public class CheckName {
 
         @Override
         protected void onPostExecute(String  result) {
+            if(result==null || result.equals("")){
+                CallService.showNetErr(context);
+                return;
+            }
             if(result.equals("true")) {
                // Toast.makeText(context, " can be registered!", Toast.LENGTH_SHORT).show();
             }

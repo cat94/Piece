@@ -33,6 +33,19 @@ public class DBFacade {
         increCurrentSum(po.getTag(), po.getLength());
     }
 
+    public void updatePeriod(PeriodPO po, int newLength){
+        periodHelperInstance().updatePeriod(po.getDate(),newLength);
+
+        increCurrentSum(po.getTag(), (-1) * po.getLength());
+        increCurrentSum(po.getTag(),newLength);
+    }
+
+    public void delPeriod(PeriodPO po){
+        periodHelperInstance().delPeriod(po.getDate());
+
+        increCurrentSum(po.getTag(), (-1)*po.getLength());
+    }
+
 
     public ArrayList<PeriodPO> getPeriodsByDate(Date date){
         return periodHelperInstance().getPeriodsByDate(date);
@@ -47,7 +60,7 @@ public class DBFacade {
     }
 
     private void increCurrentSum(String tagName, int increment){
-        tagDBHelperInstance().increCurrent(tagName, increment);
+        tagDBHelperInstance().increCurrent(tagName, increment/60);
     }
 
     public TagPO getTag(String tagName){

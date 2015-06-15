@@ -28,7 +28,7 @@ import android.os.Handler;
 import android.util.Log;
 
 /**
- * 进行APP更新的业务逻辑类。包括获取更新信息、检查是否需要更新、获取文件、安装等方法。
+ * get app updae info and load app and install
  * @author Hyman
  */
 public class UpdateInfoService {
@@ -44,23 +44,19 @@ public class UpdateInfoService {
 	
 	public UpdateInfo getUpDateInfo(){
 		String path = GetServerUrl.getUrl() + "/update.txt";
-		Log.i(TAG,"获取路径");
+		Log.i(TAG,"锟斤拷取路锟斤拷");
 		StringBuffer sb = new StringBuffer();
 		String line = null;
 		BufferedReader reader = null;
 		try {
-			// 创建一个url对象
 			URL url = new URL(path);
-			Log.i(TAG,"创建URL对象");
-			// 通過url对象，创建一个HttpURLConnection对象（连接）
+			Log.i(TAG,"锟斤拷锟斤拷URL锟斤拷锟斤拷");
 			HttpURLConnection urlConnection = (HttpURLConnection) url
 					.openConnection();
-			Log.i(TAG,"建立链接");
-			// 通过HttpURLConnection对象，得到InputStream
+			Log.i(TAG,"锟斤拷锟斤拷锟斤拷锟斤拷");
 			reader = new BufferedReader(new InputStreamReader(
 					urlConnection.getInputStream()));
-			Log.i(TAG,"获取输入流");
-			// 使用io流读取文件
+			Log.i(TAG,"锟斤拷取锟斤拷锟斤拷锟斤拷");
 			while ((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
@@ -88,8 +84,7 @@ public class UpdateInfoService {
 
 	
 	public boolean isNeedUpdate(){
-			String new_version = updateInfo.getVersion(); // 最新版本的版本号
-			//获取当前版本号
+			String new_version = updateInfo.getVersion();
 			String now_version="";
 			try {
 				PackageManager packageManager = context.getPackageManager();
@@ -108,7 +103,7 @@ public class UpdateInfoService {
 	
 	
 	public void downLoadFile(final String url,final ProgressDialog pDialog,Handler h){
-		Log.i(TAG,"下载路径:"+url);
+		Log.i(TAG,"锟斤拷锟斤拷路锟斤拷:"+url);
 		progressDialog=pDialog;
 		handler=h;
 		new Thread() {
@@ -119,8 +114,8 @@ public class UpdateInfoService {
 				try {
 					response = client.execute(get);
 					HttpEntity entity = response.getEntity();
-					int length = (int) entity.getContentLength();   //获取文件大小
-                                        progressDialog.setMax(length);                            //设置进度条的总长度
+					int length = (int) entity.getContentLength();
+                                        progressDialog.setMax(length);
 					InputStream is = entity.getContent();
 					FileOutputStream fileOutputStream = null;
 					if (is != null) {
@@ -128,15 +123,13 @@ public class UpdateInfoService {
 								Environment.getExternalStorageDirectory(),
 								"Test.apk");
 						fileOutputStream = new FileOutputStream(file);
-						//这个是缓冲区，即一次读取10个比特，我弄的小了点，因为在本地，所以数值太大一下就下载完了,
-						//看不出progressbar的效果。
                         byte[] buf = new byte[10];   
 						int ch = -1;
 						int process = 0;
 						while ((ch = is.read(buf)) != -1) {       
 							fileOutputStream.write(buf, 0, ch);
 							process += ch;
-							progressDialog.setProgress(process);       //这里就是关键的实时更新进度了！
+							progressDialog.setProgress(process);
 						}
 
 					}

@@ -200,7 +200,7 @@ public class TotalStatisticActivity extends FragmentActivity implements TabHost.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_set) {
             return true;
         }
 

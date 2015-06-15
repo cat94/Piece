@@ -53,10 +53,13 @@ public class Register {
             //change json to String
             String content = String.valueOf(tosendsObject);
             Log.i(TAG, "send :" + content);
-            String responseData = CallService.call(urlString, content);
+            String responseData = CallService.call(urlString, content,context);
+            if(responseData==null || responseData.equals("")){
+                return null;
+            }
             Log.i(TAG, "res:" + responseData);
             JSONObject resultObject = null;
-            String result="";
+            String result=null;
             try {
                 resultObject = new JSONObject(responseData);
                 result = resultObject.getString("result");
@@ -77,6 +80,10 @@ public class Register {
         protected void onPostExecute(String  result) {
             progressBar.setVisibility(View.GONE);    //hide the progressBar
             Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
+            if(result==null){
+                CallService.showNetErr(context);
+                return;
+            }
             //here save the account info on this phone
 
             //jump to timelineacticity

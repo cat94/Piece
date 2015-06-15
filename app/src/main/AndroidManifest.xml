@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -43,6 +44,7 @@
         </activity>
         <activity
             android:name=".activity.TimeLineActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:label="@string/title_activity_time_line" >
         </activity>
 
@@ -58,13 +60,14 @@
             android:label="@string/title_activity_login" >
         </activity>
 
-        <!--<meta-data-->
-            <!--android:name="com.google.android.gms.version"-->
-            <!--android:value="@integer/google_play_services_version" />-->
-
         <activity
             android:name=".activity.RegisterActivity"
             android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".activity.PeriodItemActivity"
+            android:label="@string/title_activity_period_item"
+            android:theme="@style/half_transparent">
         </activity>
     </application>
 

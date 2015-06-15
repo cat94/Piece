@@ -5,4 +5,7 @@
     <color name="text_clo">#333</color>
     <color name="white">#fff</color>
     <color name="blue">#419DE4</color>
+
+    <color name="half_transparent">#eeffffff</color>
+
 </resources>

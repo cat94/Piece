@@ -1,7 +1,7 @@
 package nju.com.piece.logic.update;
 
 /**
- * 获取服务器IP地址
+ * get serverIP
  * @author Hyman
  */
 
