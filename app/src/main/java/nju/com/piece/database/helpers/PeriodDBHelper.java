@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import nju.com.piece.database.tools.DateTool;
@@ -144,9 +147,178 @@ public class PeriodDBHelper extends DatabaseHelper {
         return results;
     }
 
-    public int getTotalRecordsNum(){
-        return  0;
+
+    public ArrayList<PeriodPO> getLastWeekPeriod(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.WEEK_OF_MONTH, -1);
+        calendar.add(Calendar.DATE, -1 * calendar.get(Calendar.DAY_OF_WEEK) + 2);
+        Date pre_date = calendar.getTime();
+        calendar.add(Calendar.DATE, -1 * calendar.get(Calendar.DAY_OF_WEEK) + 8);
+        Date after_date = calendar.getTime();
+
+        int pre_year = DateTool.getYear(pre_date);
+        int pre_month = DateTool.getMonth(pre_date);
+        int pre_day = DateTool.getDay(pre_date);
+
+        int after_year = DateTool.getYear(after_date);
+        int after_month = DateTool.getMonth(after_date);
+        int after_day = DateTool.getDay(after_date);
+
+        long pre_time, after_time;
+
+        pre_time = DateTool.getMills(pre_year, pre_month, pre_day, 0, 0, 0);
+
+        after_time =DateTool.getMills(after_year, after_month, after_day, 0, 0, 0);
+
+        String[] result_cols = new String[]{COL_TAG,COL_LEN,COL_DATE};
+        String where = COL_DATE + " BETWEEN ? AND ?";
+        String[] whereArgs = new String[]{pre_time+"",after_time+""};
+        String groupBy = null;
+        String having = null;
+        String order = COL_DATE+" DESC";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
+
+        ArrayList<PeriodPO> results = new ArrayList<PeriodPO>();
+
+        while(cursor.moveToNext()){
+            results.add(getPeriodPOByCursor(db,cursor));
+        }
+        db.close();
+        return  results;
     }
+
+
+    public ArrayList<PeriodPO> getLastMonthPeriod(){
+        //获取前月的第一天
+        Calendar   cal_1=Calendar.getInstance();//获取当前日期
+        cal_1.add(Calendar.MONTH, -1);
+        cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        Date pre_date = cal_1.getTime();
+        //获取前月的最后一天
+        Calendar cale = Calendar.getInstance();
+        cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        Date after_date = cale.getTime();
+
+        int pre_year = DateTool.getYear(pre_date);
+        int pre_month = DateTool.getMonth(pre_date);
+        int pre_day = DateTool.getDay(pre_date);
+
+        int after_year = DateTool.getYear(after_date);
+        int after_month = DateTool.getMonth(after_date);
+        int after_day = DateTool.getDay(after_date);
+
+        long pre_time, after_time;
+
+        pre_time = DateTool.getMills(pre_year, pre_month, pre_day, 0, 0, 0);
+
+        after_time =DateTool.getMills(after_year, after_month, after_day, 0, 0, 0);
+
+        String[] result_cols = new String[]{COL_TAG,COL_LEN,COL_DATE};
+        String where = COL_DATE + " BETWEEN ? AND ?";
+        String[] whereArgs = new String[]{pre_time+"",after_time+""};
+        String groupBy = null;
+        String having = null;
+        String order = COL_DATE+" DESC";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
+
+        ArrayList<PeriodPO> results = new ArrayList<PeriodPO>();
+
+        while(cursor.moveToNext()){
+            results.add(getPeriodPOByCursor(db,cursor));
+        }
+        db.close();
+        return  results;
+    }
+
+   public ArrayList<PeriodPO> getLastSeasonPeroids(){
+       //获取前月的第一天
+       Calendar   cal_1=Calendar.getInstance();//获取当前日期
+       cal_1.add(Calendar.MONTH, -4);
+       cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+       Date pre_date = cal_1.getTime();
+       //获取前月的最后一天
+       Calendar cale = Calendar.getInstance();
+       cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+       Date after_date = cale.getTime();
+
+       int pre_year = DateTool.getYear(pre_date);
+       int pre_month = DateTool.getMonth(pre_date);
+       int pre_day = DateTool.getDay(pre_date);
+
+       int after_year = DateTool.getYear(after_date);
+       int after_month = DateTool.getMonth(after_date);
+       int after_day = DateTool.getDay(after_date);
+
+       long pre_time, after_time;
+
+       pre_time = DateTool.getMills(pre_year, pre_month, pre_day, 0, 0, 0);
+
+       after_time =DateTool.getMills(after_year, after_month, after_day, 0, 0, 0);
+
+       String[] result_cols = new String[]{COL_TAG,COL_LEN,COL_DATE};
+       String where = COL_DATE + " BETWEEN ? AND ?";
+       String[] whereArgs = new String[]{pre_time+"",after_time+""};
+       String groupBy = null;
+       String having = null;
+       String order = COL_DATE+" DESC";
+       SQLiteDatabase db = getReadableDatabase();
+       Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
+
+       ArrayList<PeriodPO> results = new ArrayList<PeriodPO>();
+
+       while(cursor.moveToNext()){
+           results.add(getPeriodPOByCursor(db,cursor));
+       }
+       db.close();
+       return  results;
+   }
+
+    public ArrayList<PeriodPO> getLastSevenDay(){
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -7);
+        Date pre_date = calendar.getTime();
+
+        calendar.add(Calendar.DATE, 7);
+        Date after_date = calendar.getTime();
+
+        int pre_year = DateTool.getYear(pre_date);
+        int pre_month = DateTool.getMonth(pre_date);
+        int pre_day = DateTool.getDay(pre_date);
+
+        int after_year = DateTool.getYear(after_date);
+        int after_month = DateTool.getMonth(after_date);
+        int after_day = DateTool.getDay(after_date);
+
+        long pre_time, after_time;
+
+        pre_time = DateTool.getMills(pre_year, pre_month, pre_day, 0, 0, 0);
+
+        after_time =DateTool.getMills(after_year, after_month, after_day, 0, 0, 0);
+
+        String[] result_cols = new String[]{COL_TAG,COL_LEN,COL_DATE};
+        String where = COL_DATE + " BETWEEN ? AND ?";
+        String[] whereArgs = new String[]{pre_time+"",after_time+""};
+        String groupBy = null;
+        String having = null;
+        String order = COL_DATE+" DESC";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, result_cols, where, whereArgs, groupBy, having, order);
+
+        ArrayList<PeriodPO> results = new ArrayList<PeriodPO>();
+
+        while(cursor.moveToNext()){
+            results.add(getPeriodPOByCursor(db,cursor));
+        }
+        db.close();
+        return  results;
+    }
+
+
 
     protected void updateTagName(String oldName,String newName){
         ContentValues cv = new ContentValues();
