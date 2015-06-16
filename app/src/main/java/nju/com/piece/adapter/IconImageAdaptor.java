@@ -43,6 +43,7 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
             view = (LinearLayout)inflater.inflate(layoutResourceId, parent, false);
         }
 
+//        view.setBackgroundResource(R.drawable.selected_bkg2);
         TagIconView icon = (TagIconView)view.findViewById(R.id.icon_img);
 
         IconItem currentIconItem = images.get(position);
@@ -82,7 +83,9 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
                 deselect();
             v.setBackgroundResource(R.drawable.selected_bkg);
             pre_view = v;
+
             current_selected_res = (Integer)v.findViewById(R.id.icon_img).getTag();
+
         }
 
         private static void deselect(){

@@ -2,6 +2,7 @@ package nju.com.piece.activity;
 
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -27,11 +30,18 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.DefaultValueFormatter;
+import com.github.mikephil.charting.utils.FillFormatter;
+import com.github.mikephil.charting.utils.ValueFormatter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+
 import nju.com.piece.R;
 import nju.com.piece.adapter.ItemListAdapter;
 import nju.com.piece.adapter.Utility;
@@ -51,6 +61,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
     private TextView averageWeek;
     private TextView lastWeek;
     private View mMainView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +99,17 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
         LineDataSet healthDataSet=new LineDataSet(healthEntries,"健康指数");
         LineDataSet diligenceDataSet=new LineDataSet(diligenceEntries,"努力指数");
+        healthDataSet.setColor(Color.parseColor("#CCFF66"));
+        healthDataSet.setCircleColor(Color.parseColor("#CCFF66"));
+        healthDataSet.setCircleColorHole(Color.parseColor("#CCFF66"));
+        healthDataSet.setValueTextSize(0);
+        healthDataSet.setLineWidth(2);
+
+        diligenceDataSet.setColor(Color.parseColor("#0099FF"));
+        diligenceDataSet.setCircleColor(Color.parseColor("#0099FF"));
+        diligenceDataSet.setCircleColorHole(Color.parseColor("#0099FF"));
+        diligenceDataSet.setValueTextSize(0);
+        diligenceDataSet.setLineWidth(2);
 
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
@@ -106,18 +128,24 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         LineData lineData = new LineData(xvals,dataSets);
         healthLine.setData(lineData);
         XAxis xAxis = healthLine.getXAxis();
-        //xAxis.setLabelsToSkip(0);       //skip no x label
+        xAxis.setLabelsToSkip(0);       //skip no x label
         xAxis.setDrawGridLines(false);  //don't draw grids
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisLineWidth(2);
 
-        healthLine.getLegend().setEnabled(false);
-        healthDataSet.setDrawCircles(false);
-        healthDataSet.setDrawCubic(true);
-        healthDataSet.setCubicIntensity(0.2f);
-        healthDataSet.setDrawFilled(true);
-        healthDataSet.setValueTextSize(1);
+        YAxis yAxis_left=healthLine.getAxisLeft();
+        YAxis yAxis_right=healthLine.getAxisRight();
+        yAxis_left.setAxisLineWidth(2);
+        yAxis_right.setAxisLineWidth(2);
+        //xAxis.setTextSize(7);
+
+
+
         healthLine.setDescription("");
-        healthLine.setDrawGridBackground(false);
+        healthLine.setGridBackgroundColor(Color.WHITE);
+        //healthLine.setBackgroundColor(ColorTemplate.PASTEL_COLORS[0]);
+        healthLine.setDrawGridBackground(true);
+
         healthLine.invalidate();
 
 
@@ -163,11 +191,41 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
             add("和雪碧");
         }
         };
+        int colors[]={getResources().getColor(R.color.stat_color_bright_1),
+                getResources().getColor(R.color.stat_color_bright_2),
+                getResources().getColor(R.color.stat_color_bright_3),
+                getResources().getColor(R.color.stat_color_bright_4),
+                getResources().getColor(R.color.stat_color_bright_5),
+                getResources().getColor(R.color.stat_color_bright_6),
+                getResources().getColor(R.color.stat_color_bright_7),
+                getResources().getColor(R.color.stat_color_bright_8),
+                getResources().getColor(R.color.stat_color_bright_9),
+                getResources().getColor(R.color.stat_color_bright_10),
+                getResources().getColor(R.color.stat_color_bright_11),
+                getResources().getColor(R.color.stat_color_bright_12),
+                getResources().getColor(R.color.stat_color_bright_13),
+        };
+        pieDataSet.setColors(colors);
+        pieDataSet.setSelectionShift(15);
+
+        pieDataSet.setValueFormatter(new PercentFormatter());
+
         PieData pieData=new PieData(pie_xvals,pieDataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueTextSize(9);
+        itemPie.setUsePercentValues(true);
 
-
+        itemPie.setCenterText("分项比例");
+        itemPie.setCenterTextColor(getResources().getColor(R.color.stat_color_bright_14));
+        itemPie.setDrawCenterText(true);
+        itemPie.setDrawSliceText(true);
         itemPie.setData(pieData);
+        itemPie.setDescription("");
 
+        Legend pie_legend=itemPie.getLegend();
+
+        pie_legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        pie_legend.setTextSize(5);
         itemPie.invalidate();
         //分项百分比
 
@@ -196,6 +254,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         if (p != null) {
             p.removeAllViewsInLayout();
         }
+
         return mMainView;
     }
 
@@ -229,7 +288,9 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 };
 
                 barData=new BarData(xvals,dataSets);
-
+                int colors[]={getResources().getColor(R.color.stat_color_bright_1),getResources().getColor(R.color.stat_color_bright_2),getResources().getColor(R.color.stat_color_bright_3),
+                        getResources().getColor(R.color.stat_color_bright_4),getResources().getColor(R.color.stat_color_bright_5),getResources().getColor(R.color.stat_color_bright_6),getResources().getColor(R.color.stat_color_bright_7)};
+                dailySet.setColors(colors);
                 break;
             case "weekly_chart":
                 TextView textView=new TextView(getActivity());
@@ -243,11 +304,21 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 break;
         }
 
+
+
         barChart.setData(barData);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setLabelsToSkip(0);       //skip no x label
         xAxis.setDrawGridLines(false);  //don't draw grids
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisLineWidth(2);
+
+        YAxis yAxis_left=barChart.getAxisLeft();
+        YAxis yAxis_right=barChart.getAxisRight();
+        yAxis_left.setAxisLineWidth(2);
+        yAxis_right.setAxisLineWidth(2);
+        barChart.setGridBackgroundColor(Color.WHITE);
+        barChart.setDescription("");
         barChart.invalidate();
         return  barChart;
 
@@ -275,5 +346,13 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         }
     }
 
+     private class PercentFormatter implements ValueFormatter{
+         private DecimalFormat mFormat=new DecimalFormat("###,###,##0.0");
 
+
+         @Override
+         public String getFormattedValue(float value) {
+             return mFormat.format(value) + "%";
+         }
+     }
 }

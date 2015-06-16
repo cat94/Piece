@@ -23,6 +23,10 @@ package="nju.com.piece" >
     </activity>
 
     <activity
+            android:name=".activity.TotalStatisticActivity"
+            android:label="@string/title_activity_total_statistic" >
+        </activity>
+        <activity
         android:name=".activity.TagActivity"
         android:label="@string/title_activity_new_tag" >
     </activity>
@@ -57,11 +61,19 @@ package="nju.com.piece" >
         android:label="@string/title_activity_login" >
     </activity>
 
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.gms.version" -->
+        <!-- android:value="@integer/google_play_services_version" /> -->
+
     <activity
         android:name=".activity.RegisterActivity"
         android:label="@string/title_activity_register" >
     </activity>
     <activity
+            android:name=".activity.ItemStatisticActivity"
+            android:label="@string/title_activity_item_statistic" >
+        </activity>
+        <activity
         android:name=".activity.PeriodItemActivity"
         android:label="@string/title_activity_period_item"
         android:theme="@style/half_transparent">
@@ -69,4 +81,3 @@ package="nju.com.piece" >
 </application>
 
 </manifest>
-
