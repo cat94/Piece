@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import nju.com.piece.R;
 import nju.com.piece.logic.login_reg.Login;
@@ -22,9 +23,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         userName=(EditText)findViewById(R.id.username_edit);
         password=(EditText)findViewById(R.id.password_edit);
         Button loginButton=(Button)findViewById(R.id.signin_button);
-        Button regButton=(Button)findViewById(R.id.reg_button);
+        TextView registerText=(TextView)findViewById(R.id.register_text);
         loginButton.setOnClickListener(this);
-        regButton.setOnClickListener(this);
+        registerText.setOnClickListener(this);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 Login login=new Login(this,progressBar);
                 login.login(us,psw);
                 break;
-            case R.id.reg_button:
+            case R.id.register_text:
                 Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);
                 finish();

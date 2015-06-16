@@ -199,6 +199,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             public void onClick(View v) {
                 timePickerDialog.setVibrate(ifVibrate);
                 timePickerDialog.setCloseOnSingleTapMinute(isCloseOnSingleTapMinute());
+                timePickerDialog.setStartTime(1,0);
                 timePickerDialog.show(getSupportFragmentManager(), TIMEPICKER_TAG);
             }
         };

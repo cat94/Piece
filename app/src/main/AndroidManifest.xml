@@ -22,10 +22,6 @@ package="nju.com.piece" >
         android:label="@string/title_activity_test_mpchart" >
     </activity>
 
-    <activity
-            android:name=".activity.TotalStatisticActivity"
-            android:label="@string/title_activity_total_statistic" >
-        </activity>
         <activity
         android:name=".activity.TagActivity"
         android:label="@string/title_activity_new_tag" >
@@ -34,11 +30,11 @@ package="nju.com.piece" >
         android:name=".activity.MainActivity"
         android:label="@string/title_activity_main"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
     </activity>
     <activity
         android:name=".activity.TaskActivity"
@@ -58,7 +54,14 @@ package="nju.com.piece" >
     </activity>
     <activity
         android:name=".activity.LoginActivity"
-        android:label="@string/title_activity_login" >
+        android:label="@string/title_activity_login"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
     </activity>
 
         <!-- <meta-data -->
@@ -69,10 +72,6 @@ package="nju.com.piece" >
         android:name=".activity.RegisterActivity"
         android:label="@string/title_activity_register" >
     </activity>
-    <activity
-            android:name=".activity.ItemStatisticActivity"
-            android:label="@string/title_activity_item_statistic" >
-        </activity>
         <activity
         android:name=".activity.PeriodItemActivity"
         android:label="@string/title_activity_period_item"
