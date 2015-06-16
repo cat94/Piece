@@ -79,6 +79,21 @@ public class DBFacade {
         return periodHelperInstance().getAllPeriods();
     }
 
+    public List<PeriodPO> getLastWeekPeriods(){
+        return periodHelperInstance().getLastWeekPeriod();
+    }
+
+    public List<PeriodPO> getLastSevenDaysPeriods(){
+        return  periodHelperInstance().getLastSevenDay();
+    }
+
+    public List<PeriodPO> getLastMonthPeriods(){
+        return periodHelperInstance().getLastMonthPeriod();
+    }
+
+    public List<PeriodPO> getLastSeasonPeriods(){
+        return  periodHelperInstance().getLastSeasonPeroids();
+    }
 
     public void addAccount(AccountPO po){
         accountDBHelperInstance().addAccount(po);
