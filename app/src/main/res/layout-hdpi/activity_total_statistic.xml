@@ -27,7 +27,7 @@
         android:paddingRight="@dimen/activity_my_horizontal_padding"
         android:paddingTop="@dimen/activity_my_vertical_padding"
         android:paddingBottom="@dimen/activity_my_vertical_padding"
-        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:background="@drawable/rounded_edit_text"
 
         android:id="@+id/linearLayout">
         <LinearLayout
@@ -151,7 +151,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:background="@drawable/rounded_edit_text"
         android:paddingLeft="@dimen/activity_my_horizontal_padding"
         android:paddingRight="@dimen/activity_my_horizontal_padding"
         android:paddingTop="@dimen/activity_my_vertical_padding"
@@ -176,7 +176,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/daily_box_height"
-        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:background="@drawable/rounded_edit_text"
         android:paddingLeft="@dimen/activity_my_horizontal_padding"
         android:paddingRight="@dimen/activity_my_horizontal_padding"
         android:paddingTop="@dimen/activity_my_vertical_padding"
@@ -240,7 +240,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/abc_list_divider_mtrl_alpha"
+        android:background="@drawable/rounded_edit_text"
         android:paddingLeft="@dimen/activity_my_horizontal_padding"
         android:paddingRight="@dimen/activity_my_horizontal_padding"
         android:paddingTop="@dimen/activity_my_vertical_padding"
