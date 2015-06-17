@@ -1,107 +1,223 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:orientation="vertical"
+    android:background="@drawable/register_background"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
-        android:id="@+id/loginPanel"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/background_login_div"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text="请输入您的注册信息"
-            android:textSize="25dp" />
 
-        <EditText
-            android:id="@+id/reg_accountEt"
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView1"
-            android:layout_marginTop="14dp"
-            android:background="@drawable/qq_edit_login"
-            android:ems="10"
-            android:maxLength="20"
-            android:hint="请输入您的用户名"
-            android:singleLine="true" >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+            <EditText
+                android:id="@+id/reg_accountEt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:layout_weight="5"
+                android:background="@drawable/my_edit_text"
+                android:ems="10"
+                android:maxLength="20"
+                android:hint="用户名"
+                android:singleLine="true" >
 
-            <requestFocus />
-        </EditText>
+                <requestFocus/>
 
-        <EditText
-            android:id="@+id/reg_pwdEt"
-            android:inputType="textPassword"
+            </EditText>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/qq_edit_login"
-            android:ems="10"
-            android:hint="请输入您的密码"
-            android:maxLength="20"
-            android:password="true"
-            android:singleLine="true"
-            android:layout_below="@+id/reg_accountEt"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
 
-        <EditText
-            android:id="@+id/reg_pwdEt2"
-            android:inputType="textPassword"
+
+            <EditText
+                android:id="@+id/reg_pwdEt"
+                android:inputType="textPassword"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/my_edit_text"
+                android:hint="请输入您的密码"
+                android:maxLength="20"
+                android:password="true"
+                android:singleLine="true"/>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/qq_edit_login"
-            android:ems="10"
-            android:maxLength="20"
-            android:hint="请再次输入您的密码"
-            android:password="true"
-            android:singleLine="true"
-            android:layout_below="@+id/reg_pwdEt"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Button
-            android:id="@+id/reg_regBtn"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/reg_pwdEt2"
-            android:layout_marginRight="19dp"
-            android:layout_marginTop="36dp"
-            android:background="@drawable/background_button_div"
-            android:text="注册" />
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
 
-        <Button
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/reg_pwdEt2"
+                android:inputType="textPassword"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="50dp"
+                android:paddingLeft="15dp"
+                android:background="@drawable/my_edit_text"
+                android:maxLength="20"
+                android:hint="请再次输入您的密码"
+                android:password="true"
+                android:singleLine="true"
+                />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/reg_pwdEt2"
-            android:layout_marginRight="96dp"
-            android:layout_marginTop="36dp"
-            android:background="@drawable/background_button_div"
-            android:text="返回" />
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
 
-        <ProgressBar
-            style="?android:attr/progressBarStyle"
+            <Button
+                android:id="@+id/reg_regBtn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/register_btn_height"
+                android:layout_weight="5"
+                android:background="@drawable/red_round_button"
+                android:textColor="@color/light_gray"
+                android:text="注册" />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:id="@+id/backBtn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/register_btn_height"
+                android:layout_weight="5"
+                android:background="@drawable/yellow_round_button"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/login_btn_text_size"
+                android:text="返回"
+                android:gravity="center" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reg_progressbar"
-            android:layout_alignBottom="@+id/reg_regBtn"
-            android:layout_centerHorizontal="true"
-            android:indeterminate="false"
-            android:visibility="invisible"/>
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-    </RelativeLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
 
-</RelativeLayout>
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:id="@+id/reg_progressbar"
+                android:indeterminate="false"
+                android:visibility="invisible"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

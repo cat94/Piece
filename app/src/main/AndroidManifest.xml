@@ -69,7 +69,8 @@ package="nju.com.piece" >
 
     <activity
         android:name=".activity.RegisterActivity"
-        android:label="@string/title_activity_register" >
+        android:label="@string/title_activity_register"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
     </activity>
         <activity
         android:name=".activity.PeriodItemActivity"
