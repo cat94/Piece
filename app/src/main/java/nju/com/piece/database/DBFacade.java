@@ -79,6 +79,10 @@ public class DBFacade {
         return periodHelperInstance().getAllPeriods();
     }
 
+    public void setAccount(AccountPO po) {
+        accountDBHelperInstance().setAccount(po);
+    }
+
     public List<PeriodPO> getLastWeekPeriods(){
         return periodHelperInstance().getLastWeekPeriod();
     }
@@ -115,17 +119,10 @@ public class DBFacade {
         return  periodHelperInstance().getLastSeasonPeroids(tagName);
     }
 
-
-
-    public void addAccount(AccountPO po){
-        accountDBHelperInstance().addAccount(po);
-    }
-    public void delAccount(String username){
-        accountDBHelperInstance().delAccount(username);
-    }
     public AccountPO getAccount(String username){
         return accountDBHelperInstance().getAccount(username);
     }
+
     public void updatePassword(String username, String newPswd){
         accountDBHelperInstance().updatePswd(username, newPswd);
     }
