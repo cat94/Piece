@@ -197,11 +197,11 @@ public class PeriodDBHelper extends DatabaseHelper {
         //获取前月的第一天
         Calendar   cal_1=Calendar.getInstance();//获取当前日期
         cal_1.add(Calendar.MONTH, -1);
-        cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        cal_1.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         Date pre_date = cal_1.getTime();
         //获取前月的最后一天
         Calendar cale = Calendar.getInstance();
-        cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        cale.set(Calendar.DAY_OF_MONTH, 0);//设置为1号,当前日期既为本月第一天
         Date after_date = cale.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
@@ -395,11 +395,11 @@ public class PeriodDBHelper extends DatabaseHelper {
         //获取前月的第一天
         Calendar   cal_1=Calendar.getInstance();//获取当前日期
         cal_1.add(Calendar.MONTH, -1);
-        cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+        cal_1.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         Date pre_date = cal_1.getTime();
         //获取前月的最后一天
         Calendar cale = Calendar.getInstance();
-        cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        cale.set(Calendar.DAY_OF_MONTH, 0);//设置为1号,当前日期既为本月第一天
         Date after_date = cale.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
@@ -531,6 +531,15 @@ public class PeriodDBHelper extends DatabaseHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.update(TABLE_NAME, cv, where, whereArgs);
+        db.close();
+    }
+
+    protected void deletePeriodByTag(String tagName){
+        String where = COL_TAG + " = ?";
+        String[] whereArgs = new String[]{tagName};
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME, where, whereArgs);
         db.close();
     }
 }

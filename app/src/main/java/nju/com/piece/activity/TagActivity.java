@@ -48,8 +48,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private EditText tag_name_edit;
 
     private ImageView type_icon;
-//    private ImageView date_icon;
-//    private ImageView plan_icon;
 
     private GridView icon_grid;
 
@@ -100,16 +98,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-//                    Date end_date = formatter.parse((String) date_text.getText());
-//                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
-//                    String newTagName = tag_name_edit.getText().toString();
-
                     getParams();
-
-//                    int res = IconImageAdaptor.getSelectedRes();
-//                    IconImageAdaptor.clearSelecetedRes();
 
                     if (legal) {
                         facade.updateTag(tagName, new TagPO(tagName, currentType, icon_res, target, end_date));
@@ -135,61 +125,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-
-//                boolean legal = true;
-
                 try {
-//                    Date end_date = null;
-//                    String date_str = (String) date_text.getText();
-//                    if (!date_str.equals("")){
-//                        try{
-//                            end_date = formatter.parse(date_str);
-//                        }catch (IllegalFormatException ex){
-//                            end_date = null;
-//                        }
-//                    }
-//
-//                    String plan_str = (String) plan_text.getText();
-//                    int target = 0;
-//                    if (!plan_str.equals(""))
-//                        target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
-//
-//                    String tagName = tag_name_edit.getText().toString();
-//
-//                    if (tagName.trim().equals("")) {
-//                        new AlertDialog.Builder(getApplicationContext())
-//                                .setTitle("标签不能为空")
-//                                .setMessage("请输入标签名")
-//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface arg0, int arg1) {
-//
-//                                    }
-//                                }).show();
-//                        legal = false;
-//                    }
-//
-//
-//                    int res = IconImageAdaptor.getSelectedRes();
-//
-//                    if (res == 0){
-//                        new AlertDialog.Builder(getApplicationContext())
-//                                .setTitle("未选择图标")
-//                                .setMessage("请选择图标")
-//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface arg0, int arg1) {
-//
-//                                    }
-//                                }).show();
-//
-//                        legal = false;
-//                    }
-
                     getParams();
-
-//                    IconImageAdaptor.clearSelecetedRes();
 
                     if (legal) {
                         facade.addTag(new TagPO(tagName, currentType, icon_res, target, end_date));
@@ -323,10 +260,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
 
         date_text.setOnClickListener(date_listener);
-//        date_icon.setOnClickListener(date_listener);
 
         plan_text.setOnClickListener(plan_listener);
-//        plan_icon.setOnClickListener(plan_listener);
 
 
         if (savedInstanceState != null) {

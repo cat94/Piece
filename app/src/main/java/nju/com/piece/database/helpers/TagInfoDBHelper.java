@@ -238,4 +238,15 @@ public class TagInfoDBHelper extends DatabaseHelper {
             PeriodDBHelper.instance(context).updateTagName(oldName, newTag.getTagName());
     }
 
+    public void delTag(String tagName){
+        String where = COL_TAG + " = ?";
+        String[] whereArgs = new String[]{tagName};
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_NAME, where, whereArgs);
+        db.close();
+
+        PeriodDBHelper.instance(context).deletePeriodByTag(tagName);
+    }
+
 }
