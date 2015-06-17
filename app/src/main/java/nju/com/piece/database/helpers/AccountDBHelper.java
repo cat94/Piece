@@ -67,10 +67,10 @@ public class AccountDBHelper extends DatabaseHelper {
         db.close();
     }
 
-    public AccountPO getAccount(String username) {
+    public AccountPO getAccount() {
         String[] result_cols = new String[]{COL_NAME, COL_PSWD};
-        String where = COL_NAME + "=?";
-        String[] whereArgs = new String[]{username};
+        String where = null;
+        String[] whereArgs = null;
         String groupBy = null;
         String having = null;
         String order = null;
