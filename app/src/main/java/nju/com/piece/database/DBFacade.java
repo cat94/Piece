@@ -71,6 +71,10 @@ public class DBFacade {
         tagDBHelperInstance().addTag(po);
     }
 
+    public void delTag(String tagName){
+        tagDBHelperInstance().delTag(tagName);
+    }
+
     public List<TagPO> getAllTags(){
         return tagDBHelperInstance().getAllTags();
     }
