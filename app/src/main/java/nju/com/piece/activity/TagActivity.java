@@ -1,5 +1,7 @@
 package nju.com.piece.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.IllegalFormatException;
 
 import nju.com.piece.IconsArray;
 import nju.com.piece.MyGridView;
@@ -62,6 +65,13 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     private final DBFacade facade = new DBFacade(this);
 
+
+    private Date end_date;
+    private int target;
+    private boolean legal;
+    private String tagName;
+    private int icon_res;
+
     private void editInit(final String tagName){
 
         TagPO tagPO = facade.getTag(tagName);
@@ -78,7 +88,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         if (targetTime == 0)
             TIMEPICKER_TAG = "选择时间";
         else{
-            double time = targetTime%60;
+            double time = targetTime/60.0;
             plan_text.setText(time+"");
         }
 
@@ -90,18 +100,22 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
-                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
-                    String newTagName = tag_name_edit.getText().toString();
+//                    Date end_date = formatter.parse((String) date_text.getText());
+//                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+//                    String newTagName = tag_name_edit.getText().toString();
 
-                    int res = IconImageAdaptor.getSelectedRes();
-                    IconImageAdaptor.clearSelecetedRes();
+                    getParams();
 
-                    facade.updateTag(tagName, new TagPO(newTagName, currentType, res, target, end_date));
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
+//                    int res = IconImageAdaptor.getSelectedRes();
+//                    IconImageAdaptor.clearSelecetedRes();
+
+                    if (legal) {
+                        facade.updateTag(tagName, new TagPO(tagName, currentType, icon_res, target, end_date));
+                        Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -121,24 +135,126 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+//                boolean legal = true;
+
                 try {
-                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
-                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
-                    String tagName = tag_name_edit.getText().toString();
+//                    Date end_date = null;
+//                    String date_str = (String) date_text.getText();
+//                    if (!date_str.equals("")){
+//                        try{
+//                            end_date = formatter.parse(date_str);
+//                        }catch (IllegalFormatException ex){
+//                            end_date = null;
+//                        }
+//                    }
+//
+//                    String plan_str = (String) plan_text.getText();
+//                    int target = 0;
+//                    if (!plan_str.equals(""))
+//                        target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+//
+//                    String tagName = tag_name_edit.getText().toString();
+//
+//                    if (tagName.trim().equals("")) {
+//                        new AlertDialog.Builder(getApplicationContext())
+//                                .setTitle("标签不能为空")
+//                                .setMessage("请输入标签名")
+//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                    }
+//                                }).show();
+//                        legal = false;
+//                    }
+//
+//
+//                    int res = IconImageAdaptor.getSelectedRes();
+//
+//                    if (res == 0){
+//                        new AlertDialog.Builder(getApplicationContext())
+//                                .setTitle("未选择图标")
+//                                .setMessage("请选择图标")
+//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                    }
+//                                }).show();
+//
+//                        legal = false;
+//                    }
 
-                    int res = IconImageAdaptor.getSelectedRes();
-                    IconImageAdaptor.clearSelecetedRes();
+                    getParams();
 
-                    facade.addTag(new TagPO(tagName, currentType, res, target, end_date));
-                    Intent intent = new Intent(TagActivity.this, MainActivity.class);
-                    startActivity(intent);
+//                    IconImageAdaptor.clearSelecetedRes();
+
+                    if (legal) {
+                        facade.addTag(new TagPO(tagName, currentType, icon_res, target, end_date));
+                        Intent intent = new Intent(TagActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
 
+    private void getParams() throws ParseException {
+        legal = true;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        end_date = null;
+        String date_str = (String) date_text.getText();
+        if (!date_str.equals("")){
+            try{
+                end_date = formatter.parse(date_str);
+            }catch (IllegalFormatException ex){
+                end_date = null;
+            }
+        }
+
+        String plan_str = (String) plan_text.getText();
+        target = 0;
+        if (!plan_str.equals(""))
+            target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+
+        tagName = tag_name_edit.getText().toString();
+
+        if (tagName.trim().equals("")) {
+            new AlertDialog.Builder(TagActivity.this)
+                    .setTitle("标签不能为空")
+                    .setMessage("请输入标签名")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    }).show();
+            tag_name_edit.requestFocus();
+            legal = false;
+        }
+
+
+        icon_res = IconImageAdaptor.getSelectedRes();
+
+        if (icon_res == 0){
+            new AlertDialog.Builder(TagActivity.this)
+                    .setTitle("未选择图标")
+                    .setMessage("请选择图标")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    }).show();
+
+            legal = false;
+        }
+
+        IconImageAdaptor.clearSelecetedRes();
     }
 
     @Override

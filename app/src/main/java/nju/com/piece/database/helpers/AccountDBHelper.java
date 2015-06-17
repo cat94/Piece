@@ -5,12 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.Date;
-
-import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.AccountPO;
-import nju.com.piece.database.pos.TagPO;
-import nju.com.piece.database.tools.DateTool;
 
 /**
  * Created by shen on 15/6/8.
@@ -47,6 +42,7 @@ public class AccountDBHelper extends DatabaseHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_NAME, "_id", cv);
+        db.close();
     }
 
 //    clear the account info
@@ -84,9 +80,11 @@ public class AccountDBHelper extends DatabaseHelper {
 
         if (cursor.moveToNext()) {
             AccountPO po = getPOByCursor(db, cursor);
+            cursor.close();
             db.close();
             return po;
         } else {
+            cursor.close();
             db.close();
             return null;
         }

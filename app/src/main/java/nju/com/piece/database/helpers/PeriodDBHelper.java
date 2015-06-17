@@ -104,6 +104,7 @@ public class PeriodDBHelper extends DatabaseHelper {
             results.add(getPeriodPOByCursor(db,cursor));
         }
 
+        cursor.close();
         db.close();
 
         return results;
@@ -142,6 +143,7 @@ public class PeriodDBHelper extends DatabaseHelper {
             results.add(getPeriodPOByCursor(db,cursor));
         }
 
+        cursor.close();
         db.close();
 
         return results;
@@ -185,6 +187,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }
@@ -229,6 +232,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }
@@ -272,6 +276,7 @@ public class PeriodDBHelper extends DatabaseHelper {
        while(cursor.moveToNext()){
            results.add(getPeriodPOByCursor(db,cursor));
        }
+       cursor.close();
        db.close();
        return  results;
    }
@@ -314,6 +319,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }
@@ -335,6 +341,7 @@ public class PeriodDBHelper extends DatabaseHelper {
             results.add(getPeriodPOByCursor(db,cursor));
         }
 
+        cursor.close();
         db.close();
 
         return results;
@@ -378,6 +385,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }
@@ -422,6 +430,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }
@@ -465,6 +474,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }
@@ -507,6 +517,7 @@ public class PeriodDBHelper extends DatabaseHelper {
         while(cursor.moveToNext()){
             results.add(getPeriodPOByCursor(db,cursor));
         }
+        cursor.close();
         db.close();
         return  results;
     }

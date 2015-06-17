@@ -67,6 +67,7 @@ public class TagInfoDBHelper extends DatabaseHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_NAME, "_id", cv);
+        db.close();
     }
 
     /**
@@ -88,9 +89,11 @@ public class TagInfoDBHelper extends DatabaseHelper {
 
         if (cursor.moveToNext()) {
             TagPO po = getPOByCursor(db, cursor);
+            cursor.close();
             db.close();
             return po;
         } else {
+            cursor.close();
             db.close();
             return null;
         }
@@ -207,6 +210,10 @@ public class TagInfoDBHelper extends DatabaseHelper {
 
         while (cursor.moveToNext())
             tags.add(getPOByCursor(db, cursor));
+
+        cursor.close();
+
+        db.close();
 
         return tags;
     }
