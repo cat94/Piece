@@ -71,6 +71,10 @@ public class DBFacade {
         tagDBHelperInstance().addTag(po);
     }
 
+    public void delTag(String tagName){
+        tagDBHelperInstance().delTag(tagName);
+    }
+
     public List<TagPO> getAllTags(){
         return tagDBHelperInstance().getAllTags();
     }
@@ -119,8 +123,8 @@ public class DBFacade {
         return  periodHelperInstance().getLastSeasonPeroids(tagName);
     }
 
-    public AccountPO getAccount(String username){
-        return accountDBHelperInstance().getAccount(username);
+    public AccountPO getAccount(){
+        return accountDBHelperInstance().getAccount();
     }
 
     public void updatePassword(String username, String newPswd){
