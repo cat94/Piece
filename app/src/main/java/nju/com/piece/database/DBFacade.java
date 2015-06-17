@@ -123,8 +123,8 @@ public class DBFacade {
         return  periodHelperInstance().getLastSeasonPeroids(tagName);
     }
 
-    public AccountPO getAccount(String username){
-        return accountDBHelperInstance().getAccount(username);
+    public AccountPO getAccount(){
+        return accountDBHelperInstance().getAccount();
     }
 
     public void updatePassword(String username, String newPswd){
