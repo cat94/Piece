@@ -348,6 +348,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         int totalSeconds=0;
 
         int lastWeekSeconds=0;
+        DecimalFormat decimalFormat=new DecimalFormat(".#");
 
         HashMap<String,Integer> tagOccupation=new HashMap<String,Integer>();
         for(TagPO tagPO:allTags){
@@ -367,7 +368,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         }
 
         totalHour=totalSeconds/3600;
-        hoursPerLastWeek=((double)lastWeekSeconds/3600)/7;
+        hoursPerLastWeek=Double.parseDouble(decimalFormat.format(((double)lastWeekSeconds/3600/7)));
 
 
 
@@ -380,7 +381,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
             cal.setTime(today);
             long time2 = cal.getTimeInMillis();
             int between_days=Integer.parseInt(String.valueOf((time2-time1)/(1000*3600*24)));
-            hoursPerWeek=((double)totalHour)/(between_days+1);
+            hoursPerWeek=Double.parseDouble(decimalFormat.format((double)totalHour/(between_days+1)));
         }
 
 
@@ -420,7 +421,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         for (int i=0;i<lastweekDays.size();i++){
             healthEntries.add(new Entry(weeklyHealth.get(lastweekDays.get(i)),i));
             diligenceEntries.add(new Entry(weeklyWork.get(lastweekDays.get(i)),i));
-            daily.add(new BarEntry(dailySeconds.get(lastweekDays.get(i)),i));
+            daily.add(new BarEntry(dailySeconds.get(lastweekDays.get(i))/3600,i));
         }
 
 
