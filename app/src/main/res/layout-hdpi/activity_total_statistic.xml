@@ -205,8 +205,20 @@
                 android:id="@android:id/tabcontent"
                 android:paddingTop="@dimen/daily_tab_content_padding"
                 >
+
+
                 <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/bar_charts"
+                    android:id="@+id/monthly_charts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ></com.github.mikephil.charting.charts.BarChart>
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/weekly_charts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ></com.github.mikephil.charting.charts.BarChart>
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/daily_charts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     ></com.github.mikephil.charting.charts.BarChart>

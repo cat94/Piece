@@ -295,7 +295,17 @@
                     android:paddingTop="@dimen/daily_tab_content_padding"
                     >
                     <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/bar_charts"
+                        android:id="@+id/item_monthly_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ></com.github.mikephil.charting.charts.BarChart>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/item_weekly_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ></com.github.mikephil.charting.charts.BarChart>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/item_daily_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         ></com.github.mikephil.charting.charts.BarChart>
@@ -321,14 +331,6 @@
 
             />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/stop_item"
-            android:id="@+id/item_stat_stopitem"
-
-            android:textColor="@color/button_material_dark"
-            />
 
     </LinearLayout>
 

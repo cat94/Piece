@@ -79,8 +79,44 @@ public class DBFacade {
         return periodHelperInstance().getAllPeriods();
     }
 
-    public void setAccount(AccountPO po){
+    public void setAccount(AccountPO po) {
         accountDBHelperInstance().setAccount(po);
+    }
+
+    public List<PeriodPO> getLastWeekPeriods(){
+        return periodHelperInstance().getLastWeekPeriod();
+    }
+
+    public List<PeriodPO> getLastSevenDaysPeriods(){
+        return  periodHelperInstance().getLastSevenDay();
+    }
+
+    public List<PeriodPO> getLastMonthPeriods(){
+        return periodHelperInstance().getLastMonthPeriod();
+    }
+
+    public List<PeriodPO> getLastSeasonPeriods(){
+        return  periodHelperInstance().getLastSeasonPeroids();
+    }
+
+    public List<PeriodPO> getAllPeriods(String tagName){
+        return periodHelperInstance().getAllPeriods(tagName);
+    }
+
+    public List<PeriodPO> getLastWeekPeriods(String tagName){
+        return periodHelperInstance().getLastWeekPeriod(tagName);
+    }
+
+    public List<PeriodPO> getLastSevenDaysPeriods(String tagName){
+        return  periodHelperInstance().getLastSevenDay(tagName);
+    }
+
+    public List<PeriodPO> getLastMonthPeriods(String tagName){
+        return periodHelperInstance().getLastMonthPeriod(tagName);
+    }
+
+    public List<PeriodPO> getLastSeasonPeriods(String tagName){
+        return  periodHelperInstance().getLastSeasonPeroids(tagName);
     }
 
     public AccountPO getAccount(String username){
