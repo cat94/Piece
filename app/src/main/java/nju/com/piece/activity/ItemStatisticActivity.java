@@ -80,7 +80,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
     private ArrayList<String> bar_daily_xvals=new ArrayList<String>();
     private ArrayList<String> bar_weekly_xvals=new ArrayList<String>();
     private ArrayList<String> bar_monthly_xvals=new ArrayList<String>();
-
+    private Button editItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         weeklyBar=(BarChart)findViewById(R.id.item_weekly_bar);
         monthlyBar=(BarChart)findViewById(R.id.item_monthly_bar);
 
-
+        editItem=(Button)findViewById(R.id.edit_item_btn);
 
 
 
@@ -132,6 +132,18 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         tabHost.addTab(tabHost.newTabSpec("weekly_chart").setIndicator("每周").setContent(this));
         tabHost.addTab(tabHost.newTabSpec("monthly_chart").setIndicator("每月").setContent(this));
 
+
+        editItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             Intent intent=new Intent(ItemStatisticActivity.this,TagActivity.class);
+             Bundle bundle=new Bundle();
+             bundle.putBoolean("ifEdit",true);
+             bundle.putString("tagName",itemName);
+             intent.putExtras(bundle);
+             startActivity(intent);
+            }
+        });
     }
 
 
@@ -251,7 +263,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
             totalSeconds+=periodPO.getLength();
         }
 
-        totalHours_text=totalSeconds/3600+"h";
+        totalHours_text=totalSeconds/3600+"";
         totalDays_text=totalSeconds/3600/24+"days";
 
         if (allPeriods!=null&&allPeriods.size()>0){
@@ -274,13 +286,13 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
         HashMap<String,Integer> dailySeconds=new HashMap<String,Integer>();
         for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DATE, -1 * calendar.get(Calendar.DAY_OF_WEEK) + 2 + i);
+            calendar.add(Calendar.DATE,1);
             dailySeconds.put(sf.format(calendar.getTime()), 0);
             lastweekDays.add(sf.format(calendar.getTime()));
             bar_daily_xvals.add(sf.format(calendar.getTime()).split("-")[2]+"日");
         }
 
-        List<PeriodPO> lastWeekPeriods=dbFacade.getLastWeekPeriods();
+        List<PeriodPO> lastWeekPeriods=dbFacade.getLastSevenDaysPeriods(tagPO.getTagName());
 
         for(PeriodPO periodPO:lastWeekPeriods){
             int seconds=dailySeconds.get(sf.format(periodPO.getDate()))+periodPO.getLength();
@@ -288,27 +300,23 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         }
 
         int lastWeekSeconds=0;
-        for (int i=0;i<lastweekDays.size();i++){
-            daily.add(new BarEntry(dailySeconds.get(lastweekDays.get(i))/3600,i));
-            lastWeekSeconds+=dailySeconds.get(lastweekDays.get(i));
-        }
-        lastWeek_text=lastWeekSeconds/3600+"h";
-        if (tagPO.getTargetMinute()-tagPO.getCurrentMinute()<0){
-            toTarget_text="已完成";
-        }else{
-            toTarget_text=tagPO.getTargetMinute()-tagPO.getCurrentMinute()+"min";
-        }
-
-
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(tagPO.getStartDate());
         long time1 = cal.getTimeInMillis();
         cal.setTime(tagPO.getEndDate());
         long time2 = cal.getTimeInMillis();
         int between_days=Integer.parseInt(String.valueOf((time2-time1)/(1000*3600*24)));
-
-        plan_per_week_text="计划每周投入"+Double.parseDouble(decimalFormat.format((double)tagPO.getTargetMinute()/60/(between_days+1)/7))+"h";
+        for (int i=0;i<lastweekDays.size();i++){
+            daily.add(new BarEntry(dailySeconds.get(lastweekDays.get(i))/3600,i));
+            lastWeekSeconds+=dailySeconds.get(lastweekDays.get(i));
+        }
+        lastWeek_text=lastWeekSeconds/3600+"h";
+        if ((tagPO.getTargetMinute()/60*(between_days+1)-tagPO.getCurrentMinute()/60)<0){
+            toTarget_text="已完成";
+        }else{
+            toTarget_text=(tagPO.getTargetMinute()/60*(between_days+1)-tagPO.getCurrentMinute()/60)+"h";
+        }
+        plan_per_week_text="计划每周投入"+Double.parseDouble(decimalFormat.format(tagPO.getTargetMinute()/60*(between_days+1)/7.0))+"h";
 
 
         List<PeriodPO> lastMonthPeriods=dbFacade.getLastMonthPeriods(itemName);
@@ -317,10 +325,10 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         cal_1.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         Date firstDay = cal_1.getTime();
 
-        for (int i=0;i<3;i++){
+        for (int i=0;i<4;i++){
             Calendar cale = Calendar.getInstance();
             cale.set(DateTool.getYear(firstDay), DateTool.getMonth(firstDay), DateTool.getDay(firstDay));
-            cale.add(Calendar.WEEK_OF_MONTH,i);
+            cale.add(Calendar.WEEK_OF_MONTH,1);
             cale.add(Calendar.DATE, -1 * cale.get(Calendar.DAY_OF_WEEK) + 8);
             Date after_date = cale.getTime();
             int second_in_week=0;
@@ -340,7 +348,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         cal_2.add(Calendar.MONTH, -4);
         cal_2.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
         Date firstOfMonth = cal_2.getTime();
-        for (int i=0;i<4;i++){
+        for (int i=0;i<5;i++){
             Calendar cale = Calendar.getInstance();
             cale.set(DateTool.getYear(firstOfMonth),DateTool.getMonth(firstOfMonth),DateTool.getDay(firstOfMonth));
             cale.add(Calendar.DAY_OF_MONTH,cale.getActualMaximum(Calendar.DAY_OF_MONTH));
