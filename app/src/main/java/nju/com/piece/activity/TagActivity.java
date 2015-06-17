@@ -78,7 +78,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         if (targetTime == 0)
             TIMEPICKER_TAG = "选择时间";
         else{
-            double time = targetTime%60;
+            double time = targetTime/60.0;
             plan_text.setText(time+"");
         }
 
@@ -92,7 +92,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             public void onClick(View v) {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
+                    Date end_date = formatter.parse((String) date_text.getText());
                     int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
                     String newTagName = tag_name_edit.getText().toString();
 
@@ -123,7 +123,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             public void onClick(View v) {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-                    Date end_date = DateTool.increDate(formatter.parse((String) date_text.getText()), 1);
+                    Date end_date = formatter.parse((String) date_text.getText());
                     int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
                     String tagName = tag_name_edit.getText().toString();
 

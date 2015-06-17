@@ -194,11 +194,10 @@ public class PeriodDBHelper extends DatabaseHelper {
         //获取前月的第一天
         Calendar   cal_1=Calendar.getInstance();//获取当前日期
         cal_1.add(Calendar.MONTH, -1);
-        cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
         Date pre_date = cal_1.getTime();
-        //获取前月的最后一天
         Calendar cale = Calendar.getInstance();
-        cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        cale.add(Calendar.MONTH, 1);
+        cale.set(Calendar.DATE,0);//设置为1号,当前日期既为本月第一天
         Date after_date = cale.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
@@ -239,9 +238,9 @@ public class PeriodDBHelper extends DatabaseHelper {
        cal_1.add(Calendar.MONTH, -4);
        cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
        Date pre_date = cal_1.getTime();
-       //获取前月的最后一天
        Calendar cale = Calendar.getInstance();
-       cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+       cale.add(Calendar.MONTH, 1);
+       cale.set(Calendar.DATE,0);//设置为1号,当前日期既为本月第一天
        Date after_date = cale.getTime();
 
        int pre_year = DateTool.getYear(pre_date);
@@ -279,10 +278,10 @@ public class PeriodDBHelper extends DatabaseHelper {
     public ArrayList<PeriodPO> getLastSevenDay(){
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -7);
+        calendar.add(Calendar.WEEK_OF_MONTH, -1);
         Date pre_date = calendar.getTime();
 
-        calendar.add(Calendar.DATE, 7);
+        calendar.add(Calendar.DATE, 8);
         Date after_date = calendar.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
@@ -389,9 +388,9 @@ public class PeriodDBHelper extends DatabaseHelper {
         cal_1.add(Calendar.MONTH, -1);
         cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
         Date pre_date = cal_1.getTime();
-        //获取前月的最后一天
         Calendar cale = Calendar.getInstance();
-        cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        cale.add(Calendar.MONTH, 1);
+        cale.set(Calendar.DATE,0);//设置为1号,当前日期既为本月第一天
         Date after_date = cale.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
@@ -432,9 +431,9 @@ public class PeriodDBHelper extends DatabaseHelper {
         cal_1.add(Calendar.MONTH, -4);
         cal_1.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
         Date pre_date = cal_1.getTime();
-        //获取前月的最后一天
         Calendar cale = Calendar.getInstance();
-        cale.set(Calendar.DAY_OF_MONTH,0);//设置为1号,当前日期既为本月第一天
+        cale.add(Calendar.MONTH, 1);
+        cale.set(Calendar.DATE,0);//设置为1号,当前日期既为本月第一天
         Date after_date = cale.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
@@ -472,10 +471,10 @@ public class PeriodDBHelper extends DatabaseHelper {
     public ArrayList<PeriodPO> getLastSevenDay(String tagName){
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -7);
+        calendar.add(Calendar.WEEK_OF_MONTH, -1);
         Date pre_date = calendar.getTime();
 
-        calendar.add(Calendar.DATE, 7);
+        calendar.add(Calendar.DATE, 8);
         Date after_date = calendar.getTime();
 
         int pre_year = DateTool.getYear(pre_date);
