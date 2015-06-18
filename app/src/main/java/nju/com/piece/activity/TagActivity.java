@@ -98,7 +98,11 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
+                    Date end_date = formatter.parse((String) date_text.getText());
+                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+                    String newTagName = tag_name_edit.getText().toString();
                     getParams();
 
                     if (legal) {
@@ -125,7 +129,11 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
+                    Date end_date = formatter.parse((String) date_text.getText());
+                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+                    String tagName = tag_name_edit.getText().toString();
                     getParams();
 
                     if (legal) {
