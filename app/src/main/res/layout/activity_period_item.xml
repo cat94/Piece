@@ -17,13 +17,13 @@
             android:layout_height="100dp"
             android:id="@+id/del_btn"
             android:layout_marginRight="25dp"
-            android:src="@drawable/tag_icon_02"/>
+            android:src="@drawable/period_del_btn"/>
 
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/edit_btn"
             android:layout_marginLeft="25dp"
-            android:src="@drawable/tag_icon_12"/>
+            android:src="@drawable/period_edit_btn"/>
     </LinearLayout>
 </RelativeLayout>
