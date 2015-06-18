@@ -15,6 +15,7 @@ import nju.com.piece.activity.LoginActivity;
 import nju.com.piece.activity.MainActivity;
 import nju.com.piece.activity.TimeLineActivity;
 import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.helpers.DatabaseHelper;
 import nju.com.piece.database.pos.AccountPO;
 import nju.com.piece.logic.net.CallService;
 import nju.com.piece.logic.sync.SyncRecords;
@@ -96,10 +97,12 @@ public class Login {
             //here save the account info on this phone
             if(result.equals("true")) {
                 //同步
-//                SyncRecords syncRecords=new SyncRecords(context,null);
-//                syncRecords.sync();
                 DBFacade dbFacade = new DBFacade(context);
+                dbFacade.clearAccount();
+                DatabaseHelper.setCurrentUser(userName);
                 dbFacade.setAccount(new AccountPO(userName, password));
+                SyncRecords syncRecords=new SyncRecords(context,null);
+                syncRecords.sync();
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
                 Activity activity = (Activity) context;

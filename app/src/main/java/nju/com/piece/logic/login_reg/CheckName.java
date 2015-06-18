@@ -81,7 +81,7 @@ public class CheckName {
                // Toast.makeText(context, " can be registered!", Toast.LENGTH_SHORT).show();
             }
             else{
-                editText.setText(userName+"has been registered!");
+                Toast.makeText(context,userName+" has been registered!", Toast.LENGTH_SHORT).show();
             }
             //here save the account info on this phone
 

@@ -1,6 +1,8 @@
 package nju.com.piece.logic.login_reg;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import nju.com.piece.activity.MainActivity;
+import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.helpers.DatabaseHelper;
+import nju.com.piece.database.pos.AccountPO;
 import nju.com.piece.logic.net.CallService;
 import nju.com.piece.logic.update.GetServerUrl;
 
@@ -79,10 +86,23 @@ public class Register {
         @Override
         protected void onPostExecute(String  result) {
             progressBar.setVisibility(View.GONE);    //hide the progressBar
-            Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
             if(result==null){
                 CallService.showNetErr(context);
                 return;
+            }
+            if(result.equals("true")){
+                DBFacade dbFacade = new DBFacade(context);
+                dbFacade.clearAccount();
+                DatabaseHelper.setCurrentUser(userName);
+                dbFacade.setAccount(new AccountPO(userName, password));
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                Activity activity = (Activity) context;
+                activity.finish();
+            }
+            else{
+                 Toast.makeText(context,"register failed!",Toast.LENGTH_SHORT).show();
             }
             //here save the account info on this phone
 

@@ -124,10 +124,12 @@ public class MainActivity extends ActionBarActivity{
             case R.id.action_plus:
                 intent=new Intent(this, TagActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.action_set:
                 intent=new Intent(this, SetActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             default:
 

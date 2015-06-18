@@ -1,35 +1,22 @@
 package nju.com.piece.logic.sync;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.provider.CallLog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.TagType;
 import nju.com.piece.database.helpers.PeriodDBHelper;
 import nju.com.piece.database.pos.PeriodPO;
+import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.logic.net.CallService;
 import nju.com.piece.logic.update.GetServerUrl;
 
@@ -61,31 +48,42 @@ public class SyncRecords {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             ArrayList<PeriodPO> localPeriods;    //records on this phone
             //first, get all records on this machine
             PeriodDBHelper periodDBHelper = PeriodDBHelper.instance(context);
             localPeriods = periodDBHelper.getAllPeriods();
+            DBFacade dbFacade=new DBFacade(context);
+            ArrayList<TagPO> tagList= (ArrayList<TagPO>) dbFacade.getAllTags();
             //package them to json
             JSONObject tosendsObject = new JSONObject();
             Log.i(TAG, "start put json!");
-            JSONArray jsonArray = new JSONArray();
+            JSONArray tagArray = new JSONArray();
+            JSONArray periodArray = new JSONArray();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             try {
+                //add tags
+                for (TagPO tag : tagList) {
+                    JSONObject tagObject = new JSONObject();
+                    tagObject.put("tagName", tag.getTagName());
+                    tagObject.put("tagType",tag.getType());
+                    tagObject.put("targetMinute",tag.getTargetMinute());
+                    tagObject.put("resource",tag.getResource());
+                    tagObject.put("startDate",sdf.format(tag.getStartDate()));
+                    tagObject.put("endDate",sdf.format(tag.getEndDate()));
+                    tagArray.put(tagObject);
+                }
+                tosendsObject.put("tags", tagArray);
+                //add periods
                 for (PeriodPO peroid : localPeriods) {
                     JSONObject periodObject = new JSONObject();
                     periodObject.put("date", sdf.format(peroid.getDate()));
                     periodObject.put("tag", peroid.getTag());
                     periodObject.put("length", peroid.getLength());
-                    jsonArray.put(periodObject);
+                    periodArray.put(periodObject);
                 }
-                tosendsObject.put("periods", jsonArray);
+                tosendsObject.put("periods", periodArray);
                 //add account info
-                tosendsObject.put("username", "test");
+                tosendsObject.put("username", dbFacade.getAccount().getName());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -100,23 +98,44 @@ public class SyncRecords {
                 JSONObject resultObject = null;
                 try {
                     resultObject = new JSONObject(responseData);
-                    String toAdd = resultObject.getString("toadd");
+                    String toAddTags = resultObject.getString("toAddTag");
+                    //get the tags to add to this phone
+                    JSONArray addTags = new JSONArray(toAddTags);
+                    Log.i(TAG, "to add tags:" + addTags.length());
+                    if (addTags.length() != 0) {
+                        for (int i = 0; i < addTags.length(); i++) {
+                            JSONObject object = addTags.getJSONObject(i);
+                            String tagName=object.getString("tagName");
+                            String type=object.getString("tagType");
+                            int resource=Integer.valueOf(object.getString("resource"));
+                            int targetMinute=Integer.valueOf(object.getString("targetMinute"));
+                            Date startDate= sdf.parse(object.getString("startDate"));
+                            Date endDate = sdf.parse(object.getString("endDate"));
+                            TagPO tagPO=new TagPO(tagName, TagType.valueOf(type),resource,targetMinute,endDate);
+                            tagPO.setStartDate(startDate);
+                            dbFacade.addTag(tagPO);
+                        }
+                    }
+                    String toAddPeriods = resultObject.getString("toAddPeriod");
                     //get the records to add to this phone
-                    JSONArray addperiods = new JSONArray(toAdd);
-                    Log.i(TAG, "to add:" + addperiods.length());
+                    JSONArray addperiods = new JSONArray(toAddPeriods);
+                    Log.i(TAG, "to add periods:" + addperiods.length());
                     if (addperiods.length() != 0) {
                         for (int i = 0; i < addperiods.length(); i++) {
                             JSONObject object = addperiods.getJSONObject(i);
                             String tag = object.getString("tag");
                             Date date = sdf.parse(object.getString("date"));
                             int length = Integer.valueOf(object.getString("length"));
-                            DBFacade dbFacade=new DBFacade(context);
-                            PeriodDBHelper.instance(context).addPeriod(new PeriodPO(tag, length, date));
-
+                            dbFacade.addPeriod(new PeriodPO(tag, length, date));
                         }
                     }
-                    int added = Integer.valueOf(resultObject.getString("added"));     //the number that added on the cloud
-                    Log.i(TAG, "added:" + added);
+
+                    int addedTagNum = Integer.valueOf(resultObject.getString("addedTagNum"));     //the number of tags that added on the cloud
+                    Log.i(TAG, "addedTagNum:" + addedTagNum);
+                    int addedPeriodNum = Integer.valueOf(resultObject.getString("addedPeriodNum"));     //the number of periodsthat added on the cloud
+                    Log.i(TAG, "addedPeriodNum:" + addedPeriodNum);
+                    Log.i(TAG, "本机添加标签个数:" + addTags.length());
+                    Log.i(TAG, "本机添加记录个数:" + addperiods.length());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
@@ -145,7 +164,5 @@ public class SyncRecords {
             }
             super.onPostExecute(result);
         }
-
-
     }
 }
