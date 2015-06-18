@@ -13,21 +13,44 @@
     <RelativeLayout
         android:id="@+id/holder"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/holder_bg">
+        android:layout_height="match_parent">
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/countdown"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@android:drawable/ic_media_previous" />
+            android:orientation="horizontal"
+            android:background="#EEAD0E">
 
-        <ImageView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="    倒计时    "
+                android:id="@+id/textView"
+                android:textColor="#F0F8FF"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/timing"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:layout_toRightOf="@id/countdown"
-            android:src="@android:drawable/ic_media_ff" />
+            android:background="#009999">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#F0F8FF"
+                android:text="    正计时    "
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
 </merge>

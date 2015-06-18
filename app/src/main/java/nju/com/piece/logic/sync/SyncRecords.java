@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.helpers.PeriodDBHelper;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.logic.net.CallService;
@@ -109,7 +110,9 @@ public class SyncRecords {
                             String tag = object.getString("tag");
                             Date date = sdf.parse(object.getString("date"));
                             int length = Integer.valueOf(object.getString("length"));
+                            DBFacade dbFacade=new DBFacade(context);
                             PeriodDBHelper.instance(context).addPeriod(new PeriodPO(tag, length, date));
+
                         }
                     }
                     int added = Integer.valueOf(resultObject.getString("added"));     //the number that added on the cloud
@@ -125,13 +128,17 @@ public class SyncRecords {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);    //show the progressBar
+            if(progressBar!=null) {
+                progressBar.setVisibility(View.VISIBLE);    //show the progressBar
+            }
             super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
-            progressBar.setVisibility(View.GONE);    //hide the progressBar
+            if(progressBar!=null) {
+                progressBar.setVisibility(View.GONE);    //hide the progressBar
+            }
             if (!result) {
                 CallService.showNetErr(context);
                 return;
