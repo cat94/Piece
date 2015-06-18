@@ -388,13 +388,13 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         HashMap<String,Integer> weeklyHealth=new HashMap<String,Integer>();
         HashMap<String,Integer> weeklyWork=new HashMap<String,Integer>();
         HashMap<String,Integer> dailySeconds=new HashMap<String,Integer>();
-        //上周所有日期
+        //最近7天所有日期
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         ArrayList<String> lastweekDays=new ArrayList<String>();
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
         for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DATE, -1 * calendar.get(Calendar.DAY_OF_WEEK) + 2 + i);
+            calendar.add(Calendar.DATE,1);
             line_xvals.add(sf.format(calendar.getTime()).split("-")[2]+"日");
             weeklyHealth.put(sf.format(calendar.getTime()), 0);
             weeklyWork.put(sf.format(calendar.getTime()), 0);
@@ -403,10 +403,11 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
             bar_daily_xvals.add(sf.format(calendar.getTime()).split("-")[2]+"日");
         }
 
-        List<PeriodPO> lastWeekPeriods=dbFacade.getLastWeekPeriods();
+        List<PeriodPO> lastWeekPeriods=lastSevenDaysPeriods;
 
         for(PeriodPO periodPO:lastWeekPeriods){
-            if (periodPO.getTag().equals(TagType.relax)){
+            TagPO tagPO=dbFacade.getTag(periodPO.getTag());
+            if (tagPO.getType().equals(TagType.relax)){
                 int health=weeklyHealth.get(sf.format(periodPO.getDate()))+periodPO.getLength();
                 weeklyHealth.put(sf.format(periodPO.getDate()), health);
             }else{
@@ -431,10 +432,10 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         cal_1.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         Date firstDay = cal_1.getTime();
 
-        for (int i=0;i<3;i++){
+        for (int i=0;i<4;i++){
             Calendar cale = Calendar.getInstance();
             cale.set(DateTool.getYear(firstDay), DateTool.getMonth(firstDay), DateTool.getDay(firstDay));
-            cale.add(Calendar.WEEK_OF_MONTH,i);
+            cale.add(Calendar.WEEK_OF_MONTH,1);
             cale.add(Calendar.DATE, -1 * cale.get(Calendar.DAY_OF_WEEK) + 8);
             Date after_date = cale.getTime();
             int second_in_week=0;
@@ -454,7 +455,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         cal_2.add(Calendar.MONTH, -4);
         cal_2.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
         Date firstOfMonth = cal_2.getTime();
-        for (int i=0;i<4;i++){
+        for (int i=0;i<5;i++){
             Calendar cale = Calendar.getInstance();
             cale.set(DateTool.getYear(firstOfMonth),DateTool.getMonth(firstOfMonth),DateTool.getDay(firstOfMonth));
             cale.add(Calendar.DAY_OF_MONTH,cale.getActualMaximum(Calendar.DAY_OF_MONTH));
