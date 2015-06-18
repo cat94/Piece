@@ -46,7 +46,7 @@ public class AccountDBHelper extends DatabaseHelper {
     }
 
 //    clear the account info
-    private void delAccount(){
+    public void delAccount(){
         String where = null;
         String[] whereArgs = null;
 

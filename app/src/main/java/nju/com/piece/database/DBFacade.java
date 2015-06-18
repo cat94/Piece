@@ -87,6 +87,10 @@ public class DBFacade {
         accountDBHelperInstance().setAccount(po);
     }
 
+    public void clearAccount(){
+        accountDBHelperInstance().delAccount();
+    }
+
     public List<PeriodPO> getLastWeekPeriods(){
         return periodHelperInstance().getLastWeekPeriod();
     }
