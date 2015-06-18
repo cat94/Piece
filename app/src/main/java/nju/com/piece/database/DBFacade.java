@@ -71,6 +71,10 @@ public class DBFacade {
         tagDBHelperInstance().addTag(po);
     }
 
+    public void delTag(String tagName){
+        tagDBHelperInstance().delTag(tagName);
+    }
+
     public List<TagPO> getAllTags(){
         return tagDBHelperInstance().getAllTags();
     }
@@ -79,16 +83,54 @@ public class DBFacade {
         return periodHelperInstance().getAllPeriods();
     }
 
+    public void setAccount(AccountPO po) {
+        accountDBHelperInstance().setAccount(po);
+    }
 
-    public void addAccount(AccountPO po){
-        accountDBHelperInstance().addAccount(po);
+    public void clearAccount(){
+        accountDBHelperInstance().delAccount();
     }
-    public void delAccount(String username){
-        accountDBHelperInstance().delAccount(username);
+
+    public List<PeriodPO> getLastWeekPeriods(){
+        return periodHelperInstance().getLastWeekPeriod();
     }
-    public AccountPO getAccount(String username){
-        return accountDBHelperInstance().getAccount(username);
+
+    public List<PeriodPO> getLastSevenDaysPeriods(){
+        return  periodHelperInstance().getLastSevenDay();
     }
+
+    public List<PeriodPO> getLastMonthPeriods(){
+        return periodHelperInstance().getLastMonthPeriod();
+    }
+
+    public List<PeriodPO> getLastSeasonPeriods(){
+        return  periodHelperInstance().getLastSeasonPeroids();
+    }
+
+    public List<PeriodPO> getAllPeriods(String tagName){
+        return periodHelperInstance().getAllPeriods(tagName);
+    }
+
+    public List<PeriodPO> getLastWeekPeriods(String tagName){
+        return periodHelperInstance().getLastWeekPeriod(tagName);
+    }
+
+    public List<PeriodPO> getLastSevenDaysPeriods(String tagName){
+        return  periodHelperInstance().getLastSevenDay(tagName);
+    }
+
+    public List<PeriodPO> getLastMonthPeriods(String tagName){
+        return periodHelperInstance().getLastMonthPeriod(tagName);
+    }
+
+    public List<PeriodPO> getLastSeasonPeriods(String tagName){
+        return  periodHelperInstance().getLastSeasonPeroids(tagName);
+    }
+
+    public AccountPO getAccount(){
+        return accountDBHelperInstance().getAccount();
+    }
+
     public void updatePassword(String username, String newPswd){
         accountDBHelperInstance().updatePswd(username, newPswd);
     }

@@ -1,193 +1,265 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_my_horizontal_margin"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_my_horizontal_margin"
     android:paddingRight="@dimen/activity_my_horizontal_margin"
     android:paddingTop="@dimen/activity_my_vertical_margin"
     android:paddingBottom="@dimen/activity_my_vertical_margin"
-    android:orientation="vertical"
     tools:context="nju.com.piece.activity.TotalStatisticActivity"
     >
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-
-        android:background="@drawable/background"
-        android:id="@+id/linearLayout">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110h"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_time"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_gravity="center"
-                android:fontFamily="楷体" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            android:layout_gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110h"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/total_time"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110h"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_time"
-                android:layout_gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110h"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_time"
-                android:layout_gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/box_margin_left"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="1110h"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_time"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
-        >
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/health_diligence"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/health_box_height"
+        android:orientation="vertical"
 
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background"
         >
 
-
-        <TabHost
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tabhost"
-            >
-            <TabWidget
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            android:background="@drawable/rounded_edit_text"
+
+            android:id="@+id/linearLayout">
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@android:id/tabs">
-
-            </TabWidget>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@android:id/tabcontent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_gravity="center"
 
                 >
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/bar_charts"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/total_record"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_record"
+
+                    android:textSize="@dimen/stat_text_intro_size"
+                    android:layout_gravity="center"
+                    android:fontFamily="楷体" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/box_margin_left"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/total_time"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/total_time"
+                    android:textSize="@dimen/stat_text_intro_size"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/box_margin_left"
+                android:layout_weight="1"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/average_week"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/per_week"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/stat_text_intro_size"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/box_margin_left"
+                android:layout_weight="1"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1110h"
+                    android:id="@+id/last_week"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_week"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/stat_text_intro_size"
+                    />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_marginTop="@dimen/box_interval"
+            android:layout_marginBottom="@dimen/box_interval"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edit_text"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            >
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/health_diligence"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/health_box_height"
+
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_marginTop="@dimen/box_interval"
+            android:layout_marginBottom="@dimen/box_interval"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/daily_box_height"
+            android:background="@drawable/rounded_edit_text"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            >
+
+
+            <TabHost
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/tabhost"
+                >
+                <TabWidget
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/daily_box_height"
-                    ></com.github.mikephil.charting.charts.BarChart>
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:id="@android:id/tabs"
 
-        </TabHost>
+                    >
+
+                </TabWidget>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@android:id/tabcontent"
+                    android:paddingTop="@dimen/daily_tab_content_padding"
+                    >
+
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/monthly_charts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ></com.github.mikephil.charting.charts.BarChart>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/weekly_charts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ></com.github.mikephil.charting.charts.BarChart>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/daily_charts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ></com.github.mikephil.charting.charts.BarChart>
+                </FrameLayout>
+
+            </TabHost>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_marginTop="@dimen/box_interval"
+            android:layout_marginBottom="@dimen/box_interval"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_edit_text"
+            android:paddingLeft="@dimen/activity_my_horizontal_padding"
+            android:paddingRight="@dimen/activity_my_horizontal_padding"
+            android:paddingTop="@dimen/activity_my_vertical_padding"
+            android:paddingBottom="@dimen/activity_my_vertical_padding"
+            >
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/percent_pie"
+                >
+            </com.github.mikephil.charting.charts.PieChart>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_list"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
-
-</LinearLayout>
-
+</ScrollView>

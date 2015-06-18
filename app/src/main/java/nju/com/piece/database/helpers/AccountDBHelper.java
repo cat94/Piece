@@ -5,12 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.Date;
-
-import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.AccountPO;
-import nju.com.piece.database.pos.TagPO;
-import nju.com.piece.database.tools.DateTool;
 
 /**
  * Created by shen on 15/6/8.
@@ -22,7 +17,7 @@ public class AccountDBHelper extends DatabaseHelper {
     private static final String COL_NAME = "username";
     private static final String COL_PSWD = "password";
 
-    protected final static String DATABASE_NAME = "account_"+currentUser+".db";
+    protected final static String DATABASE_NAME = "account.db";
 
     public static AccountDBHelper instance(Context context) {
         return new AccountDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,19 +34,21 @@ public class AccountDBHelper extends DatabaseHelper {
                 COL_NAME +" TEXT not null, " + COL_PSWD +" TEXT not null);";
     }
 
-
-    public void addAccount(AccountPO po){
+//set current account
+    public void setAccount(AccountPO po){
         ContentValues cv = new ContentValues();
         cv.put(COL_NAME, po.getName());
         cv.put(COL_PSWD, po.getPswd());
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_NAME, "_id", cv);
+        db.close();
     }
 
-    public void delAccount(String username){
-        String where = COL_NAME + " = ?";
-        String[] whereArgs = new String[]{username};
+//    clear the account info
+    public void delAccount(){
+        String where = null;
+        String[] whereArgs = null;
 
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_NAME, where, whereArgs);
@@ -70,10 +67,10 @@ public class AccountDBHelper extends DatabaseHelper {
         db.close();
     }
 
-    public AccountPO getAccount(String username) {
+    public AccountPO getAccount() {
         String[] result_cols = new String[]{COL_NAME, COL_PSWD};
-        String where = COL_NAME + "=?";
-        String[] whereArgs = new String[]{username};
+        String where = null;
+        String[] whereArgs = null;
         String groupBy = null;
         String having = null;
         String order = null;
@@ -83,9 +80,11 @@ public class AccountDBHelper extends DatabaseHelper {
 
         if (cursor.moveToNext()) {
             AccountPO po = getPOByCursor(db, cursor);
+            cursor.close();
             db.close();
             return po;
         } else {
+            cursor.close();
             db.close();
             return null;
         }

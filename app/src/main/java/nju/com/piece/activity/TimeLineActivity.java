@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -26,7 +29,7 @@ import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
 
-public class TimeLineActivity extends Activity {
+public class TimeLineActivity extends Fragment {
 
     public static final String ALL_WORK_TIME = "all_work_time";
     public static final String ALL_RELAX_TIME = "all_relax_time";
@@ -52,12 +55,16 @@ public class TimeLineActivity extends Activity {
     private static CountDownTimer countDownTimer;
     private static int countDownSec = 0;
 
+    private View mMainView;
+
     private static final int STARTCODE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        mMainView = inflater.inflate(R.layout.activity_timeline, (ViewGroup)getActivity().findViewById(R.id.viewpager), false);
+
         initTimeline();
         initAddItemBtn();
         initStopItemBtn();
@@ -70,12 +77,25 @@ public class TimeLineActivity extends Activity {
 //        dbFacade.addTag(tag2);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        ViewGroup p = (ViewGroup) mMainView.getParent();
+        if (p != null) {
+            p.removeAllViewsInLayout();
+        }
+        return mMainView;
+    }
+
+
+
     private void initTimeline() {
-        timelineView = (ListView) findViewById(R.id.timeline);
-        allRelaxTimeView = (TextView) findViewById(R.id.all_relax_time);
-        allWorkTimeView = (TextView) findViewById(R.id.all_work_time);
+        timelineView = (ListView) mMainView.findViewById(R.id.timeline);
+        allRelaxTimeView = (TextView)  mMainView.findViewById(R.id.all_relax_time);
+        allWorkTimeView = (TextView) mMainView. findViewById(R.id.all_work_time);
 //        timeline = new Timeline(this, timelineView, allRelaxTimeView, allWorkTimeView);
-        this.dbFacade = new DBFacade(this);
+        this.dbFacade = new DBFacade(getActivity());
         initDataList();
         initSimAdapter();
     }
@@ -86,7 +106,7 @@ public class TimeLineActivity extends Activity {
     }
 
     private void initSimAdapter() {
-        adapter = new TimelineAdapter(this, R.layout.timeline_item, items);
+        adapter = new TimelineAdapter(getActivity(), R.layout.timeline_item, items);
         timelineView.setAdapter(adapter);
     }
 
@@ -108,7 +128,7 @@ public class TimeLineActivity extends Activity {
     }
 
     private void initAddItemBtn() {
-        addItemBtn = (ImageView) findViewById(R.id.addItem_btn);
+        addItemBtn = (ImageView)  mMainView.findViewById(R.id.addItem_btn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +138,7 @@ public class TimeLineActivity extends Activity {
     }
 
     private void initStopItemBtn() {
-        stopItemBtn = (ImageView) findViewById(R.id.stopItem_btn);
+        stopItemBtn = (ImageView)  mMainView.findViewById(R.id.stopItem_btn);
         stopItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,18 +159,18 @@ public class TimeLineActivity extends Activity {
     }
 
     private void initChronometer() {
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer = (Chronometer)  mMainView.findViewById(R.id.chronometer);
     }
 
 
     public void toAddItemPage() {
-        Intent intent = new Intent(TimeLineActivity.this, TaskActivity.class);
+        Intent intent = new Intent(getActivity(), TaskActivity.class);
         startActivityForResult(intent, STARTCODE);
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == STARTCODE) {

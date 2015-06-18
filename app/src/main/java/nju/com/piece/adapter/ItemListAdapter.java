@@ -39,7 +39,7 @@ public class ItemListAdapter extends ArrayAdapter<StatisticItem>{
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             view = (LinearLayout)inflater.inflate(resource, parent, false);
         }
-        ImageView icon=(ImageView)view.findViewById(R.id.item_icon);
+        ImageView icon=(ImageView)view.findViewById(R.id.stat_item_icon);
         TextView itemName=(TextView)view.findViewById(R.id.item_name);
         TextView itemPercent=(TextView)view.findViewById(R.id.item_percent);
         StatisticItem statisticItem=list.get(position);
