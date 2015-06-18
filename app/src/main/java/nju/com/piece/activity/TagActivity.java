@@ -314,7 +314,9 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                Intent intent=new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
