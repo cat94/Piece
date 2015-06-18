@@ -1,10 +1,8 @@
 package nju.com.piece.database.helpers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by shen on 15/6/4.
