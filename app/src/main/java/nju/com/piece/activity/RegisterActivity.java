@@ -56,12 +56,15 @@ public class RegisterActivity extends Activity implements View.OnFocusChangeList
 
             case R.id.reg_regBtn:
                 //get userName and psw
-                if(psw1.getText().toString().equals(psw2.getText().toString())) {
+                if(psw1.getText().toString().equals("")||psw2.getText().toString().equals("")||userName.getText().toString().equals("")){
+                    Toast.makeText(RegisterActivity.this,"Your input can't be blank",Toast.LENGTH_LONG).show();
+                }
+                else if(psw1.getText().toString().equals(psw2.getText().toString())) {
                     Register register = new Register(this, (ProgressBar) findViewById(R.id.reg_progressbar));
                     register.reg(userName.getText().toString(),psw1.getText().toString() );
                 }
                 else{
-                    Toast.makeText(RegisterActivity.this,"two psws not equal!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"two passwords not equal!",Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.backBtn:

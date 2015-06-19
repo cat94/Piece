@@ -14,7 +14,7 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="85dp"
-        android:background="#ff3399cc">
+        android:background="#ff4d96cc">
     </FrameLayout>
 
     <LinearLayout

@@ -25,8 +25,10 @@ public class PeriodDBHelper extends DatabaseHelper {
     private static final String COL_LEN = "length";
     private static final String COL_DATE = "start_time";
 
+    protected final static String DATABASE_NAME = "period_"+currentUser+".db";
+
     public static PeriodDBHelper instance(Context context){
-        return new PeriodDBHelper(context,null,DATABASE_VERSION);
+        return new PeriodDBHelper(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
     @Override
@@ -36,8 +38,8 @@ public class PeriodDBHelper extends DatabaseHelper {
                 COL_TAG +" TEXT not null, " + COL_LEN +" INTEGER not null, "+ COL_DATE +" INTEGER not null);";
     }
 
-    protected PeriodDBHelper(Context context, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "period_"+currentUser+".db", factory, version);
+    protected PeriodDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
     }
 
 

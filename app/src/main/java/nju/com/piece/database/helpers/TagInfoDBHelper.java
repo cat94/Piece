@@ -27,14 +27,16 @@ public class TagInfoDBHelper extends DatabaseHelper {
     private static final String COL_START_DATE = "start_date";
     private static final String COL_END_DATE = "end_date";
 
+    protected final static String DATABASE_NAME = "tagInfo_"+currentUser+".db";
+
     private Context context;
 
     public static TagInfoDBHelper instance(Context context) {
-        return new TagInfoDBHelper(context, null, DATABASE_VERSION);
+        return new TagInfoDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    protected TagInfoDBHelper(Context context, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, "tagInfo_"+currentUser+".db", factory, version);
+    protected TagInfoDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
         this.context = context;
     }
 
