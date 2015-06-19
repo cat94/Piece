@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import nju.com.piece.R;
-import nju.com.piece.database.DBFacade;
 
 /**
  * @author Hyman
@@ -38,15 +37,6 @@ public class MainActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //check if logged
-        DBFacade dbFacade=new DBFacade(this);
-        if(dbFacade.getAccount()==null){
-            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
 
         m_vp = (ViewPager)findViewById(R.id.viewpager);
 
@@ -124,12 +114,10 @@ public class MainActivity extends ActionBarActivity{
             case R.id.action_plus:
                 intent=new Intent(this, TagActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.action_set:
                 intent=new Intent(this, SetActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             default:
 
