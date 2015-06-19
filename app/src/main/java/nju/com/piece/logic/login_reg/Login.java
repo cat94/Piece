@@ -1,6 +1,8 @@
 package nju.com.piece.logic.login_reg;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +10,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import nju.com.piece.activity.LoginActivity;
+import nju.com.piece.activity.MainActivity;
+import nju.com.piece.activity.TimeLineActivity;
+import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.helpers.DatabaseHelper;
+import nju.com.piece.database.pos.AccountPO;
 import nju.com.piece.logic.net.CallService;
+import nju.com.piece.logic.sync.SyncRecords;
 import nju.com.piece.logic.update.GetServerUrl;
 
 /**
@@ -83,9 +93,24 @@ public class Login {
                 CallService.showNetErr(context);
                 return;
             }
-            Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
             //here save the account info on this phone
-
+            if(result.equals("true")) {
+                //同步
+                DBFacade dbFacade = new DBFacade(context);
+                dbFacade.clearAccount();
+                DatabaseHelper.setCurrentUser(userName);
+                dbFacade.setAccount(new AccountPO(userName, password));
+                SyncRecords syncRecords=new SyncRecords(context,null);
+                syncRecords.sync();
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                Activity activity = (Activity) context;
+                activity.finish();
+            }
+            else{
+                Toast.makeText(context,"密码错误",Toast.LENGTH_SHORT).show();
+            }
             //jump to timelineacticity
         }
     }

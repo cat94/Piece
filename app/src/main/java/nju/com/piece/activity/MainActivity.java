@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +18,8 @@ import android.widget.Button;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 
 import nju.com.piece.R;
-import nju.com.piece.database.DBFacade;
-import nju.com.piece.database.TagType;
-import nju.com.piece.database.helpers.DatabaseHelper;
-import nju.com.piece.database.pos.AccountPO;
-import nju.com.piece.database.pos.TagPO;
 
 /**
  * @author Hyman
@@ -46,6 +39,7 @@ public class MainActivity extends ActionBarActivity{
         setContentView(R.layout.activity_main);
 
         m_vp = (ViewPager)findViewById(R.id.viewpager);
+
 
         mfragment2 = new TotalStatisticActivity();
         mfragment1 = new TimeLineActivity();

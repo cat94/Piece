@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import nju.com.piece.R;
+import nju.com.piece.database.DBFacade;
 import nju.com.piece.logic.sync.SyncRecords;
 import nju.com.piece.logic.update.UpdateInfo;
 import nju.com.piece.logic.update.UpdateInfoService;
@@ -42,25 +43,34 @@ public class SetActivity extends BaseActionBarActivity implements OnClickListene
         setContentView(R.layout.activity_set);
         context = SetActivity.this;
         progressBar = (ProgressBar) findViewById(R.id.set_progressBar);
-        LinearLayout info = (LinearLayout) findViewById(R.id.info);
+        LinearLayout resetpsw = (LinearLayout) findViewById(R.id.resetpsw);
         LinearLayout update = (LinearLayout) findViewById(R.id.update);
         LinearLayout task = (LinearLayout) findViewById(R.id.task);
-        info.setOnClickListener(this);
+        LinearLayout logout = (LinearLayout) findViewById(R.id.logout);
+        resetpsw.setOnClickListener(this);
         task.setOnClickListener(this);
         update.setOnClickListener(this);
+        logout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            case R.id.info:
-                Toast.makeText(context, "这应该打开个人信息", Toast.LENGTH_SHORT).show();
+            case R.id.resetpsw:
+                Toast.makeText(context, "这应该打开修改密码", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.task:
                 SyncRecords syncRecords = new SyncRecords(context, progressBar);
                 syncRecords.sync();
                 Toast.makeText(context, "正在同步任务", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.logout:
+                DBFacade dbFacade=new DBFacade(this);
+                dbFacade.clearAccount();
+                intent=new Intent(SetActivity.this,LoginActivity.class);
+                startActivity(intent);
+                this.finish();
                 break;
             case R.id.update:
                 checkUpdate();

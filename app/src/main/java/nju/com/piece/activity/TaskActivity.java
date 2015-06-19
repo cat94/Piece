@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -116,7 +117,7 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 			holder.icon.setImageResource(item.getResource());
 			holder.taskname.setText(item.getTagName());
 			if (item.getTargetMinute() != 0) {
-				holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute());
+				holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute()*100);
 				holder.percent.setText(item.getCurrentMinute()/item.getTargetMinute()*100+"%");
 			}
 			holder.icon_add.setOnClickListener(new OnClickListener() {
@@ -195,8 +196,8 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 		public TextView percent;
 		public ImageView icon_add;
 		public ViewGroup holder;
-		public ImageView countDown;
-		public ImageView timing;
+		public LinearLayout countDown;
+		public LinearLayout timing;
 
 		ViewHolder(View view) {
 			icon = (ImageView) view.findViewById(R.id.icon);
@@ -205,8 +206,8 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 			progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 			icon_add = (ImageView) view.findViewById(R.id.icon_add);
 			holder = (ViewGroup) view.findViewById(R.id.holder);
-			countDown = (ImageView) view.findViewById(R.id.countdown);
-			timing = (ImageView) view.findViewById(R.id.timing);
+			countDown = (LinearLayout) view.findViewById(R.id.countdown);
+			timing = (LinearLayout) view.findViewById(R.id.timing);
 		}
 	}
 

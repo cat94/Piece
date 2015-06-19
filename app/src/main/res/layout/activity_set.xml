@@ -9,8 +9,8 @@
 
     <LinearLayout style="@style/wrap_layout" >
         <!-- 上圆角-->
-        <LinearLayout style="@style/top_layout" android:id="@+id/info">
-            <TextView style="@style/usertext" android:text="个人资料" />
+        <LinearLayout style="@style/top_layout" android:id="@+id/resetpsw">
+            <TextView style="@style/usertext" android:text="修改密码" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
@@ -23,8 +23,8 @@
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 下圆角-->
-        <LinearLayout style="@style/bottom_layout">
-            <TextView style="@style/usertext" android:text="这个留着！" />
+        <LinearLayout style="@style/bottom_layout" android:id="@+id/logout">
+            <TextView style="@style/usertext" android:text="退出登录" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
