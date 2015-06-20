@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import nju.com.piece.IconsArray;
 import nju.com.piece.adapter.adapterEntity.IconItem;
 import nju.com.piece.R;
 import nju.com.piece.TagIconView;

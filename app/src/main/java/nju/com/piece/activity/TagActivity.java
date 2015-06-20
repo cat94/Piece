@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -146,6 +147,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                         facade.addTag(new TagPO(tagName, currentType, icon_res, target, end_date));
                         Intent intent = new Intent(TagActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();

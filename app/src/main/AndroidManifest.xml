@@ -25,7 +25,6 @@ package="nju.com.piece" >
         <activity
         android:name=".activity.TagActivity"
         android:label="@string/title_activity_new_tag"
-            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
     </activity>
     <activity
