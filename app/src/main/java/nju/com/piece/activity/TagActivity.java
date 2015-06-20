@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,14 +23,15 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.IllegalFormatException;
 
-import nju.com.piece.IconsArray;
 import nju.com.piece.MyGridView;
 import nju.com.piece.R;
 import nju.com.piece.adapter.IconImageAdaptor;
+import nju.com.piece.adapter.adapterEntity.IconItem;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.TagPO;
@@ -49,7 +49,12 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     private ImageView type_icon;
 
+    private static int currentIcon;
+
     private GridView icon_grid;
+
+    private static ArrayList<IconItem> icon_array;
+
 
     private Button btn;
 
@@ -90,7 +95,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             plan_text.setText(time+"");
         }
 
-        IconsArray.currentIcon = tagPO.getResource();
+        currentIcon = tagPO.getResource();
 
         btn.setText("编辑标签");
 
@@ -109,6 +114,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                         facade.updateTag(tagName, new TagPO(tagName, currentType, icon_res, target, end_date));
                         Intent intent = new Intent(TagActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -124,7 +130,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         TIMEPICKER_TAG = "选择时间";
         btn.setText("添加标签");
 
-        IconsArray.currentIcon = IconsArray.getIconArray().get(0).getResource();
+        currentIcon = icon_array.get(0).getResource();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,12 +213,14 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag);
 
+        readIcons();
+
 
         //about actionbar
-        android.app.ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
+//        android.app.ActionBar actionBar = getActionBar();
+//        actionBar.setDisplayShowTitleEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(false);
 
         date_text = (TextView)findViewById(R.id.date_text);
 //        date_icon = (ImageView)findViewById(R.id.date_image);
@@ -297,10 +305,25 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         });
 
 
-        icon_adaptor = new IconImageAdaptor(this,R.layout.icon,IconsArray.getIconArray());
+        icon_adaptor = new IconImageAdaptor(this,R.layout.icon,icon_array);
 
         icon_grid = (MyGridView)findViewById(R.id.icon_grid);
         icon_grid.setAdapter(icon_adaptor);
+    }
+
+
+    private void readIcons(){
+        if (icon_array == null) {
+
+            String pre_name = "icon";
+
+            icon_array = new ArrayList<IconItem>();
+
+            for (int i = 1; i < 41; ++i) {
+                int res = this.getResources().getIdentifier(pre_name + i , "drawable", this.getPackageName());
+                icon_array.add(new IconItem(res));
+            }
+        }
     }
 
     @Override
