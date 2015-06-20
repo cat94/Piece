@@ -31,7 +31,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon10_small"
+                    android:src="@drawable/icon10"
                     android:layout_weight="1"
                     android:id="@+id/item_stat_icon"
                     />
@@ -233,7 +233,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon11_small"
+                android:src="@drawable/icon11"
                 android:layout_weight="1"
 
                 >
