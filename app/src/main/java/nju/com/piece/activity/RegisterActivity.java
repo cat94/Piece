@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import nju.com.piece.R;
@@ -28,10 +29,10 @@ public class RegisterActivity extends Activity implements View.OnFocusChangeList
         psw2=(EditText)findViewById(R.id.reg_pwdEt2);
         userName.setOnFocusChangeListener(this);
         psw2.setOnFocusChangeListener(this);
-        Button backButton=(Button)findViewById(R.id.backBtn);
-        Button regButton=(Button)findViewById(R.id.reg_regBtn);
-        backButton.setOnClickListener(this);
-        regButton.setOnClickListener(this);
+        TextView backText=(TextView)findViewById(R.id.backBtn);
+        TextView regText=(TextView)findViewById(R.id.reg_regBtn);
+        backText.setOnClickListener(this);
+        regText.setOnClickListener(this);
     }
 
     @Override
