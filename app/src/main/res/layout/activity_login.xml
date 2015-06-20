@@ -4,10 +4,67 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/green_background">
+    android:background="@color/stat_color_bright_11">
     <!-- padding 内边距   layout_margin 外边距
   		android:layout_alignParentTop 布局的位置是否处于顶部 -->
     <!-- 账号 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/clock_head"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="4"
+            android:background="@android:color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="珍惜每分钟"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="@dimen/login_text_size"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="4"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -90,7 +147,6 @@
 
 
     </RelativeLayout>
-    <!-- 登录button -->
 
 
     <LinearLayout
@@ -104,7 +160,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            >
 
             <ImageView
                 android:layout_width="0dp"
@@ -112,15 +169,16 @@
                 android:layout_weight="2"
                 android:visibility="invisible"/>
 
-            <Button
+            <TextView
                 android:id="@+id/signin_button"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/login_btn_height"
+                android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:text="登录"
                 android:textColor="@color/white"
-                android:textSize="@dimen/login_btn_text_size"
-                android:background="@drawable/red_round_button" />
+                android:gravity="center"
+                android:clickable="true"
+                android:textSize="@dimen/login_edit_text_size" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -131,11 +189,14 @@
         </LinearLayout>
 
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:gravity="bottom">
+
 
             <ImageView
                 android:layout_width="0dp"
@@ -150,7 +211,7 @@
                 android:layout_weight="5"
                 android:text="注册新账号"
                 android:clickable="true"
-                android:textColor="@color/stat_color_bright_10"
+                android:textColor="@color/ghostwhite"
                 android:gravity="center_horizontal" />
 
             <ImageView
