@@ -8,3 +8,6 @@
 /.idea/*
 *.iml
 app/build.gradle
+icons/
+icons/*
+icons/big_pics/
