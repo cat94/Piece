@@ -1,6 +1,5 @@
 package nju.com.piece.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -59,6 +58,9 @@ public class TimeLineActivity extends Fragment {
 
     private static final int STARTCODE = 1;
 
+    private ImageView addTagBtn = null;
+    private ImageView settingBtn = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +72,35 @@ public class TimeLineActivity extends Fragment {
         initStopItemBtn();
         initChronometer();
         updateAllTime();
+        initAddTagBtn();
+        initSettingBtn();
 //        DBFacade dbFacade = new DBFacade(this);
 //        TagPO tag1 = new TagPO("relax", TagType.relax,R.drawable.tag_icon_01);
 //        dbFacade.addTag(tag1);
 //        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
 //        dbFacade.addTag(tag2);
+    }
+
+    private void initAddTagBtn() {
+        addTagBtn = (ImageView) mMainView.findViewById(R.id.add_btn);
+        addTagBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), TagActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initSettingBtn() {
+        settingBtn = (ImageView) mMainView.findViewById(R.id.setting_btn);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), SetActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
