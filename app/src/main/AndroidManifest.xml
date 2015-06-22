@@ -15,7 +15,7 @@ package="nju.com.piece" >
 <application
     android:allowBackup="true"
     android:label="@string/app_name"
-    android:logo="@mipmap/app_icon"
+    android:icon="@mipmap/app_icon"
     android:theme="@style/AppTheme" >
     <activity
         android:name=".TestMPChartActivity"
