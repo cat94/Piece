@@ -162,13 +162,11 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
 
-                android:background="@color/medium_aquamarine"/>
+                android:background="@drawable/round_button"/>
 
 
         </LinearLayout>
-
-
-
+        
     </ScrollView>
 
 
