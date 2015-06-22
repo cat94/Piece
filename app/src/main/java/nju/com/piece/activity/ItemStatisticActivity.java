@@ -166,8 +166,9 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                                 // TODO Auto-generated method stub
                                 DBFacade dbFacade=new DBFacade(ItemStatisticActivity.this);
                                 dbFacade.delTag(itemName);
+                                Intent intent=new Intent(ItemStatisticActivity.this,MainActivity.class);
+                                startActivity(intent);
                                 finish();
-
                             }
 
                         }).setNegativeButton("返回",new DialogInterface.OnClickListener() {//添加返回按钮

@@ -79,28 +79,58 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
     private double hoursPerWeek;
     private double hoursPerLastWeek;
 
-    private  ArrayList<Entry> healthEntries=new ArrayList<Entry>();
-    private ArrayList<Entry> diligenceEntries=new ArrayList<Entry>();
-    private final List<StatisticItem> list=new ArrayList<StatisticItem>();
-    private ArrayList<Entry> arrayList=new ArrayList<Entry>();
-    private   ArrayList<String> pie_xvals=new ArrayList<String>();
-    private ArrayList<BarEntry> daily=new ArrayList<BarEntry>();
-    private ArrayList<BarEntry> weekly=new ArrayList<BarEntry>();
-    private ArrayList<BarEntry> monthly=new ArrayList<BarEntry>();
-    private ArrayList<String> line_xvals=new ArrayList<String>();
-    private ArrayList<String> bar_daily_xvals=new ArrayList<String>();
-    private ArrayList<String> bar_weekly_xvals=new ArrayList<String>();
-    private ArrayList<String> bar_monthly_xvals=new ArrayList<String>();
+    private  ArrayList<Entry> healthEntries;
+    private ArrayList<Entry> diligenceEntries;
+    private  List<StatisticItem> list;
+    private ArrayList<Entry> arrayList;
+    private   ArrayList<String> pie_xvals;
+    private ArrayList<BarEntry> daily;
+    private ArrayList<BarEntry> weekly;
+    private ArrayList<BarEntry> monthly;
+    private ArrayList<String> line_xvals;
+    private ArrayList<String> bar_daily_xvals;
+    private ArrayList<String> bar_weekly_xvals;
+    private ArrayList<String> bar_monthly_xvals;
+    private Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         mMainView = inflater.inflate(R.layout.activity_total_statistic, (ViewGroup)getActivity().findViewById(R.id.viewpager), false);
+        bundle=savedInstanceState;
+        initialView(savedInstanceState);
+        initialTabs(savedInstanceState);
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        ViewGroup p = (ViewGroup) mMainView.getParent();
+        if (p != null) {
+            p.removeAllViewsInLayout();
+        }
+
+        return mMainView;
+    }
+
+   private void initialTabs(Bundle savedInstanceState){
+       //每日，每周，每月
+       LocalActivityManager localActivityManager=new LocalActivityManager(getActivity(),true);
+       localActivityManager.dispatchCreate(savedInstanceState);
+       tabHost.setup(localActivityManager);
+
+       tabHost.addTab(tabHost.newTabSpec("daily_chart").setIndicator("每日").setContent(this));
+       tabHost.addTab(tabHost.newTabSpec("weekly_chart").setIndicator("每周").setContent(this));
+       tabHost.addTab(tabHost.newTabSpec("monthly_chart").setIndicator("每月").setContent(this));
+   }
+
+
+    private void initialView(Bundle savedInstanceState){
         tabHost=(TabHost) mMainView.findViewById(R.id.tabhost);
-        dailyBar=(BarChart) mMainView.findViewById(R.id.daily_charts);
-        weeklyBar=(BarChart) mMainView.findViewById(R.id.weekly_charts);
-        monthlyBar=(BarChart) mMainView.findViewById(R.id.monthly_charts);
         totalRecord=(TextView) mMainView.findViewById(R.id.total_record);
         totalTime=(TextView) mMainView.findViewById(R.id.total_time);
         averageWeek=(TextView) mMainView.findViewById(R.id.average_week);
@@ -108,6 +138,28 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         healthLine=(LineChart) mMainView.findViewById(R.id.health_diligence);
         itemPie=(PieChart) mMainView.findViewById(R.id.percent_pie);
         itemList=(ListView) mMainView.findViewById(R.id.item_list);
+
+        allTags=new ArrayList<TagPO>();
+         allPeriods=new ArrayList<PeriodPO>();
+        totalHour=0;
+         hoursPerWeek=0.0;
+        hoursPerLastWeek=0.0;
+
+         healthEntries=new ArrayList<Entry>();
+        diligenceEntries=new ArrayList<Entry>();
+        list=new ArrayList<StatisticItem>();
+         arrayList=new ArrayList<Entry>();
+        pie_xvals=new ArrayList<String>();
+        daily=new ArrayList<BarEntry>();
+        weekly=new ArrayList<BarEntry>();
+        monthly=new ArrayList<BarEntry>();
+        line_xvals=new ArrayList<String>();
+        bar_daily_xvals=new ArrayList<String>();
+         bar_weekly_xvals=new ArrayList<String>();
+        bar_monthly_xvals=new ArrayList<String>();
+        dailyBar=(BarChart) mMainView.findViewById(R.id.daily_charts);
+        weeklyBar=(BarChart) mMainView.findViewById(R.id.weekly_charts);
+        monthlyBar=(BarChart) mMainView.findViewById(R.id.monthly_charts);
 
         //加载数据
         getData();
@@ -166,13 +218,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
 
 
-        //每日，每周，每月
-        LocalActivityManager localActivityManager=new LocalActivityManager(getActivity(),true);
-        localActivityManager.dispatchCreate(savedInstanceState);
-        tabHost.setup(localActivityManager);
-        tabHost.addTab(tabHost.newTabSpec("daily_chart").setIndicator("每日").setContent(this));
-        tabHost.addTab(tabHost.newTabSpec("weekly_chart").setIndicator("每周").setContent(this));
-        tabHost.addTab(tabHost.newTabSpec("monthly_chart").setIndicator("每月").setContent(this));
+
 
 
 
@@ -242,27 +288,19 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 bundle.putString("itemName",list.get(position).getItemName());
                 intent.putExtras(bundle);
                 startActivity(intent);
+
             }
         });
 
-
     }
-
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onResume() {
+        super.onResume();
+        onDestroyView();
 
-        ViewGroup p = (ViewGroup) mMainView.getParent();
-        if (p != null) {
-            p.removeAllViewsInLayout();
-        }
-
-        return mMainView;
+        initialView(bundle);
     }
-
-
 
     @Override
     public View createTabContent(String tag) {
@@ -272,8 +310,10 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         int colors[]={getResources().getColor(R.color.stat_color_bright_1),getResources().getColor(R.color.stat_color_bright_2),getResources().getColor(R.color.stat_color_bright_3),
                 getResources().getColor(R.color.stat_color_bright_4),getResources().getColor(R.color.stat_color_bright_5),getResources().getColor(R.color.stat_color_bright_6),getResources().getColor(R.color.stat_color_bright_7)};
 
+
         switch (tag){
             case "daily_chart":
+
                 BarChart   barChart=dailyBar;
                 ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
                 BarDataSet dataSet=new BarDataSet(daily,"每日指数");
@@ -296,6 +336,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 barChart.invalidate();
                 return  barChart;
             case "weekly_chart":
+
                 BarChart  weeklyBarChart=weeklyBar;
                 ArrayList<BarDataSet> weeklyDataSets = new ArrayList<BarDataSet>();
                 BarDataSet weeklyDataSet=new BarDataSet(weekly,"每周指数");
@@ -318,6 +359,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 weeklyBarChart.invalidate();
                 return  weeklyBarChart;
             case "monthly_chart":
+
                 BarChart  monthlyBarChart=monthlyBar;
                 ArrayList<BarDataSet> monthlyDataSets = new ArrayList<BarDataSet>();
                 BarDataSet monthlyDataSet=new BarDataSet(monthly,"每月指数");
