@@ -43,7 +43,9 @@ package="nju.com.piece" >
     </activity>
     <activity
         android:name=".activity.ItemStatisticActivity"
-        android:label="@string/title_activity_item_statistic" >
+        android:label="@string/title_activity_item_statistic"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        >
     </activity>
 
     <service android:name=".logic.tasktiming.TaskService" >

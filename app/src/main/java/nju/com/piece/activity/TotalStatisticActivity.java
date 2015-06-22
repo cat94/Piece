@@ -4,6 +4,7 @@ import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -72,8 +73,8 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
     private TextView averageWeek;
     private TextView lastWeek;
     private View mMainView;
-    private List<TagPO> allTags;
-    private List<PeriodPO> allPeriods;
+    private List<TagPO> allTags=new ArrayList<TagPO>();
+    private List<PeriodPO> allPeriods=new ArrayList<PeriodPO>();
     private int totalHour;
     private double hoursPerWeek;
     private double hoursPerLastWeek;
@@ -90,12 +91,12 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
     private ArrayList<String> bar_daily_xvals=new ArrayList<String>();
     private ArrayList<String> bar_weekly_xvals=new ArrayList<String>();
     private ArrayList<String> bar_monthly_xvals=new ArrayList<String>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         mMainView = inflater.inflate(R.layout.activity_total_statistic, (ViewGroup)getActivity().findViewById(R.id.viewpager), false);
-
         tabHost=(TabHost) mMainView.findViewById(R.id.tabhost);
         dailyBar=(BarChart) mMainView.findViewById(R.id.daily_charts);
         weeklyBar=(BarChart) mMainView.findViewById(R.id.weekly_charts);
@@ -208,19 +209,25 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         PieData pieData=new PieData(pie_xvals,pieDataSet);
         pieData.setDrawValues(true);
         pieData.setValueTextSize(9);
-        itemPie.setUsePercentValues(true);
 
-        itemPie.setCenterText("分项比例");
+        itemPie.setUsePercentValues(true);
+        if (arrayList.size()==0){
+            itemPie.setCenterText("空空如也");
+        }else{
+            itemPie.setCenterText("分项比例");
+        }
         itemPie.setCenterTextColor(getResources().getColor(R.color.stat_color_bright_14));
         itemPie.setDrawCenterText(true);
         itemPie.setDrawSliceText(true);
         itemPie.setData(pieData);
         itemPie.setDescription("");
-
+        itemPie.setNoDataText("空空如也");
+        itemPie.setNoDataTextDescription("空空如也");
         Legend pie_legend=itemPie.getLegend();
 
         pie_legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
         pie_legend.setTextSize(5);
+
         itemPie.invalidate();
         //分项百分比
 
@@ -238,7 +245,9 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
             }
         });
 
+
     }
+
 
 
     @Override
@@ -252,6 +261,8 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
         return mMainView;
     }
+
+
 
     @Override
     public View createTabContent(String tag) {
@@ -481,7 +492,11 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         for (TagPO tagPO:allTags){
             StatisticItem statisticItem=new StatisticItem();
             statisticItem.setItemName(tagPO.getTagName());
-            statisticItem.setPercentage(percentFormatter.getFormattedValue((float)tagOccupation.get(tagPO.getTagName())/totalSeconds*100));
+            if (totalSeconds==0){
+                statisticItem.setPercentage(percentFormatter.getFormattedValue(0));
+            }else {
+                statisticItem.setPercentage(percentFormatter.getFormattedValue((float) tagOccupation.get(tagPO.getTagName()) / totalSeconds * 100));
+            }
             statisticItem.setResourceID(tagPO.getResource());
             list.add(statisticItem);
             arrayList.add(new Entry(tagOccupation.get(tagPO.getTagName()),allTags.indexOf(tagPO)));
