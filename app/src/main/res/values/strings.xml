@@ -32,6 +32,6 @@
     <string name="item_stat_hour">hours</string>
     <string name="item_stat_days">坚持天数</string>
     <string name="item_stat_to_target">距离里程碑</string>
-    <string name="edit_item">编辑此项目</string>
-
+    <string name="edit_item">编辑</string>
+    <string name="delete_item">删除</string>
 </resources>

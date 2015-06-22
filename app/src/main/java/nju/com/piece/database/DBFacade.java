@@ -47,6 +47,7 @@ public class DBFacade {
     }
 
 
+
     public ArrayList<PeriodPO> getPeriodsByDate(Date date){
         return periodHelperInstance().getPeriodsByDate(date);
     }
