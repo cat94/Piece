@@ -321,7 +321,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
             icon_array = new ArrayList<IconItem>();
 
-            for (int i = 1; i < 41; ++i) {
+            for (int i = 1; i < 46; ++i) {
                 int res = this.getResources().getIdentifier(pre_name + i , "drawable", this.getPackageName());
                 icon_array.add(new IconItem(res));
             }
