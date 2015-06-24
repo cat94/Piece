@@ -1,9 +1,6 @@
 package nju.com.piece.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Bundle;
@@ -24,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nju.com.piece.ApplicationStatic;
 import nju.com.piece.R;
 import nju.com.piece.adapter.TimelineAdapter;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;
@@ -141,10 +137,6 @@ public class TimeLineActivity extends Fragment {
     private void initSimAdapter() {
         adapter = new TimelineAdapter(getActivity(), R.layout.timeline_item, items);
         timelineView.setAdapter(adapter);
-
-        Log.d("database_test", PreferenceHelper.instance().ifFirst() + "");
-        PreferenceHelper.instance().setFirst(true);
-        Log.d("database_test", PreferenceHelper.instance().ifFirst()+"");
     }
 
     private void initDataList() {

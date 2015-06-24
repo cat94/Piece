@@ -1,4 +1,4 @@
-package nju.com.piece;
+package nju.com.piece.first_intros;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,15 +6,15 @@ import android.content.Context;
 /**
  * Created by shen on 15/6/22.
  */
-public class ApplicationStatic extends Application {
+public class PieceAppContext extends Application {
     private static Context context;
 
     public void onCreate(){
         super.onCreate();
-        ApplicationStatic.context = getApplicationContext();
+        PieceAppContext.context = getApplicationContext();
     }
 
     public static Context getAppContext() {
-        return ApplicationStatic.context;
+        return PieceAppContext.context;
     }
 }
