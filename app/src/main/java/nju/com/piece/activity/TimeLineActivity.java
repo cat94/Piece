@@ -1,10 +1,14 @@
 package nju.com.piece.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +24,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nju.com.piece.ApplicationStatic;
 import nju.com.piece.R;
 import nju.com.piece.adapter.TimelineAdapter;
 import nju.com.piece.adapter.adapterEntity.TimelineItem;
 import nju.com.piece.database.DBFacade;
+import nju.com.piece.database.PreferenceHelper;
 import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
@@ -79,6 +85,7 @@ public class TimeLineActivity extends Fragment {
 //        dbFacade.addTag(tag1);
 //        TagPO tag2 = new TagPO("work", TagType.work,R.drawable.tag_icon_04);
 //        dbFacade.addTag(tag2);
+
     }
 
     private void initAddTagBtn() {
@@ -134,6 +141,10 @@ public class TimeLineActivity extends Fragment {
     private void initSimAdapter() {
         adapter = new TimelineAdapter(getActivity(), R.layout.timeline_item, items);
         timelineView.setAdapter(adapter);
+
+        Log.d("database_test", PreferenceHelper.instance().ifFirst() + "");
+        PreferenceHelper.instance().setFirst(true);
+        Log.d("database_test", PreferenceHelper.instance().ifFirst()+"");
     }
 
     private void initDataList() {
