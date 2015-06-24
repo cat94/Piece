@@ -13,4 +13,5 @@
     <dimen name="tag_picker_height">70dp</dimen>
     <dimen name="box_interval">10dp</dimen>
     <dimen name="stat_text_intro_size">13dp</dimen>
+    <dimen name="pie_box_height">300dp</dimen>
 </resources>
