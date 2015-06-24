@@ -24,6 +24,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import nju.com.piece.R;
+import nju.com.piece.database.PreferenceHelper;
+import nju.com.piece.first_intros.IntroActivity;
 
 /**
  * @author Hyman
@@ -40,9 +42,16 @@ public class MainActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        if (PreferenceHelper.instance().ifFirst()) {
+            Intent intent = new Intent(MainActivity.this, IntroActivity.class);
+            startActivity(intent);
+        }
+
+
         getSupportActionBar().hide();
         m_vp = (ViewPager)findViewById(R.id.viewpager);
-
 
         mfragment2 = new TotalStatisticActivity();
         mfragment1 = new TimeLineActivity();

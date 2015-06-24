@@ -16,17 +16,21 @@ package="nju.com.piece" >
     android:allowBackup="true"
     android:label="@string/app_name"
     android:icon="@mipmap/app_icon"
+    android:name=".first_intros.PieceAppContext"
     android:theme="@style/AppTheme" >
-    <activity
-        android:name=".TestMPChartActivity"
-        android:label="@string/title_activity_test_mpchart" >
-    </activity>
 
         <activity
         android:name=".activity.TagActivity"
         android:label="@string/title_activity_new_tag"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
     </activity>
+
+    <activity
+        android:name=".first_intros.IntroActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+    </activity>
+
     <activity
         android:name=".activity.MainActivity"
         android:label="@string/app_name"
@@ -75,6 +79,7 @@ package="nju.com.piece" >
         android:label="@string/title_activity_period_item"
         android:theme="@style/half_transparent">
     </activity>
+
 </application>
 
 </manifest>
