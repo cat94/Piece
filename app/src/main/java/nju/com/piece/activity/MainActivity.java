@@ -6,12 +6,16 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 
@@ -32,7 +36,6 @@ public class MainActivity extends ActionBarActivity{
     private  TotalStatisticActivity mfragment2;
     //页面列表
     private ArrayList<Fragment> fragmentList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +51,16 @@ public class MainActivity extends ActionBarActivity{
         fragmentList.add(mfragment1);
         fragmentList.add(mfragment2);
 
-        m_vp.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
-
+        //m_vp.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+        m_vp.setAdapter(new MyStateViewPager(getSupportFragmentManager()));
         setOverflowShowingAlways();
     }
 
     public class MyViewPagerAdapter extends FragmentPagerAdapter {
+        FragmentManager fragmentManager;
         public MyViewPagerAdapter(FragmentManager fm) {
             super(fm);
+            fragmentManager=fm;
         }
 
         @Override
@@ -67,6 +72,7 @@ public class MainActivity extends ActionBarActivity{
         public int getCount() {
             return fragmentList.size();
         }
+
     }
 
 
@@ -125,5 +131,24 @@ public class MainActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }
 
+
+    private class MyStateViewPager extends FragmentStatePagerAdapter{
+
+        public MyStateViewPager(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int arg0) {
+            return fragmentList.get(arg0);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        
+    }
 
 }

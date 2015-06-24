@@ -2,11 +2,13 @@ package nju.com.piece.activity;
 
 import android.app.LocalActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,6 +83,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
     private ArrayList<String> bar_weekly_xvals=new ArrayList<String>();
     private ArrayList<String> bar_monthly_xvals=new ArrayList<String>();
     private Button editItem;
+    private Button deleteItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +108,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         monthlyBar=(BarChart)findViewById(R.id.item_monthly_bar);
 
         editItem=(Button)findViewById(R.id.edit_item_btn);
-
+        deleteItem=(Button)findViewById(R.id.delete_item_btn);
 
 
         Intent intent=this.getIntent();
@@ -144,6 +147,50 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
              startActivity(intent);
             }
         });
+
+
+        deleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(ItemStatisticActivity.this).setTitle("提醒")//设置对话框标题
+
+                        .setMessage("确认删除这个项目？")//设置显示的内容
+
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
+
+
+                            @Override
+
+                            public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+
+                                // TODO Auto-generated method stub
+                                DBFacade dbFacade=new DBFacade(ItemStatisticActivity.this);
+                                dbFacade.delTag(itemName);
+                                Intent intent=new Intent(ItemStatisticActivity.this,MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
+                        }).setNegativeButton("返回",new DialogInterface.OnClickListener() {//添加返回按钮
+
+
+
+                    @Override
+
+                    public void onClick(DialogInterface dialog, int which) {//响应事件
+
+                        // TODO Auto-generated method stub
+
+
+
+                    }
+
+                }).show();//在按键响应事件中显示此对话框
+
+
+
+            }
+        });
     }
 
 
@@ -168,6 +215,8 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public View createTabContent(String tag) {
 

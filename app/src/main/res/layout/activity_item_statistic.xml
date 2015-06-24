@@ -323,15 +323,38 @@
             android:layout_marginTop="@dimen/box_interval"
             android:layout_marginBottom="@dimen/box_interval"
             />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/edit_item"
+    android:id="@+id/edit_item_btn"
+    android:background="@color/medium_aquamarine"
+        android:layout_weight="1"
+    />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:background="@drawable/list_item_bg"
+        android:layout_marginTop="@dimen/box_interval"
+        android:layout_marginBottom="@dimen/box_interval"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_item"
+        android:id="@+id/delete_item_btn"
+        android:background="@color/medium_aquamarine"
+        android:layout_weight="1"
+        />
 
 
-         <Button
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="@string/edit_item"
-             android:id="@+id/edit_item_btn"
-             android:background="@color/medium_aquamarine"
-             />
+    </LinearLayout>
+
 
     </LinearLayout>
 
