@@ -117,11 +117,9 @@
                 android:id="@+id/add_btn"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="false"
-                android:layout_toLeftOf="@+id/setting_btn"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/actionbar_add_icon" />/>
+                android:layout_alignParentRight="true"
+                android:src="@drawable/actionbar_add_icon"
+                android:layout_margin="10dp" />/>
 
             <ImageView
                 android:layout_width="35dp"
@@ -129,11 +127,10 @@
                 android:id="@+id/setting_btn"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/action_setting_icon"/>/>
+                android:layout_alignParentRight="false"
+                android:src="@drawable/action_setting_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="10dp" />/>
 
         </RelativeLayout>
 
