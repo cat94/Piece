@@ -245,6 +245,10 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 yAxis_right.setAxisLineWidth(2);
                 barChart.setGridBackgroundColor(Color.WHITE);
                 barChart.setDescription("");
+                barChart.setClickable(false);
+                barChart.setScaleEnabled(false);
+                barChart.setDoubleTapToZoomEnabled(false);
+                barChart.setHighlightEnabled(false);
                 barChart.invalidate();
                 return barChart;
             case "weekly_chart":
@@ -267,6 +271,10 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 weekly_yAxis_right.setAxisLineWidth(2);
                 weeklyBarChart.setGridBackgroundColor(Color.WHITE);
                 weeklyBarChart.setDescription("");
+                weeklyBarChart.setClickable(false);
+                weeklyBarChart.setScaleEnabled(false);
+                weeklyBarChart.setDoubleTapToZoomEnabled(false);
+                weeklyBarChart.setHighlightEnabled(false);
                 weeklyBarChart.invalidate();
                 return weeklyBarChart;
             case "monthly_chart":
@@ -289,6 +297,10 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 monthly_yAxis_right.setAxisLineWidth(2);
                 monthlyBarChart.setGridBackgroundColor(Color.WHITE);
                 monthlyBarChart.setDescription("");
+                monthlyBarChart.setClickable(false);
+                monthlyBarChart.setScaleEnabled(false);
+                monthlyBarChart.setDoubleTapToZoomEnabled(false);
+                monthlyBarChart.setHighlightEnabled(false);
                 monthlyBarChart.invalidate();
                 return monthlyBarChart;
             default:

@@ -248,7 +248,7 @@
         >
         <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/pie_box_height"
             android:id="@+id/percent_pie"
             >
             </com.github.mikephil.charting.charts.PieChart>
