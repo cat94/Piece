@@ -15,7 +15,7 @@ import nju.com.piece.database.PreferenceHelper;
  * Created by shen on 15/6/24.
  */
 public class IntroActivity extends FragmentActivity {
-    private static final int PAGE_NUM = 4;
+    private static final int PAGE_NUM = 2;
 
     private ViewPager mPager;
 
