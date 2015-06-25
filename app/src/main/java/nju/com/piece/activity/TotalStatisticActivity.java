@@ -213,7 +213,9 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         healthLine.setGridBackgroundColor(Color.WHITE);
         //healthLine.setBackgroundColor(ColorTemplate.PASTEL_COLORS[0]);
         healthLine.setDrawGridBackground(true);
-
+        healthLine.setClickable(false);
+        healthLine.setScaleEnabled(false);
+        healthLine.setDoubleTapToZoomEnabled(false);
         healthLine.invalidate();
 
 
@@ -228,7 +230,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         //分项统计饼图
 
 
-        PieDataSet pieDataSet=new PieDataSet(arrayList,"单项统计");
+        PieDataSet pieDataSet=new PieDataSet(arrayList,"");
 
 
 
@@ -248,7 +250,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 getResources().getColor(R.color.stat_color_bright_13),
         };
         pieDataSet.setColors(colors);
-        pieDataSet.setSelectionShift(15);
+
 
         pieDataSet.setValueFormatter(new PercentFormatter());
 
@@ -269,6 +271,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         itemPie.setDescription("");
         itemPie.setNoDataText("空空如也");
         itemPie.setNoDataTextDescription("空空如也");
+        itemPie.setRotationEnabled(false);
         Legend pie_legend=itemPie.getLegend();
 
         pie_legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
@@ -333,7 +336,12 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 yAxis_right.setAxisLineWidth(2);
                 barChart.setGridBackgroundColor(Color.WHITE);
                 barChart.setDescription("");
+                barChart.setClickable(false);
+                barChart.setScaleEnabled(false);
+                barChart.setDoubleTapToZoomEnabled(false);
+                barChart.setHighlightEnabled(false);
                 barChart.invalidate();
+
                 return  barChart;
             case "weekly_chart":
 
@@ -356,6 +364,10 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 weekly_yAxis_right.setAxisLineWidth(2);
                 weeklyBarChart.setGridBackgroundColor(Color.WHITE);
                 weeklyBarChart.setDescription("");
+                weeklyBarChart.setClickable(false);
+                weeklyBarChart.setScaleEnabled(false);
+                weeklyBarChart.setDoubleTapToZoomEnabled(false);
+                weeklyBarChart.setHighlightEnabled(false);
                 weeklyBarChart.invalidate();
                 return  weeklyBarChart;
             case "monthly_chart":
@@ -379,6 +391,10 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 monthly_yAxis_right.setAxisLineWidth(2);
                 monthlyBarChart.setGridBackgroundColor(Color.WHITE);
                 monthlyBarChart.setDescription("");
+                monthlyBarChart.setClickable(false);
+                monthlyBarChart.setScaleEnabled(false);
+                monthlyBarChart.setDoubleTapToZoomEnabled(false);
+                monthlyBarChart.setHighlightEnabled(false);
                 monthlyBarChart.invalidate();
                 return  monthlyBarChart;
             default:
@@ -473,8 +489,14 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
 
         for (int i=0;i<lastweekDays.size();i++){
-            healthEntries.add(new Entry(weeklyHealth.get(lastweekDays.get(i)),i));
-            diligenceEntries.add(new Entry(weeklyWork.get(lastweekDays.get(i)),i));
+            if (dailySeconds.get(lastweekDays.get(i))==0){
+                healthEntries.add(new Entry(0,i));
+                diligenceEntries.add(new Entry(0,i));
+            }else{
+                healthEntries.add(new Entry((float)weeklyHealth.get(lastweekDays.get(i))/dailySeconds.get(lastweekDays.get(i)),i));
+                diligenceEntries.add(new Entry((float)weeklyWork.get(lastweekDays.get(i))/dailySeconds.get(lastweekDays.get(i)),i));
+            }
+
             daily.add(new BarEntry(dailySeconds.get(lastweekDays.get(i))/3600,i));
         }
 
