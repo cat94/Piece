@@ -15,10 +15,8 @@ import nju.com.piece.R;
 public class FirstSlidePageFragment extends Fragment {
 
     private static final int[] imageResourses = {
-            R.drawable.slide_test_pic,
-            R.drawable.slide_test_pic,
-            R.drawable.slide_test_pic,
-            R.drawable.slide_test_pic
+            R.drawable.slide_pic,
+            R.drawable.splash
     };
 
     private int mPageNumber;

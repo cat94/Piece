@@ -43,7 +43,7 @@ package="nju.com.piece" >
     </activity>
     <activity
         android:name=".activity.TaskActivity"
-        android:label="TaskActivity" >
+        android:label="任务详情">
     </activity>
     <activity
         android:name=".activity.ItemStatisticActivity"

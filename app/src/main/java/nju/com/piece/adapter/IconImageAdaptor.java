@@ -54,10 +54,6 @@ public class IconImageAdaptor extends ArrayAdapter<IconItem> {
         view.setClickable(true);
         view.setOnClickListener(new IconClickListener());
 
-//        if (res == IconsArray.currentIcon) {
-//            IconClickListener.click(view);
-//        }
-
         return view;
     }
 
