@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import nju.com.piece.R;
+import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.PreferenceHelper;
 import nju.com.piece.first_intros.IntroActivity;
 
