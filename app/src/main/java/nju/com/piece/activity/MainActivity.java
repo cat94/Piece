@@ -48,7 +48,12 @@ public class MainActivity extends ActionBarActivity{
             Intent intent = new Intent(MainActivity.this, IntroActivity.class);
             startActivity(intent);
         }
-
+        DBFacade dbFacade=new DBFacade(this);
+        if(dbFacade.getAccount()==null){
+            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
 
         getSupportActionBar().hide();
         m_vp = (ViewPager)findViewById(R.id.viewpager);
