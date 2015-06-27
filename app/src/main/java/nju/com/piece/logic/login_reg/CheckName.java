@@ -81,7 +81,7 @@ public class CheckName {
                // Toast.makeText(context, " can be registered!", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(context,userName+" has been registered!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,userName+"已经被注册了！", Toast.LENGTH_SHORT).show();
             }
             //here save the account info on this phone
 

@@ -102,7 +102,7 @@ public class Register {
                 activity.finish();
             }
             else{
-                 Toast.makeText(context,"register failed!",Toast.LENGTH_SHORT).show();
+                 Toast.makeText(context,userName+"已经被注册了！",Toast.LENGTH_SHORT).show();
             }
             //here save the account info on this phone
 

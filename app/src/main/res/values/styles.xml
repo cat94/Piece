@@ -95,4 +95,9 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+
+    <drawable name="BackBar">#84C1FF</drawable>
+
+
 </resources>
