@@ -111,7 +111,6 @@ public class Login {
             else{
                 Toast.makeText(context,"密码错误",Toast.LENGTH_SHORT).show();
             }
-            //jump to timelineacticity
         }
     }
 }

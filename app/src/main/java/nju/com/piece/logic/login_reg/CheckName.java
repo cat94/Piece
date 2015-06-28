@@ -83,9 +83,6 @@ public class CheckName {
             else{
                 Toast.makeText(context,userName+"已经被注册了！", Toast.LENGTH_SHORT).show();
             }
-            //here save the account info on this phone
-
-            //jump to timelineacticity
         }
     }
 }
