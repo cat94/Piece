@@ -4,7 +4,14 @@
     android:orientation="horizontal"
 
     >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/stat_item_color"
+        android:background="@color/stat_color_bright_1"
+        android:layout_weight="1"
 
+        />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
