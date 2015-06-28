@@ -128,7 +128,6 @@ public class Login {
                 }, 2000);
 
             }
-            //jump to timelineacticity
         }
     }
 }

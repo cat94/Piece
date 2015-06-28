@@ -91,6 +91,7 @@ public class TimeLineActivity extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(), TagActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }
@@ -102,6 +103,7 @@ public class TimeLineActivity extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(), SetActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }

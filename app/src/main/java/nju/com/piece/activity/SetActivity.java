@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -58,7 +59,9 @@ public class SetActivity extends BaseActionBarActivity implements OnClickListene
         Intent intent;
         switch (v.getId()) {
             case R.id.resetpsw:
-                Toast.makeText(context, "这应该打开修改密码", Toast.LENGTH_SHORT).show();
+                intent=new Intent(SetActivity.this,ModifyPswActivity.class);
+                startActivity(intent);
+                this.finish();
                 break;
             case R.id.task:
                 SyncRecords syncRecords = new SyncRecords(context, progressBar);
@@ -78,7 +81,6 @@ public class SetActivity extends BaseActionBarActivity implements OnClickListene
 
         }
     }
-
 
     public void checkUpdate() {
         Toast.makeText(SetActivity.this, "正在检查更新", Toast.LENGTH_SHORT).show();

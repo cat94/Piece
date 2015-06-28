@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_height="50dp"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:id="@+id/psw1"
+        android:paddingLeft="15dp"
+        android:hint="新密码"
+        android:singleLine="true"
+        android:background="@drawable/my_edit_text"
+        android:inputType="text"/>
+
+    <EditText
+        android:layout_height="50dp"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:id="@+id/psw2"
+        android:paddingLeft="15dp"
+        android:password="true"
+        android:hint="确认密码"
+        android:singleLine="true"
+        android:background="@drawable/my_edit_text"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/modifypsw_subBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:text="确认修改"
+        android:background="@drawable/background_button_div"/>
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_progressBar"
+        android:visibility="invisible"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>
+

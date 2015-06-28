@@ -2,10 +2,14 @@ package nju.com.piece.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
 
 import java.lang.reflect.Field;
+
+import nju.com.piece.R;
 
 /**
  * all the activities except mainactivity that use actionbar should extend this
@@ -24,6 +28,10 @@ public class BaseActionBarActivity extends Activity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(false);
+
+        //设置ActionBar 背景色
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.BackBar));
+
     }
 
     @Override
