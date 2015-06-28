@@ -143,4 +143,9 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+
+
+    <drawable name="BackBar">#84C1FF</drawable>
+
+
 </resources>

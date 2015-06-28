@@ -1,20 +1,17 @@
 package nju.com.piece.logic.login_reg;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import nju.com.piece.activity.MainActivity;
 import nju.com.piece.database.DBFacade;
-import nju.com.piece.database.helpers.DatabaseHelper;
-import nju.com.piece.database.pos.AccountPO;
 import nju.com.piece.logic.net.CallService;
 import nju.com.piece.logic.update.GetServerUrl;
 
@@ -22,38 +19,36 @@ import nju.com.piece.logic.update.GetServerUrl;
  * Created by Hyman on 2015/6/11.
  */
 
-public class Register {
+public class ModifyPsw {
 
-    private static final String urlString = GetServerUrl.getUrl() + "index.php?r=period/register";
-    private static final String TAG = "Register";
-
-    private ProgressBar progressBar;
+    private static final String urlString = GetServerUrl.getUrl() + "index.php?r=period/modifyPsw";
+    private static final String TAG = "ModifyPsw";
     private Context context;
+    private String newPsw;
+    private ProgressBar progressBar;
 
-    private String userName;
-    private String password;
-
-    public Register( Context context,ProgressBar progressBar) {
-        this.progressBar=progressBar;
+    public ModifyPsw(Context context,ProgressBar progressBar) {
         this.context = context;
+        this.progressBar=progressBar;
+
     }
 
-    public void reg(String userName,String password) {
-        Log.i(TAG, "call reg");
-        this.userName=userName;
-        this.password=password;
-        new LoginTask().execute();
+    public void modify(String newPsw) {
+        this.newPsw=newPsw;
+        Log.i(TAG, "call modify");
+        new ModifyTask().execute();
     }
 
-    class LoginTask extends AsyncTask<Void, Void, String> {
+    class ModifyTask extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... params) {
             JSONObject tosendsObject = new JSONObject();
             Log.i(TAG, "start put json!");
+            DBFacade dbFacade=new DBFacade(context);
+            String userName=dbFacade.getAccount().getName();
             try {
                 tosendsObject.put("username", userName);
-                //add account info
-                tosendsObject.put("password", password);
+                tosendsObject.put("newPsw", newPsw);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -79,30 +74,22 @@ public class Register {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);    //show the progressBar
             super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);    //show the progressBar
         }
 
         @Override
         protected void onPostExecute(String  result) {
             progressBar.setVisibility(View.GONE);    //hide the progressBar
-            //Toast.makeText(context,"result:"+result,Toast.LENGTH_SHORT).show();
-            if(result==null){
+            if(result==null || result.equals("")){
                 CallService.showNetErr(context);
                 return;
             }
-            if(result.equals("true")){
-                DBFacade dbFacade = new DBFacade(context);
-                dbFacade.clearAccount();
-                DatabaseHelper.setCurrentUser(userName);
-                dbFacade.setAccount(new AccountPO(userName, password));
-                Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);
-                Activity activity = (Activity) context;
-                activity.finish();
+            if(result.equals("true")) {
+                Toast.makeText(context,"修改成功！", Toast.LENGTH_SHORT).show();
             }
             else{
-                 Toast.makeText(context,userName+"已经被注册了！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"修改失败！", Toast.LENGTH_SHORT).show();
             }
         }
     }
