@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import nju.com.piece.activity.LoginActivity;
+
+import nju.com.piece.R;
 import nju.com.piece.activity.MainActivity;
-import nju.com.piece.activity.TimeLineActivity;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.helpers.DatabaseHelper;
 import nju.com.piece.database.pos.AccountPO;
@@ -109,7 +113,20 @@ public class Login {
                 activity.finish();
             }
             else{
-                Toast.makeText(context,"密码错误",Toast.LENGTH_SHORT).show();
+
+
+                CharSequence text = "密码错误";
+                ((TextView)((Activity)context).findViewById(R.id.login_toast_text)).setText(text);
+
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        CharSequence text = "";
+                        ((TextView)((Activity)context).findViewById(R.id.login_toast_text)).setText(text);
+                    }
+                }, 2000);
+
             }
             //jump to timelineacticity
         }

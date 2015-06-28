@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:weightSum="3"
     android:background="@color/stat_color_bright_11">
     <!-- padding 内边距   layout_margin 外边距
   		android:layout_alignParentTop 布局的位置是否处于顶部 -->
@@ -65,7 +66,7 @@
     </LinearLayout>
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -73,15 +74,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/password_item"
-            android:layout_marginBottom="20dp">
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:id="@+id/username_item"
+            android:layout_marginBottom="@dimen/login_margin_pixel"
+            >
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <EditText
                 android:id="@+id/username_edit"
@@ -107,10 +110,13 @@
         <LinearLayout
             android:id="@+id/password_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/empty_view">
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_below="@+id/username_item"
+            android:layout_above="@+id/login_toast_layout"
+            android:layout_marginBottom="@dimen/login_margin_pixel">
 
-            <EditText
+            <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -130,36 +136,65 @@
                 android:inputType="textPassword"/>
 
 
-            <EditText
+            <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:visibility="invisible"/>
         </LinearLayout>
 
-        <View
-            android:id = "@+id/empty_view"
-            android:layout_height = "30dip"
-            android:layout_width = "match_parent"
-            android:visibility="invisible"
-            android:layout_alignParentBottom="true"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:id="@+id/login_toast_layout"
+            android:layout_above="@+id/empty_view"
+            android:gravity="top">
 
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/login_toast_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:clickable="true"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="top"
+        android:layout_gravity="top">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:layout_marginTop="20dp"
             >
 
@@ -194,8 +229,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:layout_marginTop="20dp"
-            android:gravity="bottom">
+            android:layout_marginTop="20dp">
 
 
             <ImageView
@@ -224,13 +258,35 @@
 
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_progressBar"
-            android:visibility="invisible"
-            android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:visibility="invisible"/>
+
+            <ProgressBar
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:id="@+id/login_progressBar"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

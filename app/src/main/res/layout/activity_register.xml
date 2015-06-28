@@ -79,7 +79,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:visibility="invisible"/>
 
 
@@ -87,7 +87,7 @@
                 <EditText
                     android:id="@+id/reg_accountEt"
                     android:layout_width="0dp"
-                    android:layout_weight="5"
+                    android:layout_weight="2"
                     android:layout_height="@dimen/login_input_item_height"
                     android:paddingLeft="15dp"
                     android:alpha="0.8"
@@ -104,7 +104,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:visibility="invisible"/>
         </LinearLayout>
 
@@ -122,19 +122,19 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
 
             <EditText
                 android:id="@+id/reg_pwdEt"
                 android:inputType="textPassword"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="2"
                 android:layout_height="@dimen/login_input_item_height"
                 android:paddingLeft="15dp"
                 android:alpha="0.8"
                 android:background="@drawable/my_edit_text"
                 android:maxLength="20"
-                android:hint="请输入您的密码"
+                android:hint="输入密码"
                 android:password="true"
                 android:singleLine="true"
                 />
@@ -143,7 +143,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
@@ -157,19 +157,19 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
 
             <EditText
                 android:id="@+id/reg_pwdEt2"
                 android:inputType="textPassword"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="2"
                 android:layout_height="@dimen/login_input_item_height"
                 android:paddingLeft="15dp"
                 android:alpha="0.8"
                 android:background="@drawable/my_edit_text"
                 android:maxLength="20"
-                android:hint="请再次输入您的密码"
+                android:hint="确认密码"
                 android:password="true"
                 android:singleLine="true"
                 />
@@ -178,7 +178,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"/>
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
