@@ -14,4 +14,5 @@
     <dimen name="box_interval">10dp</dimen>
     <dimen name="stat_text_intro_size">13dp</dimen>
     <dimen name="pie_box_height">300dp</dimen>
+    <dimen name="pie_list_color_width">5dp</dimen>
 </resources>

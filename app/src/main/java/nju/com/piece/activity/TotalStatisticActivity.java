@@ -255,23 +255,25 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         pieDataSet.setValueFormatter(new PercentFormatter());
 
         PieData pieData=new PieData(pie_xvals,pieDataSet);
-        pieData.setDrawValues(true);
+        pieData.setDrawValues(false);
         pieData.setValueTextSize(9);
 
         itemPie.setUsePercentValues(true);
         if (arrayList.size()==0){
             itemPie.setCenterText("空空如也");
         }else{
-            itemPie.setCenterText("分项比例");
+            itemPie.setCenterText("");
         }
         itemPie.setCenterTextColor(getResources().getColor(R.color.stat_color_bright_14));
         itemPie.setDrawCenterText(true);
         itemPie.setDrawSliceText(true);
+        itemPie.setDrawHoleEnabled(false);
         itemPie.setData(pieData);
         itemPie.setDescription("");
         itemPie.setNoDataText("空空如也");
         itemPie.setNoDataTextDescription("空空如也");
         itemPie.setRotationEnabled(false);
+        itemPie.setDrawSliceText(false);
         Legend pie_legend=itemPie.getLegend();
 
         pie_legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
@@ -303,6 +305,13 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         onDestroyView();
 
         initialView(bundle);
+        if (tabHost.getChildCount()>0){
+            int location=tabHost.getCurrentTab();
+            tabHost.setCurrentTab(0);
+            tabHost.clearAllTabs();
+            initialTabs(bundle);
+
+        }
     }
 
     @Override
@@ -323,6 +332,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 dataSets.add(dataSet);
                 BarData   barData=new BarData(bar_daily_xvals,dataSets);
                 dataSet.setColors(colors);
+                dataSet.setDrawValues(false);
                 barChart.setData(barData);
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setLabelsToSkip(0);       //skip no x label
@@ -340,6 +350,8 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 barChart.setScaleEnabled(false);
                 barChart.setDoubleTapToZoomEnabled(false);
                 barChart.setHighlightEnabled(false);
+                barChart.setDrawValuesForWholeStack(false);
+
                 barChart.invalidate();
 
                 return  barChart;
@@ -351,6 +363,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 weeklyDataSets.add(weeklyDataSet);
                 BarData  weeklyBarData=new BarData(bar_weekly_xvals,weeklyDataSets);
                 weeklyDataSet.setColors(colors);
+                weeklyDataSet.setDrawValues(false);
                 weeklyBarChart.setData(weeklyBarData);
                 XAxis weeklyAxis = weeklyBarChart.getXAxis();
                 weeklyAxis.setLabelsToSkip(0);       //skip no x label
@@ -368,6 +381,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 weeklyBarChart.setScaleEnabled(false);
                 weeklyBarChart.setDoubleTapToZoomEnabled(false);
                 weeklyBarChart.setHighlightEnabled(false);
+                weeklyBarChart.setDrawValuesForWholeStack(false);
                 weeklyBarChart.invalidate();
                 return  weeklyBarChart;
             case "monthly_chart":
@@ -378,6 +392,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 monthlyDataSets.add(monthlyDataSet);
                 BarData  monthlyBarData=new BarData(bar_monthly_xvals,monthlyDataSets);
                 monthlyDataSet.setColors(colors);
+                monthlyDataSet.setDrawValues(false);
                 monthlyBarChart.setData(monthlyBarData);
                 XAxis monthlyAxis = monthlyBarChart.getXAxis();
                 monthlyAxis.setLabelsToSkip(0);       //skip no x label
@@ -395,6 +410,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 monthlyBarChart.setScaleEnabled(false);
                 monthlyBarChart.setDoubleTapToZoomEnabled(false);
                 monthlyBarChart.setHighlightEnabled(false);
+
                 monthlyBarChart.invalidate();
                 return  monthlyBarChart;
             default:
@@ -507,7 +523,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         cal_1.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         Date firstDay = cal_1.getTime();
 
-        for (int i=0;i<4;i++){
+        for (int i=0;i<5;i++){
             Calendar cale = Calendar.getInstance();
             cale.set(DateTool.getYear(firstDay), DateTool.getMonth(firstDay), DateTool.getDay(firstDay));
             cale.add(Calendar.WEEK_OF_MONTH,1);
@@ -542,7 +558,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                     second_in_month+=periodPO.getLength();
                 }
             }
-            bar_monthly_xvals.add(sf.format(firstOfMonth).split("-")[1]+"-"+sf.format(firstOfMonth).split("-")[2]);
+            bar_monthly_xvals.add(Integer.parseInt(sf.format(firstOfMonth).split("-")[1])+"月");
             BarEntry barEntry=new BarEntry(second_in_month/3600,i);
             monthly.add(barEntry);
 
@@ -553,6 +569,22 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
         PercentFormatter percentFormatter=new PercentFormatter();
 
+
+        int colors[]={getResources().getColor(R.color.stat_color_bright_1),
+                getResources().getColor(R.color.stat_color_bright_2),
+                getResources().getColor(R.color.stat_color_bright_3),
+                getResources().getColor(R.color.stat_color_bright_4),
+                getResources().getColor(R.color.stat_color_bright_5),
+                getResources().getColor(R.color.stat_color_bright_6),
+                getResources().getColor(R.color.stat_color_bright_7),
+                getResources().getColor(R.color.stat_color_bright_8),
+                getResources().getColor(R.color.stat_color_bright_9),
+                getResources().getColor(R.color.stat_color_bright_10),
+                getResources().getColor(R.color.stat_color_bright_11),
+                getResources().getColor(R.color.stat_color_bright_12),
+                getResources().getColor(R.color.stat_color_bright_13),
+        };
+
         for (TagPO tagPO:allTags){
             StatisticItem statisticItem=new StatisticItem();
             statisticItem.setItemName(tagPO.getTagName());
@@ -562,6 +594,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
                 statisticItem.setPercentage(percentFormatter.getFormattedValue((float) tagOccupation.get(tagPO.getTagName()) / totalSeconds * 100));
             }
             statisticItem.setResourceID(tagPO.getResource());
+            statisticItem.setColorID(colors[allTags.indexOf(tagPO)%colors.length]);
             list.add(statisticItem);
             arrayList.add(new Entry(tagOccupation.get(tagPO.getTagName()),allTags.indexOf(tagPO)));
         }

@@ -46,6 +46,7 @@ import nju.com.piece.database.TagType;
 import nju.com.piece.database.pos.PeriodPO;
 import nju.com.piece.database.pos.TagPO;
 import nju.com.piece.database.tools.DateTool;
+import nju.com.piece.view.MyDialog;
 
 public class ItemStatisticActivity extends FragmentActivity implements TabHost.TabContentFactory {
 
@@ -152,40 +153,28 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(ItemStatisticActivity.this).setTitle("提醒")//设置对话框标题
-
-                        .setMessage("确认删除这个项目？")//设置显示的内容
-
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
-
-
-                            @Override
-
-                            public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-
-                                // TODO Auto-generated method stub
-                                DBFacade dbFacade=new DBFacade(ItemStatisticActivity.this);
-                                dbFacade.delTag(itemName);
-                                Intent intent=new Intent(ItemStatisticActivity.this,MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        }).setNegativeButton("返回",new DialogInterface.OnClickListener() {//添加返回按钮
-
-
-
-                    @Override
-
-                    public void onClick(DialogInterface dialog, int which) {//响应事件
-
-                        // TODO Auto-generated method stub
-
-
-
+                MyDialog.Builder builder = new MyDialog.Builder(ItemStatisticActivity.this);
+                builder.setMessage("确认删除这个项目？");
+                builder.setTitle("提示");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        DBFacade dbFacade=new DBFacade(ItemStatisticActivity.this);
+                        dbFacade.delTag(itemName);
+                        Intent intent=new Intent(ItemStatisticActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
+                });
 
-                }).show();//在按键响应事件中显示此对话框
+                builder.setNegativeButton("取消",
+                        new android.content.DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                builder.create().show();
 
 
 
@@ -232,6 +221,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 dataSets.add(dataSet);
                 BarData barData = new BarData(bar_daily_xvals, dataSets);
                 dataSet.setColors(colors);
+                dataSet.setDrawValues(false);
                 barChart.setData(barData);
                 XAxis xAxis = barChart.getXAxis();
                 xAxis.setLabelsToSkip(0);       //skip no x label
@@ -258,6 +248,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 weeklyDataSets.add(weeklyDataSet);
                 BarData weeklyBarData = new BarData(bar_weekly_xvals, weeklyDataSets);
                 weeklyDataSet.setColors(colors);
+                weeklyDataSet.setDrawValues(false);
                 weeklyBarChart.setData(weeklyBarData);
                 XAxis weeklyAxis = weeklyBarChart.getXAxis();
                 weeklyAxis.setLabelsToSkip(0);       //skip no x label
@@ -275,6 +266,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 weeklyBarChart.setScaleEnabled(false);
                 weeklyBarChart.setDoubleTapToZoomEnabled(false);
                 weeklyBarChart.setHighlightEnabled(false);
+
                 weeklyBarChart.invalidate();
                 return weeklyBarChart;
             case "monthly_chart":
@@ -284,6 +276,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 monthlyDataSets.add(monthlyDataSet);
                 BarData monthlyBarData = new BarData(bar_monthly_xvals, monthlyDataSets);
                 monthlyDataSet.setColors(colors);
+                monthlyDataSet.setDrawValues(false);
                 monthlyBarChart.setData(monthlyBarData);
                 XAxis monthlyAxis = monthlyBarChart.getXAxis();
                 monthlyAxis.setLabelsToSkip(0);       //skip no x label
@@ -301,6 +294,8 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                 monthlyBarChart.setScaleEnabled(false);
                 monthlyBarChart.setDoubleTapToZoomEnabled(false);
                 monthlyBarChart.setHighlightEnabled(false);
+
+
                 monthlyBarChart.invalidate();
                 return monthlyBarChart;
             default:
@@ -377,7 +372,14 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         }else{
             toTarget_text=(tagPO.getTargetMinute()/60*(between_days+1)-tagPO.getCurrentMinute()/60)+"h";
         }
-        plan_per_week_text="计划每周投入"+Double.parseDouble(decimalFormat.format(tagPO.getTargetMinute()/60*(between_days+1)/7.0))+"h";
+        int weekInterval=1;
+        if ((between_days+1)>7){
+            weekInterval=(between_days+1)/7;
+            if ((between_days+1)%7!=0){
+                weekInterval++;
+            }
+        }
+        plan_per_week_text="计划每周投入"+Double.parseDouble(decimalFormat.format(tagPO.getTargetMinute()/60/weekInterval))+"h";
 
 
         List<PeriodPO> lastMonthPeriods=dbFacade.getLastMonthPeriods(itemName);
@@ -386,7 +388,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         cal_1.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         Date firstDay = cal_1.getTime();
 
-        for (int i=0;i<4;i++){
+        for (int i=0;i<5;i++){
             Calendar cale = Calendar.getInstance();
             cale.set(DateTool.getYear(firstDay), DateTool.getMonth(firstDay), DateTool.getDay(firstDay));
             cale.add(Calendar.WEEK_OF_MONTH,1);
@@ -421,7 +423,7 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
                     second_in_month+=periodPO.getLength();
                 }
             }
-            bar_monthly_xvals.add(sf.format(firstOfMonth).split("-")[1]+"-"+sf.format(firstOfMonth).split("-")[2]);
+            bar_monthly_xvals.add(Integer.parseInt(sf.format(firstOfMonth).split("-")[1])+"月");
             BarEntry barEntry=new BarEntry(second_in_month/3600,i);
             monthly.add(barEntry);
 
