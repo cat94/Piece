@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,10 +46,10 @@ public class SyncRecords {
         new SyncRecordsTask().execute();
     }
 
-    class SyncRecordsTask extends AsyncTask<Void, Void, Boolean> {
+    class SyncRecordsTask extends AsyncTask<Void, Void, String> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             ArrayList<PeriodPO> localPeriods;    //records on this phone
             //first, get all records on this machine
             PeriodDBHelper periodDBHelper = PeriodDBHelper.instance(context);
@@ -91,8 +93,9 @@ public class SyncRecords {
             String content = String.valueOf(tosendsObject);
             Log.i(TAG, "send :" + content);
             String responseData = CallService.call(urlString, content, context);
+            String result="";
             if (responseData == null || responseData.equals("")) {
-                return false;
+                return "";
             } else {
                 Log.i(TAG, "res:" + responseData);
                 JSONObject resultObject = null;
@@ -136,13 +139,15 @@ public class SyncRecords {
                     Log.i(TAG, "addedPeriodNum:" + addedPeriodNum);
                     Log.i(TAG, "本机添加标签个数:" + addTags.length());
                     Log.i(TAG, "本机添加记录个数:" + addperiods.length());
+                    result="服务器添加标签数:"+addedTagNum+"\n服务器添加记录数:"+addedPeriodNum+"\n本机添加标签个数:" + addTags.length()+
+                            "\n本机添加记录个数:" + addperiods.length();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
-            return true;
+            return result;
         }
 
         @Override
@@ -154,14 +159,15 @@ public class SyncRecords {
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(String result) {
             if(progressBar!=null) {
                 progressBar.setVisibility(View.GONE);    //hide the progressBar
             }
-            if (!result) {
+            if (result==null||result.equals("")) {
                 CallService.showNetErr(context);
                 return;
             }
+            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
             super.onPostExecute(result);
         }
     }

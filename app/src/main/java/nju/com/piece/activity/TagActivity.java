@@ -367,4 +367,15 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         double text_hour = hour+min/60.0;
         plan_text.setText(String.format("%.1f", text_hour));
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Intent intent=new Intent(TagActivity.this,MainActivity.class);
+            startActivity(intent);
+            this.finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
