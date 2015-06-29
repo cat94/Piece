@@ -25,9 +25,10 @@ public class PeriodDBHelper extends DatabaseHelper {
     private static final String COL_LEN = "length";
     private static final String COL_DATE = "start_time";
 
-    protected final static String DATABASE_NAME = "period_"+currentUser+".db";
+    protected static String DATABASE_NAME;
 
     public static PeriodDBHelper instance(Context context){
+        DATABASE_NAME = "period_"+currentUser+".db";
         return new PeriodDBHelper(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 

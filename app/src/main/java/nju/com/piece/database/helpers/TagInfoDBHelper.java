@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,11 +28,12 @@ public class TagInfoDBHelper extends DatabaseHelper {
     private static final String COL_START_DATE = "start_date";
     private static final String COL_END_DATE = "end_date";
 
-    protected final static String DATABASE_NAME = "tagInfo_"+currentUser+".db";
+    protected static String DATABASE_NAME;
 
     private Context context;
 
     public static TagInfoDBHelper instance(Context context) {
+        DATABASE_NAME = "tagInfo_"+currentUser+".db";
         return new TagInfoDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
