@@ -2,13 +2,17 @@ package nju.com.piece.activity;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -16,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -99,8 +104,10 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+
 			ViewHolder holder;
 			SlideView slideView = (SlideView) convertView;
+
 			if (slideView == null) {
 				View itemView = mInflater.inflate(R.layout.list_item, null);
 				slideView = new SlideView(TaskActivity.this);
@@ -113,18 +120,31 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 			}
 			final TagPO item = tagPOs.get(position);
 			slideViewMap.put(item, slideView);
+			final float scale = getResources().getDisplayMetrics().density;
+			int height=(int) (60 *scale + 0.5f);
+			AbsListView.LayoutParams lp = new AbsListView.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT,height );
+			slideView.setLayoutParams(lp);
 			slideView.reset();
 			holder.icon.setImageResource(item.getResource());
 			holder.taskname.setText(item.getTagName());
+			int resources[]={R.drawable.p1,R.drawable.p2,R.drawable.p3,R.drawable.p4,R.drawable.p5,
+					R.drawable.p6,R.drawable.p7,R.drawable.p8,R.drawable.p9,R.drawable.p10};
 			if (item.getTargetMinute() != 0) {
-				holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute()*100);
-				holder.percent.setText(item.getCurrentMinute()/item.getTargetMinute()*100+"%");
-			}
-			holder.icon_add.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					// TODO 自动生成的方法存根
-					TimePickerDialog.OnTimeSetListener otsl = new TimePickerDialog.OnTimeSetListener() {
+				    int index=item.getCurrentMinute()*10/item.getTargetMinute();
+				    if(index>9){
+					  index=9;
+			     	}
+
+				    slideView.setBackgroundResource(resources[index]);
+				    slideView.getBackground().setAlpha(127);
+			        //	holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute()*100);
+					holder.percent.setText(item.getCurrentMinute()*100/item.getTargetMinute()+"%");
+				}
+				holder.icon_add.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						// TODO 自动生成的方法存根
+						TimePickerDialog.OnTimeSetListener otsl = new TimePickerDialog.OnTimeSetListener() {
 						@Override
 						public void onTimeSet(TimePicker view, int hour,
 								int minute) {
@@ -139,6 +159,7 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 					};
 					tpd = new TimePickerDialog(TaskActivity.this, otsl, 1, 0,
 							true);
+					tpd.setTitle("添加时间记录");
 					tpd.show();
 				}
 			});
@@ -162,6 +183,7 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 					};
 					tpd = new TimePickerDialog(TaskActivity.this, otsl, 1, 0,
 							true);
+					tpd.setTitle("开始倒计时");
 					tpd.show();
 				}
 			});
@@ -170,10 +192,10 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 				@Override
 				public void onClick(View arg0) {
 					// TODO 自动生成的方法存根
-						Intent intent = new Intent();  
-			             intent.putExtra("tag", item);
-			             setResult(TIMING , intent);     
-			             finish();
+					Intent intent = new Intent();
+					intent.putExtra("tag", item);
+					setResult(TIMING, intent);
+					finish();
 				}
 			});
 			return slideView;
@@ -189,10 +211,10 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 //		public SlideView slideView;
 //	}
 
-	private static class ViewHolder {
+	private  class ViewHolder {
 		public ImageView icon;
 		public TextView taskname;
-		public ProgressBar progressBar;
+	//	public ProgressBar progressBar;
 		public TextView percent;
 		public ImageView icon_add;
 		public ViewGroup holder;
@@ -203,7 +225,7 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 			icon = (ImageView) view.findViewById(R.id.icon);
 			taskname = (TextView) view.findViewById(R.id.taskname);
 			percent = (TextView) view.findViewById(R.id.percent);
-			progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+		//	progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 			icon_add = (ImageView) view.findViewById(R.id.icon_add);
 			holder = (ViewGroup) view.findViewById(R.id.holder);
 			countDown = (LinearLayout) view.findViewById(R.id.countdown);
