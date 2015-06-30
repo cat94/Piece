@@ -372,14 +372,8 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         }else{
             toTarget_text=(tagPO.getTargetMinute()/60*(between_days+1)-tagPO.getCurrentMinute()/60)+"h";
         }
-        int weekInterval=1;
-        if ((between_days+1)>7){
-            weekInterval=(between_days+1)/7;
-            if ((between_days+1)%7!=0){
-                weekInterval++;
-            }
-        }
-        plan_per_week_text="计划每周投入"+Double.parseDouble(decimalFormat.format(tagPO.getTargetMinute()/60/weekInterval))+"h";
+
+        plan_per_week_text="计划每天投入"+Double.parseDouble(decimalFormat.format(tagPO.getTargetMinute()/60))+"h";
 
 
         List<PeriodPO> lastMonthPeriods=dbFacade.getLastMonthPeriods(itemName);

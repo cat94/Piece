@@ -260,7 +260,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
         itemPie.setUsePercentValues(true);
         if (arrayList.size()==0){
-            itemPie.setCenterText("空空如也");
+            itemPie.setCenterText("");
         }else{
             itemPie.setCenterText("");
         }
@@ -271,7 +271,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         itemPie.setData(pieData);
         itemPie.setDescription("");
         itemPie.setNoDataText("空空如也");
-        itemPie.setNoDataTextDescription("空空如也");
+        itemPie.setNoDataTextDescription("");
         itemPie.setRotationEnabled(false);
         itemPie.setDrawSliceText(false);
         Legend pie_legend=itemPie.getLegend();
