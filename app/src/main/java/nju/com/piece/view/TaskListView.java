@@ -55,7 +55,7 @@ public class TaskListView extends ListView {
     public boolean onTouchEvent(MotionEvent event) {
     	int x = (int) event.getX();
     	int y = (int) event.getY();
-    	//想知道当前点击了哪一行  
+    	//想知道当前点击了哪一行
     	position = pointToPosition(x, y);
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN: {
@@ -69,7 +69,7 @@ public class TaskListView extends ListView {
         default:
             break;
         }
-        
+
         if (mFocusedItemView != null) {
         	if(position == INVALID_POSITION){
                 mFocusedItemView.shrink();

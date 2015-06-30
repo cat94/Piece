@@ -78,7 +78,7 @@ public class SlideView extends LinearLayout {
     // 将当前状态置为关闭  
     public void shrink() {
         if (getScrollX() != 0) {
-            this.smoothScrollTo(0, 0);
+           // this.smoothScrollTo(0, 0);
         }
         mIsMoveClick = false;
     }
@@ -127,9 +127,9 @@ public class SlideView extends LinearLayout {
         case MotionEvent.ACTION_UP: {
             int newScrollX = 0;
             // 这里做了下判断，当松开手的时候，会自动向左边滑
-            if (scrollX - mHolderWidth * 0.75 > 0) {  
+            //if (scrollX - mHolderWidth * 0.75 > 0) {
                 newScrollX = mHolderWidth;  
-            }  
+            //}
             // 慢慢滑向终点  
             this.smoothScrollTo(newScrollX, 0);  
             // 通知上层滑动事件 

@@ -42,10 +42,13 @@ public class ItemListAdapter extends ArrayAdapter<StatisticItem>{
         ImageView icon=(ImageView)view.findViewById(R.id.stat_item_icon);
         TextView itemName=(TextView)view.findViewById(R.id.item_name);
         TextView itemPercent=(TextView)view.findViewById(R.id.item_percent);
+        TextView color=(TextView)view.findViewById(R.id.stat_item_color);
         StatisticItem statisticItem=list.get(position);
         icon.setImageResource(statisticItem.getResourceID());
         itemName.setText(statisticItem.getItemName());
         itemPercent.setText(statisticItem.getPercentage());
+        color.setBackgroundColor(statisticItem.getColorID());
+
         return view;
     }
 }

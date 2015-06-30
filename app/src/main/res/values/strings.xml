@@ -35,4 +35,7 @@
     <string name="edit_item">编辑</string>
     <string name="delete_item">删除</string>
     <string name="title_activity_modify_psw">ModifyPswActivity</string>
+    <string name="title_alert">提醒</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
 </resources>

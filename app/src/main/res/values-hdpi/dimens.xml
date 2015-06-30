@@ -16,4 +16,6 @@
     <dimen name="pie_box_height">300dp</dimen>
 
     <dimen name="login_margin_pixel">10dp</dimen>
+    <dimen name="pie_list_color_width">5dp</dimen>
+
 </resources>

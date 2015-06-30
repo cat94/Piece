@@ -1,18 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/taskbg"
+    android:paddingTop="20dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <nju.com.piece.view.TaskListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff4f7f9"
+        android:background="@null"
         android:cacheColorHint="#00000000"
-        android:divider="#dddbdb"
-        android:dividerHeight="1.0px"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
         android:drawSelectorOnTop="false"
         android:listSelector="@android:color/transparent"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+
+        />
 
 </LinearLayout>

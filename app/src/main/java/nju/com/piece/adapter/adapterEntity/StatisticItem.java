@@ -7,6 +7,15 @@ public class StatisticItem {
     private int resourceID;
     private String itemName;
     private String percentage;
+    private int colorID;
+
+    public void setColorID(int colorID) {
+        this.colorID = colorID;
+    }
+
+    public int getColorID() {
+        return colorID;
+    }
 
     public int getResourceID() {
         return resourceID;
