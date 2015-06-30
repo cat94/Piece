@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import nju.com.piece.R;
 import nju.com.piece.database.DBFacade;
 import nju.com.piece.database.PreferenceHelper;
+import nju.com.piece.database.helpers.DatabaseHelper;
 import nju.com.piece.first_intros.IntroActivity;
 
 /**
@@ -44,31 +45,34 @@ public class MainActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         if (PreferenceHelper.instance().ifFirst()) {
             Intent intent = new Intent(MainActivity.this, IntroActivity.class);
             startActivity(intent);
-        }
-        DBFacade dbFacade=new DBFacade(this);
-        if(dbFacade.getAccount()==null){
-            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-            startActivity(intent);
             this.finish();
+        }else {
+            DBFacade dbFacade = new DBFacade(this);
+            if (dbFacade.getAccount() == null) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                this.finish();
+            } else {
+                DatabaseHelper.setCurrentUser(dbFacade.getAccount().getName());
+            }
+
+            getSupportActionBar().hide();
+            m_vp = (ViewPager) findViewById(R.id.viewpager);
+
+            mfragment2 = new TotalStatisticActivity();
+            mfragment1 = new TimeLineActivity();
+
+            fragmentList = new ArrayList<Fragment>();
+            fragmentList.add(mfragment1);
+            fragmentList.add(mfragment2);
+
+            //m_vp.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+            m_vp.setAdapter(new MyStateViewPager(getSupportFragmentManager()));
+            setOverflowShowingAlways();
         }
-
-        getSupportActionBar().hide();
-        m_vp = (ViewPager)findViewById(R.id.viewpager);
-
-        mfragment2 = new TotalStatisticActivity();
-        mfragment1 = new TimeLineActivity();
-
-        fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(mfragment1);
-        fragmentList.add(mfragment2);
-
-        //m_vp.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
-        m_vp.setAdapter(new MyStateViewPager(getSupportFragmentManager()));
-        setOverflowShowingAlways();
     }
 
     public class MyViewPagerAdapter extends FragmentPagerAdapter {

@@ -17,7 +17,7 @@ public class AccountDBHelper extends DatabaseHelper {
     private static final String COL_NAME = "username";
     private static final String COL_PSWD = "password";
 
-    protected final static String DATABASE_NAME = "account.db";
+    protected static String DATABASE_NAME = "account.db";
 
     public static AccountDBHelper instance(Context context) {
         return new AccountDBHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
