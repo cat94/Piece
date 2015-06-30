@@ -1,7 +1,5 @@
 package nju.com.piece.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -29,11 +27,9 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.IllegalFormatException;
 
 import nju.com.piece.MyGridView;
 import nju.com.piece.R;
@@ -57,10 +53,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private Date current_end_date;
     private double current_target;
 
-//    private ImageView type_icon;
-
-    private static int currentIcon;
-
     private GridView icon_grid;
 
     private static ArrayList<IconItem> icon_array;
@@ -79,8 +71,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private final DBFacade facade = new DBFacade(this);
 
 
-//    private Date end_date;
-//    private int target;
     private boolean legal;
     private String tagName;
     private int icon_res;
@@ -117,7 +107,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         }
 
 
-        currentIcon = tagPO.getResource();
+        int currentIcon = tagPO.getResource();
+        IconImageAdaptor.setCurrentIconIndex(currentIcon);
 
         btn.setText("编辑标签");
 
@@ -125,10 +116,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-//                    Date end_date = formatter.parse((String) date_text.getText());
-                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+                    int target = (int) (60.0 * current_target);
                     String newTagName = tag_name_edit.getText().toString();
                     getParams();
 
@@ -152,7 +141,9 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         TIMEPICKER_TAG = "选择时间";
         btn.setText("添加标签");
 
-        currentIcon = icon_array.get(0).getResource();
+        int currentIcon = icon_array.get(0).getResource();
+
+        IconImageAdaptor.setCurrentIconIndex(currentIcon);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,14 +152,12 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                     String tagName = tag_name_edit.getText().toString();
                     getParams();
 
-
-
                     if (legal) {
-                        boolean duplicate = (facade.getTag(tagName)!=null);
-                        if (duplicate){
-                            Toast toast = Toast.makeText(getApplicationContext(),"标签名已存在!",Toast.LENGTH_SHORT);
+                        boolean duplicate = (facade.getTag(tagName) != null);
+                        if (duplicate) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "标签名已存在!", Toast.LENGTH_SHORT);
                             toast.show();
-                        }else {
+                        } else {
                             int target = (int) (60.0 * current_target);
                             facade.addTag(new TagPO(tagName, currentType, icon_res, target, current_end_date));
                             Intent intent = new Intent(TagActivity.this, MainActivity.class);
@@ -203,20 +192,13 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
 
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-//        end_date = null;
         String date_str = (String) date_text.getText();
         if (!date_str.equals("")){
-//            try{
-//                end_date = formatter.parse(date_str);
                 if (DateTool.currentDate().after(current_end_date)){
                     Toast toast = Toast.makeText(getApplicationContext(),"截止时间应在今日以后",Toast.LENGTH_SHORT);
                     toast.show();
                     legal = false;
                 }
-//            }catch (IllegalFormatException ex){
-//                end_date = null;
-//            }
         }else {
             Toast toast = Toast.makeText(getApplicationContext(),"截止时间不能为空",Toast.LENGTH_SHORT);
             toast.show();
@@ -224,10 +206,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         }
 
         String plan_str = (String) plan_text.getText();
-//        target = 0;
         if (plan_str.equals("")){
-//            target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
-//        else{
             Toast toast = Toast.makeText(getApplicationContext(),"计划时间不能为空",Toast.LENGTH_SHORT);
             toast.show();
             legal = false;
@@ -238,15 +217,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         icon_res = IconImageAdaptor.getSelectedRes();
 
         if (icon_res == 0 && legal){
-//            new AlertDialog.Builder(TagActivity.this)
-//                    .setTitle("未选择图标")
-//                    .setMessage("请选择图标")
-//                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface arg0, int arg1) {
-//
-//                        }
-//                    }).show();
 
             Toast toast = Toast.makeText(getApplicationContext(),"未选择图标",Toast.LENGTH_SHORT);
             toast.show();
@@ -265,15 +235,10 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         readIcons();
 
 
-
-
         date_text = (TextView)findViewById(R.id.date_text);
 
         plan_text = (TextView)findViewById(R.id.plan_text);
 
-
-//TODO deleted
-//        type_icon = (ImageView)findViewById(R.id.type_image);
 
         btn = (Button)findViewById(R.id.tag_btn);
         tag_name_edit = (EditText)findViewById(R.id.name_edit);
@@ -291,7 +256,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                 final int DRAWABLE_LEFT = 0;
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//                    if (event.getRawX() <= (tag_name_edit.getRight() - tag_name_edit.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
                     if (event.getRawX() <= tag_name_edit.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width()) {
 
                 if (currentType == TagType.work) {
@@ -313,6 +277,12 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                 return false;
             }
         });
+
+
+        icon_adaptor = new IconImageAdaptor(this,R.layout.icon,icon_array);
+
+        icon_grid = (MyGridView)findViewById(R.id.icon_grid);
+        icon_grid.setAdapter(icon_adaptor);
 
 
         Bundle bundle=this.getIntent().getExtras();
@@ -376,7 +346,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
         date_text.setOnClickListener(date_listener);
 
-//        plan_text.setOnClickListener(plan_listener);
         plan_text.setOnClickListener(custom_plan_listener);
 
         if (savedInstanceState != null) {
@@ -385,30 +354,6 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                 dpd.setOnDateSetListener(this);
             }
         }
-
-
-        //TODO deleted
-//        type_icon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ImageView view = (ImageView) v;
-//
-//                if (currentType == TagType.work) {
-//                    currentType = TagType.relax;
-//                    view.setImageResource(R.drawable.relax);
-//                } else {
-//                    currentType = TagType.work;
-//                    view.setImageResource(R.drawable.busy);
-//                }
-//
-//            }
-//        });
-
-
-        icon_adaptor = new IconImageAdaptor(this,R.layout.icon,icon_array);
-
-        icon_grid = (MyGridView)findViewById(R.id.icon_grid);
-        icon_grid.setAdapter(icon_adaptor);
     }
 
 
@@ -424,6 +369,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             String pre_name = "icon";
 
             icon_array = new ArrayList<IconItem>();
+
+            IconImageAdaptor.clearResView();
 
             for (int i = 1; i < 46; ++i) {
                 int res = this.getResources().getIdentifier(pre_name + i , "drawable", this.getPackageName());
