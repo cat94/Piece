@@ -41,6 +41,10 @@
             android:fontFamily="sans-serif-light"
             android:textStyle="normal"
 
+            android:singleLine="true"
+            android:lines="1"
+            android:maxLines="1"
+
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"

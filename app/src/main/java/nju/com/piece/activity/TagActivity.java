@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
@@ -54,6 +54,9 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private TextView plan_text;
     private EditText tag_name_edit;
 
+    private Date current_end_date;
+    private double current_target;
+
 //    private ImageView type_icon;
 
     private static int currentIcon;
@@ -76,8 +79,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
     private final DBFacade facade = new DBFacade(this);
 
 
-    private Date end_date;
-    private int target;
+//    private Date end_date;
+//    private int target;
     private boolean legal;
     private String tagName;
     private int icon_res;
@@ -91,15 +94,17 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         Date endDate = tagPO.getEndDate();
         if (endDate == null)
             DATEPICKER_TAG = "选择截止日期";
-        else
-            date_text.setText(DateTool.getYear(endDate)+"/"+(DateTool.getMonth(endDate)+1)+"/"+DateTool.getDay(endDate));
+        else {
+            current_end_date = endDate;
+            date_text.setText("截止到"+DateTool.getYear(endDate) + "年" + (DateTool.getMonth(endDate) + 1) + "月" + DateTool.getDay(endDate)+"日");
+        }
 
         int targetTime = tagPO.getTargetMinute();
         if (targetTime == 0)
             TIMEPICKER_TAG = "选择时间";
         else{
-            double time = targetTime/60.0;
-            plan_text.setText(time+"");
+            current_target = targetTime/60.0;
+            plan_text.setText("每天投入"+String.format("%.1f", current_target)+"小时");
         }
 
         currentType = tagPO.getType();
@@ -120,15 +125,15 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-                    Date end_date = formatter.parse((String) date_text.getText());
+//                    Date end_date = formatter.parse((String) date_text.getText());
                     int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
                     String newTagName = tag_name_edit.getText().toString();
                     getParams();
 
                     if (legal) {
-                        facade.updateTag(tagName, new TagPO(newTagName, currentType, icon_res, target, end_date));
+                        facade.updateTag(tagName, new TagPO(newTagName, currentType, icon_res, target, current_end_date));
                         Intent intent = new Intent(TagActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -152,10 +157,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                 try {
-                    Date end_date = formatter.parse((String) date_text.getText());
-                    int target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
                     String tagName = tag_name_edit.getText().toString();
                     getParams();
 
@@ -167,7 +169,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
                             Toast toast = Toast.makeText(getApplicationContext(),"标签名已存在!",Toast.LENGTH_SHORT);
                             toast.show();
                         }else {
-                            facade.addTag(new TagPO(tagName, currentType, icon_res, target, end_date));
+                            int target = (int) (60.0 * current_target);
+                            facade.addTag(new TagPO(tagName, currentType, icon_res, target, current_end_date));
                             Intent intent = new Intent(TagActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -187,34 +190,33 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         tagName = tag_name_edit.getText().toString();
 
         if (tagName.trim().equals("") && legal) {
-
             Toast toast = Toast.makeText(getApplicationContext(),"标签名不能为空",Toast.LENGTH_SHORT);
             toast.show();
             legal = false;
-//            new AlertDialog.Builder(TagActivity.this)
-//                    .setTitle("标签不能为空")
-//                    .setMessage("请输入标签名")
-//                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface arg0, int arg1) {
-//
-//                        }
-//                    }).show();
             tag_name_edit.requestFocus();
-
+        }else if (tagName.trim().length()>10 || tagName.trim().length()<2){
+            Toast toast = Toast.makeText(getApplicationContext(),"标签长度应在2到10字之间",Toast.LENGTH_SHORT);
+            toast.show();
+            legal = false;
+            tag_name_edit.requestFocus();
         }
 
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        end_date = null;
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//        end_date = null;
         String date_str = (String) date_text.getText();
         if (!date_str.equals("")){
-            try{
-                end_date = formatter.parse(date_str);
-            }catch (IllegalFormatException ex){
-                end_date = null;
-            }
+//            try{
+//                end_date = formatter.parse(date_str);
+                if (DateTool.currentDate().after(current_end_date)){
+                    Toast toast = Toast.makeText(getApplicationContext(),"截止时间应在今日以后",Toast.LENGTH_SHORT);
+                    toast.show();
+                    legal = false;
+                }
+//            }catch (IllegalFormatException ex){
+//                end_date = null;
+//            }
         }else {
             Toast toast = Toast.makeText(getApplicationContext(),"截止时间不能为空",Toast.LENGTH_SHORT);
             toast.show();
@@ -222,10 +224,10 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         }
 
         String plan_str = (String) plan_text.getText();
-        target = 0;
-        if (!plan_str.equals(""))
-            target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
-        else{
+//        target = 0;
+        if (plan_str.equals("")){
+//            target = (int) (60.0 * Double.valueOf((String) plan_text.getText()));
+//        else{
             Toast toast = Toast.makeText(getApplicationContext(),"计划时间不能为空",Toast.LENGTH_SHORT);
             toast.show();
             legal = false;
@@ -236,15 +238,18 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         icon_res = IconImageAdaptor.getSelectedRes();
 
         if (icon_res == 0 && legal){
-            new AlertDialog.Builder(TagActivity.this)
-                    .setTitle("未选择图标")
-                    .setMessage("请选择图标")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
+//            new AlertDialog.Builder(TagActivity.this)
+//                    .setTitle("未选择图标")
+//                    .setMessage("请选择图标")
+//                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface arg0, int arg1) {
+//
+//                        }
+//                    }).show();
 
-                        }
-                    }).show();
+            Toast toast = Toast.makeText(getApplicationContext(),"未选择图标",Toast.LENGTH_SHORT);
+            toast.show();
 
             legal = false;
         }
@@ -333,6 +338,7 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             public void onClick(View v) {
                 datePickerDialog.setVibrate(ifVibrate);
                 datePickerDialog.setYearRange(calendar.get(Calendar.YEAR), calendar.get(Calendar.YEAR) + 10);
+                datePickerDialog.setCancelable(true);
                 datePickerDialog.setCloseOnSingleTapDay(isCloseOnSingleTapDay());
                 datePickerDialog.show(getSupportFragmentManager(), DATEPICKER_TAG);
             }
@@ -344,8 +350,25 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
             public void onClick(View v) {
                 timePickerDialog.setVibrate(ifVibrate);
                 timePickerDialog.setCloseOnSingleTapMinute(isCloseOnSingleTapMinute());
-                timePickerDialog.setStartTime(1,0);
+                timePickerDialog.setStartTime(1, 0);
                 timePickerDialog.show(getSupportFragmentManager(), TIMEPICKER_TAG);
+            }
+        };
+
+        View.OnClickListener custom_plan_listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO 自动生成的方法存根
+                android.app.TimePickerDialog.OnTimeSetListener otsl = new android.app.TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hour,
+                                          int minute) {
+                        current_target = hour+minute/60.0;
+                        plan_text.setText("每天投入"+String.format("%.1f", current_target)+"小时");
+                    }
+                };
+                new android.app.TimePickerDialog(TagActivity.this, otsl, 1, 0,
+                        true).show();
             }
         };
 
@@ -353,8 +376,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
         date_text.setOnClickListener(date_listener);
 
-        plan_text.setOnClickListener(plan_listener);
-
+//        plan_text.setOnClickListener(plan_listener);
+        plan_text.setOnClickListener(custom_plan_listener);
 
         if (savedInstanceState != null) {
             DatePickerDialog dpd = (DatePickerDialog) getSupportFragmentManager().findFragmentByTag(DATEPICKER_TAG);
@@ -440,13 +463,17 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        date_text.setText(year+"/"+(month+1)+"/"+day);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        current_end_date = calendar.getTime();
+
+        date_text.setText("截止到"+year+"年"+(month+1)+"月"+day+"日");
     }
 
     @Override
     public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int min) {
-        double text_hour = hour+min/60.0;
-        plan_text.setText(String.format("%.1f", text_hour));
+        current_target = hour+min/60.0;
+        plan_text.setText("每天投入"+String.format("%.1f", current_target)+"小时");
     }
 
     @Override
@@ -459,4 +486,5 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }
