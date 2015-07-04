@@ -181,7 +181,9 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         healthDataSet.setCircleColor(Color.parseColor("#CCFF66"));
         healthDataSet.setCircleColorHole(Color.parseColor("#CCFF66"));
         healthDataSet.setValueTextSize(0);
+
         healthDataSet.setLineWidth(2);
+
 
         diligenceDataSet.setColor(Color.parseColor("#0099FF"));
         diligenceDataSet.setCircleColor(Color.parseColor("#0099FF"));
@@ -192,6 +194,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
         ArrayList<LineDataSet> dataSets = new ArrayList<LineDataSet>();
         dataSets.add(healthDataSet);
+
         dataSets.add(diligenceDataSet);
         LineData lineData = new LineData(line_xvals,dataSets);
         healthLine.setData(lineData);
@@ -216,6 +219,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         healthLine.setClickable(false);
         healthLine.setScaleEnabled(false);
         healthLine.setDoubleTapToZoomEnabled(false);
+
         healthLine.invalidate();
 
 
