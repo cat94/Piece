@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import nju.com.piece.MyGridView;
+import nju.com.piece.view.MyGridView;
 import nju.com.piece.R;
 import nju.com.piece.adapter.IconImageAdaptor;
 import nju.com.piece.adapter.adapterEntity.IconItem;
@@ -102,7 +102,8 @@ public class TagActivity extends FragmentActivity implements OnDateSetListener,O
         if (currentType == TagType.relax){
             Resources res = getResources();
             Drawable image_effor = resize_drawable(res.getDrawable(R.drawable.naughty));
-            image_effor.setBounds(0, 0, image_effor.getIntrinsicWidth(), image_effor.getIntrinsicHeight());
+            int width = (int) getResources().getDimension(R.dimen.task_type_size);
+            image_effor.setBounds(0, 0, width, width);
             tag_name_edit.setCompoundDrawables(image_effor, null, null, null); //设置左图标
         }
 

@@ -10,11 +10,12 @@
 
     <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">#303537</item>
+        <!--<item name="android:textColor">#ffffff</item>-->
         <item name="android:titleTextStyle">@style/ActionBarTitleText</item>
     </style>
 
     <style name="ActionBarTitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">#cfcfcf</item>
+        <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">17sp</item>
     </style>
 

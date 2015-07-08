@@ -6,7 +6,7 @@
     android:id="@+id/icon_bkg_layout"
     android:gravity="center_vertical|center_horizontal">
 
-    <nju.com.piece.TagIconView
+    <nju.com.piece.view.TagIconView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/icon_img"

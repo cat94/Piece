@@ -341,11 +341,12 @@ public class ItemStatisticActivity extends FragmentActivity implements TabHost.T
         ArrayList<String> lastweekDays=new ArrayList<String>();
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
         HashMap<String,Integer> dailySeconds=new HashMap<String,Integer>();
-        for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DATE,1);
+        for (int i = 0; i < 8; i++) {
+
             dailySeconds.put(sf.format(calendar.getTime()), 0);
             lastweekDays.add(sf.format(calendar.getTime()));
             bar_daily_xvals.add(sf.format(calendar.getTime()).split("-")[2]+"日");
+            calendar.add(Calendar.DATE,1);
         }
 
         List<PeriodPO> lastWeekPeriods=dbFacade.getLastSevenDaysPeriods(tagPO.getTagName());

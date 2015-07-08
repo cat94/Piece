@@ -2,7 +2,6 @@ package nju.com.piece.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import nju.com.piece.adapter.adapterEntity.IconItem;
 import nju.com.piece.R;
-import nju.com.piece.TagIconView;
+import nju.com.piece.view.TagIconView;
 
 /**
  * Created by shen on 15/6/4.

@@ -76,7 +76,7 @@
         </activity>
         <activity
             android:name=".activity.ModifyPswActivity"
-            android:label="@string/title_activity_modify_psw" >
+            android:label="修改密码" >
         </activity>
     </application>
 

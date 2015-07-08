@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -194,6 +195,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         dataSets.add(healthDataSet);
         dataSets.add(diligenceDataSet);
         LineData lineData = new LineData(line_xvals,dataSets);
+        lineData.setDrawValues(false);
         healthLine.setData(lineData);
         XAxis xAxis = healthLine.getXAxis();
         xAxis.setLabelsToSkip(0);       //skip no x label
@@ -216,6 +218,7 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         healthLine.setClickable(false);
         healthLine.setScaleEnabled(false);
         healthLine.setDoubleTapToZoomEnabled(false);
+
         healthLine.invalidate();
 
 
@@ -441,10 +444,10 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
             pie_xvals.add(tagPO.getTagName());
         }
        for (PeriodPO periodPO:allPeriods){
-           totalSeconds+=periodPO.getLength();
-          int tagIndex=tagOccupation.get(periodPO.getTag());
-          tagIndex+=periodPO.getLength();
-           tagOccupation.put(periodPO.getTag(),tagIndex);
+            totalSeconds+=periodPO.getLength();
+            int tagIndex=tagOccupation.get(periodPO.getTag());
+            tagIndex+=periodPO.getLength();
+            tagOccupation.put(periodPO.getTag(),tagIndex);
        }
 
         List<PeriodPO> lastSevenDaysPeriods=dbFacade.getLastSevenDaysPeriods();
@@ -454,7 +457,6 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
 
         totalHour=totalSeconds/3600;
         hoursPerLastWeek=Double.parseDouble(decimalFormat.format(((double)lastWeekSeconds/3600/7)));
-
 
 
         if (allPeriods!=null&&allPeriods.size()>0){
@@ -478,14 +480,17 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         Calendar calendar = Calendar.getInstance();
         ArrayList<String> lastweekDays=new ArrayList<String>();
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
-        for (int i = 0; i < 7; i++) {
-            calendar.add(Calendar.DATE,1);
-            line_xvals.add(sf.format(calendar.getTime()).split("-")[2]+"日");
+        for (int i = 0; i < 8; i++) {
+
+            line_xvals.add(sf.format(calendar.getTime()).split("-")[2] + "日");
             weeklyHealth.put(sf.format(calendar.getTime()), 0);
             weeklyWork.put(sf.format(calendar.getTime()), 0);
             dailySeconds.put(sf.format(calendar.getTime()), 0);
             lastweekDays.add(sf.format(calendar.getTime()));
             bar_daily_xvals.add(sf.format(calendar.getTime()).split("-")[2]+"日");
+            calendar.add(Calendar.DATE,1);
+
+            Log.d("database_test", sf.format(calendar.getTime()).split("-")[2]+"日");
         }
 
         List<PeriodPO> lastWeekPeriods=lastSevenDaysPeriods;
@@ -493,6 +498,9 @@ public class TotalStatisticActivity extends Fragment implements TabHost.TabConte
         for(PeriodPO periodPO:lastWeekPeriods){
             TagPO tagPO=dbFacade.getTag(periodPO.getTag());
             if (tagPO.getType().equals(TagType.relax)){
+
+
+                Log.d("database_test","need date is "+sf.format(periodPO.getDate()));
                 int health=weeklyHealth.get(sf.format(periodPO.getDate()))+periodPO.getLength();
                 weeklyHealth.put(sf.format(periodPO.getDate()), health);
             }else{

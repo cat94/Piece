@@ -22,8 +22,10 @@
 
     <dimen name="login_text_size">20dp</dimen>
 
+    <dimen name="task_type_size">30dp</dimen>
 
-    <dimen name="login_edit_text_size">30dp</dimen>
+
+    <dimen name="login_edit_text_size">60dp</dimen>
 
     <dimen name="login_input_item_height">40dp</dimen>
 

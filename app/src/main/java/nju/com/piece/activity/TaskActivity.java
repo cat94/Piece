@@ -136,7 +136,7 @@ public class TaskActivity extends BaseActionBarActivity implements OnItemClickLi
 			     	}
 
 				    slideView.setBackgroundResource(resources[index]);
-				    slideView.getBackground().setAlpha(127);
+				    slideView.getBackground().setAlpha(200);
 			        //	holder.progressBar.incrementProgressBy(item.getCurrentMinute()/item.getTargetMinute()*100);
 					holder.percent.setText(item.getCurrentMinute()*100/item.getTargetMinute()+"%");
 				}
